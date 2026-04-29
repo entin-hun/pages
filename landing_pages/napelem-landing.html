@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Konténeres szigetüzemű napelemes energiarendszer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #e9edf0;
+        --ink: #0b2746;
+        --muted: #3e607f;
+        --line: #13b8ec;
+        --deep: #0c355b;
+        --deep-2: #133f6c;
+        --card: #f4f8fb;
+        --maxw: 1140px;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: "Barlow", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(1300px 650px at -10% -10%, rgba(19, 109, 188, 0.08), transparent 58%),
+          radial-gradient(1000px 600px at 110% -10%, rgba(13, 123, 194, 0.08), transparent 60%),
+          var(--bg);
+      }
+
+      .shell {
+        width: min(var(--maxw), calc(100% - 30px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        margin-top: 16px;
+        border: 1px solid #d4e4ef;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 22px 54px rgba(5, 29, 59, 0.08);
+      }
+
+      .hero-top {
+        background: linear-gradient(140deg, var(--deep) 0%, #0f476e 100%);
+        color: #ebf8ff;
+        padding: 30px 28px 24px;
+        display: grid;
+        gap: 14px;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Sora", sans-serif;
+        line-height: 0.98;
+        font-size: clamp(34px, 5vw, 64px);
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+      }
+
+      h1 .acc { color: var(--line); }
+
+      .hero-sub {
+        margin: 8px 0 0;
+        color: #c5eafe;
+        font-size: 20px;
+      }
+
+      .hero-sub + .hero-sub {
+        margin-top: 2px;
+        font-size: 18px;
+        color: #a9dbf5;
+      }
+
+      .conf {
+        border: 1px solid rgba(80, 211, 255, 0.75);
+        border-radius: 10px;
+        min-width: 188px;
+        text-align: center;
+        padding: 14px 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #72d7ff;
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .hero-image {
+        width: 100%;
+        display: block;
+      }
+
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+        padding: 14px;
+      }
+
+      .kpi {
+        border: 1px solid #9ed8ee;
+        border-radius: 10px;
+        background: #dff2fb;
+        min-height: 94px;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .kpi strong {
+        display: block;
+        font-size: 28px;
+        line-height: 0.95;
+        font-family: "Sora", sans-serif;
+      }
+
+      .kpi span {
+        display: block;
+        margin-top: 6px;
+        color: #2a5275;
+        font-size: 14px;
+      }
+
+      .section {
+        margin-top: 34px;
+        background: #fff;
+        border: 1px solid #d6e6f1;
+        border-radius: 12px;
+        box-shadow: 0 20px 44px rgba(5, 29, 59, 0.06);
+        overflow: hidden;
+      }
+
+      .section-head {
+        background: linear-gradient(150deg, var(--deep) 0%, var(--deep-2) 100%);
+        color: #e5f6ff;
+        padding: 22px 24px;
+        border-bottom: 3px solid var(--line);
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-family: "Sora", sans-serif;
+        font-size: clamp(24px, 3.2vw, 40px);
+        text-transform: uppercase;
+      }
+
+      .section-head h2 .acc { color: var(--line); }
+
+      .section-head p {
+        margin: 8px 0 0;
+        color: #9fd5f0;
+      }
+
+      .content {
+        padding: 24px;
+      }
+
+      .intro {
+        border-left: 4px solid var(--line);
+        padding: 14px 16px;
+        background: #e7f6ff;
+        border-radius: 8px;
+        line-height: 1.55;
+        font-size: 18px;
+      }
+
+      .intro p {
+        margin: 0 0 10px;
+      }
+
+      .intro p:last-child {
+        margin-bottom: 0;
+      }
+
+      .cols {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .box {
+        border: 1px solid #cde4f2;
+        border-radius: 10px;
+        background: var(--card);
+        padding: 16px;
+      }
+
+      .box h3 {
+        margin: 0 0 10px;
+        padding-left: 12px;
+        border-left: 4px solid var(--line);
+        font-size: 28px;
+        font-family: "Sora", sans-serif;
+      }
+
+      .list {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .list li {
+        margin: 8px 0;
+        line-height: 1.45;
+        font-size: 17px;
+      }
+
+      .spec-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        align-items: start;
+      }
+
+      .sub-block {
+        margin-bottom: 22px;
+      }
+
+      .sub-block h4 {
+        margin: 0 0 8px;
+        padding-left: 10px;
+        border-left: 4px solid var(--line);
+        font-size: 24px;
+        font-family: "Sora", sans-serif;
+      }
+
+      .sub-block p,
+      .sub-block li {
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .hl {
+        margin-top: 14px;
+        border-left: 4px solid var(--line);
+        border-radius: 8px;
+        background: #dff1fb;
+        padding: 14px 16px;
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .table-wrap {
+        margin-top: 14px;
+        border: 1px solid #cbe1ee;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 12px 14px;
+        border-bottom: 1px solid #d6e8f3;
+        text-align: left;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+
+      th {
+        background: #0f3050;
+        color: #dcf4ff;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 13px;
+      }
+
+      tr:nth-child(even) td { background: #edf5fb; }
+      tr:last-child td { border-bottom: none; }
+
+      .finance {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .price {
+        border: 1px solid #c8deeb;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .price h3 {
+        margin: 0;
+        padding: 14px;
+        background: #f0f8fd;
+        border-bottom: 1px solid #d4e5f0;
+        font-family: "Sora", sans-serif;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        padding: 12px 14px;
+        border-bottom: 1px solid #d8e8f2;
+        font-size: 17px;
+      }
+
+      .row:nth-child(even) { background: #eff6fb; }
+      .row.total {
+        background: #0f3050;
+        color: #dcf4ff;
+        font-weight: 700;
+        font-size: 20px;
+      }
+
+      .note {
+        margin-top: 14px;
+        padding: 14px;
+        border: 1px solid #cde2ee;
+        border-radius: 10px;
+        background: #eaf5fb;
+        color: #355774;
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      .closing {
+        margin-top: 14px;
+        border: 1px solid #1b4f7e;
+        border-radius: 10px;
+        background: linear-gradient(170deg, #123e67, #102f4f);
+        color: #ebf8ff;
+        padding: 18px;
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .closing strong { color: #fff; }
+
+      .split {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .cta {
+        margin: 34px 0 40px;
+        border-radius: 12px;
+        border: 1px solid #9fd8ee;
+        background: linear-gradient(145deg, #0f385f, #14547f);
+        color: #ecfaff;
+        padding: 24px;
+      }
+
+      .cta h3 {
+        margin: 0;
+        font-family: "Sora", sans-serif;
+        font-size: 28px;
+        text-transform: uppercase;
+      }
+
+      .cta p {
+        margin: 10px 0 0;
+        color: #bfe6fb;
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .actions {
+        margin-top: 14px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 11px 16px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .btn.main {
+        background: #38cbff;
+        color: #0b2d47;
+      }
+
+      .btn.alt {
+        border: 1px solid #8cdbf7;
+        color: #daf5ff;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+
+      .reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 1000px) {
+        .hero-top,
+        .kpis,
+        .cols,
+        .spec-grid,
+        .finance,
+        .split {
+          grid-template-columns: 1fr;
+        }
+
+        .conf {
+          justify-self: start;
+        }
+
+        .kpi strong { font-size: 24px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero reveal">
+        <header class="hero-top">
+          <div>
+            <h1>
+              40 lábas konténerre telepített,<br />
+              <span class="acc">szigetüzemű napelemes energiarendszer</span>
+            </h1>
+            <p class="hero-sub">Árajánlat és műszaki összefoglaló</p>
+            <p class="hero-sub">Bizalmas ajánlat, 2026</p>
+          </div>
+          <div class="conf">Bizalmas ajánlat<br />2026</div>
+        </header>
+
+        <img class="hero-image" src="../extracted_images_napelem/01_ii_moi0prgm1.png" alt="Konténeres napelemes rendszer" />
+
+        <div class="kpis">
+          <article class="kpi"><strong>20 kW</strong><span>Háromfázisú inverter teljesítménye</span></article>
+          <article class="kpi"><strong>20 kWh</strong><span>LiFePO4 akkumulátor induló kapacitása</span></article>
+          <article class="kpi"><strong>20 db × 410 W</strong><span>Napelemek száma és teljesítménye (8,2 kWp)</span></article>
+          <article class="kpi"><strong>1000 F</strong><span>Szuperkondenzátor-bank kapacitása</span></article>
+          <article class="kpi"><strong>Nettó 6,8 M Ft</strong><span>Beruházási összeg</span></article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Projekt lényege</h2>
+          <p>Önálló, ipari szintű energiarendszer</p>
+        </header>
+        <div class="content">
+          <div class="intro">
+            <p>
+              A rendszer egy 40 lábas konténerre telepített, teljesen szigetüzemű napelemes energiarendszer, amely a
+              napelemes termelést, az intelligens energiatárolást és az üzembiztos, offline működést egyesíti kompakt,
+              ipari kialakításban.
+            </p>
+            <p>
+              A rendszer funkcionálisan egy nagyméretű, intelligens UPS-rendszerként értelmezhető, amely hálózati
+              függőség nélkül képes kritikus fogyasztók ellátására.
+            </p>
+          </div>
+
+          <div class="cols">
+            <article class="box">
+              <h3>Miért érdemes?</h3>
+              <ul class="list">
+                <li>Teljes energiafüggetlenséget biztosít, hálózati kiszolgáltatottság nélkül.</li>
+                <li>Alkalmas offline AI-platformok és szimulátoros rendszerek megszakításmentes ellátására.</li>
+                <li>Vészhelyzeti épületenergia-tartalékként is használható.</li>
+                <li>Modulárisan bővíthető, akár több száz kWh energiatárolási kapacitásig.</li>
+                <li>A szuperkondenzátor-bank révén az akkumulátor terhelése csökkenthető, ami megfelelő üzemeltetés mellett jelentősen növelheti az akkumulátor élettartamát.</li>
+              </ul>
+            </article>
+            <article class="box">
+              <h3>Alkalmazási területek</h3>
+              <ul class="list">
+                <li>Offline AI-infrastruktúra, folyamatos, internet nélküli üzemhez.</li>
+                <li>Bemutatóterem és szimulátoros rendszerek energiaellátása.</li>
+                <li>Ipari, kritikus és folyamatos üzemű rendszerek ellátása.</li>
+                <li>Vészhelyzeti épületellátás.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Műszaki leírás és rendszerfelépítés</h2>
+          <p>Részletes műszaki tartalom, komponensek és működési elv.</p>
+        </header>
+        <div class="content spec-grid">
+          <div>
+            <div class="sub-block">
+              <h4>Napelemmező</h4>
+              <p>
+                A rendszer 20 db, egyenként 410 W teljesítményű napelemből áll, összesen 8,2 kWp telepített
+                csúcsteljesítménnyel.
+              </p>
+              <p>
+                A panelek részben a konténer délnyugati tájolású oldalfelületére, részben a tetőre kerülnek,
+                körülbelül 60–65 fokos dőlésszöggel. Ez Magyarország földrajzi szélességén kedvező éves
+                energiakihozatalt biztosíthat.
+              </p>
+            </div>
+
+            <div class="sub-block">
+              <h4>Inverter</h4>
+              <p>
+                A rendszer központi eleme egy háromfázisú, 20 kW-os, 48 V-os Deja szigetüzemű inverter.
+              </p>
+              <p>
+                A rendszer hálózati visszatáplálás nélküli, önálló üzemmódban működik, ezért nincs szükség közüzemi
+                hálózatra, és a működés nem függ külső hálózati rendelkezésre állástól.
+              </p>
+            </div>
+
+            <div class="sub-block">
+              <h4>Energiatárolás</h4>
+              <p>
+                Az induló energiatároló egység 1 db, 20 kWh kapacitású LiFePO4 akkumulátor, dobozolt kivitelben,
+                LCD-kijelzővel.
+              </p>
+              <p>
+                A konfiguráció modulárisan bővíthető: első lépésben 50 kWh-ra, majd igény szerint akár több száz kWh
+                összkapacitásig.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content cols" style="padding-top:0">
+          <article class="box">
+            <h3>Szuperkondenzátor-bank</h3>
+            <p class="sub-block" style="margin:0">
+              A rendszer különlegessége az 1000 F / 60 V paraméterű szuperkondenzátor-bank, amely az
+              akkumulátorrendszer impedanciaillesztését és a tranziens terhelések kezelését támogatja.
+            </p>
+            <p class="sub-block" style="margin:12px 0 0">
+              Töltési és merítési csúcshelyzetekben a gyors energiaáramlások elsősorban a kondenzátoros egységen
+              haladnak át. Ennek eredményeként az akkumulátoregység kíméltebben és stabilabban üzemelhet.
+            </p>
+            <div class="hl">
+              <strong>Kiemelt előny:</strong> Az akkumulátorcsomagra jutó impulzusterhelések jelentősen csökkenhetnek.
+              Megfelelő rendszerüzemeltetés mellett akár többszörös akkumulátor-élettartam is elérhető.
+            </div>
+          </article>
+
+          <article class="box">
+            <h3>Villamos védelem</h3>
+            <ul class="list">
+              <li>Külön DC kapcsolószekrény DC megszakítókkal és automatikus biztosítókkal.</li>
+              <li>Külön védelmi ág a napelemek, az akkumulátor és az inverter részére.</li>
+              <li>DC oldali túlfeszültség-levezető.</li>
+              <li>AC bemeneti oldali túlfeszültség-levezető.</li>
+              <li>AC kimeneti oldali túlfeszültség-levezető.</li>
+            </ul>
+
+            <h3 style="margin-top:18px">Telepítési tartalom</h3>
+            <ul class="list">
+              <li>Oldalfali és tetőre szerelt napelemmező tartószerkezettel.</li>
+              <li>Teljes szerelvény-, kábelezési és kiépítési anyag.</li>
+              <li>Telepítés és munkadíj.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="content" style="padding-top:0">
+          <h3 style="margin:0 0 10px;padding-left:12px;border-left:4px solid var(--line);font-family:'Sora',sans-serif;font-size:24px;">Komponenslista</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Komponens</th>
+                  <th>Specifikáció</th>
+                  <th>Megjegyzés</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Napelem</td>
+                  <td>20 db × 410 W monokristályos napelem.</td>
+                  <td>Oldalfali és tetőre szerelt kivitel, 60–65° dőlés, délnyugati tájolás.</td>
+                </tr>
+                <tr>
+                  <td>Inverter</td>
+                  <td>Deja, háromfázisú, 20 kW-os, 48 V-os inverter.</td>
+                  <td>Szigetüzemű működés, hálózati visszatáplálás nélkül.</td>
+                </tr>
+                <tr>
+                  <td>Akkumulátor</td>
+                  <td>LiFePO4, 20 kWh kapacitású, dobozolt kivitel, LCD-kijelzővel.</td>
+                  <td>Bővíthető 50 kWh-ra, majd több száz kWh összkapacitásig.</td>
+                </tr>
+                <tr>
+                  <td>Szuperkondenzátor</td>
+                  <td>1000 F / 60 V szuperkondenzátor-bank.</td>
+                  <td>Tranziens terhelések kezelése és az akkumulátor kímélése.</td>
+                </tr>
+                <tr>
+                  <td>DC kapcsolószekrény</td>
+                  <td>Megszakítók és automatikus biztosítók.</td>
+                  <td>Három védett ág: PV, BAT, INV.</td>
+                </tr>
+                <tr>
+                  <td>Túlfeszültség-védelem</td>
+                  <td>DC oldal, AC bemenet és AC kimenet.</td>
+                  <td>Teljes körű védelmi lánc.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Pénzügyi összefoglaló</h2>
+          <p>Árazás – nettó összegek</p>
+        </header>
+
+        <div class="content finance">
+          <div>
+            <div class="price">
+              <h3>Árazás – nettó összegek</h3>
+              <div class="row"><span>20 db 410 W-os új napelem</span><strong>600 000 Ft</strong></div>
+              <div class="row"><span>1 db 20 kW-os, háromfázisú, 48 V-os Deja inverter</span><strong>1 200 000 Ft</strong></div>
+              <div class="row"><span>1 db 1000 F / 60 V szuperkondenzátor-bank</span><strong>2 000 000 Ft</strong></div>
+              <div class="row"><span>1 db 20 kWh LiFePO4 akkumulátor, dobozolt kivitelben, LCD-kijelzővel</span><strong>2 000 000 Ft</strong></div>
+              <div class="row"><span>Szerelvények, kábelek, kiépítési anyagok és munkadíj</span><strong>1 000 000 Ft</strong></div>
+              <div class="row total"><span>Összesen nettó</span><strong>6 800 000 Ft</strong></div>
+            </div>
+            <div class="note">
+              Az ÁFA összege külön kerül felszámításra a hatályos jogszabályok szerint. A bruttó összeg a nettó összeg
+              és az ÁFA összege együtt.
+            </div>
+          </div>
+        </div>
+
+        <div class="content" style="padding-top:0">
+          <div class="cols">
+            <article class="box">
+              <h3>Fontos megjegyzések</h3>
+              <ul class="list">
+                <li>A rendszer szigetüzemű kivitelű, hálózati visszatáplálás nélkül.</li>
+                <li>Az induló 20 kWh kapacitás igény szerint modulárisan bővíthető.</li>
+                <li>A szuperkondenzátor-bank javítja a rendszer dinamikus stabilitását, és hozzájárulhat az akkumulátor élettartamának növeléséhez.</li>
+                <li>A rendszer különösen alkalmas nagy üzembiztonságot igénylő, folyamatos működésű technológiai környezetekhez.</li>
+              </ul>
+            </article>
+            <article class="box">
+              <h3>Befektetői összegzés</h3>
+              <p class="sub-block" style="margin:0">
+                Ez a beruházás egy önálló, ipari szintű energiarendszer, amely a napelemes termelést, az intelligens
+                energiatárolást és az üzembiztos, szigetüzemű működést egyesíti kompakt, konténeres kialakításban.
+              </p>
+              <p class="sub-block" style="margin:12px 0 0">
+                A rendszer fő előnye az energiafüggetlenség, a kritikus fogyasztók védelme és a moduláris
+                bővíthetőség. Különösen indokolt lehet nagy terhelésű, offline AI-platformok, szimulátoros rendszerek
+                és demonstrációs környezetek esetén.
+              </p>
+            </article>
+          </div>
+
+          <div class="closing">
+            <strong>Kapcsolódás az AI Offline Platformhoz:</strong> Az épületben működő bemutatóterem és a
+            szimulátoros rendszerek közvetlenül rákapcsolhatók erre az energiarendszerre. Egy bemutató vagy üzemi
+            prezentáció alatt a működés kiszámítható és megszakításmentes maradhat akkor is, ha a közüzemi hálózat
+            kiesik. Offline AI-platform esetén az energiafüggetlenség, az üzembiztonság és a lokális energiatárolás
+            közvetlen működési és üzleti előnyt jelenthet.
+          </div>
+
+          <div class="split">
+            <article class="box">
+              <h3>Bővíthetőség és jövőállóság</h3>
+              <ul class="list">
+                <li><strong>Induló konfiguráció:</strong> 20 kWh akkumulátor, 8,2 kWp napelemmező, 20 kW inverter.</li>
+                <li><strong>Első bővítési lépés:</strong> az akkumulátorkapacitás 50 kWh-ra növelhető.</li>
+                <li><strong>Hosszú távú skálázás:</strong> a rendszer több száz kWh összkapacitásig bővíthető.</li>
+                <li><strong>Vészhelyzeti tartalék:</strong> a rendszer épületszintű energiaellátás támogatására is alkalmassá tehető.</li>
+              </ul>
+            </article>
+            <article class="box">
+              <h3>Záró megjegyzés</h3>
+              <p class="sub-block" style="margin:0">
+                Jelen ajánlat bizalmas, és kizárólag a megküldött partner számára készült.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta reveal">
+        <h3>Független · Biztonságos · Üzembiztos</h3>
+        <p>
+          Konténeres, szigetüzemű, bővíthető energiarendszer befektetői, üzemeltetői vagy demonstrációs célra.
+        </p>
+        <div class="actions">
+          <a class="btn main" href="mailto:info@newtonszimulator.hu?subject=Landinggel%20kapcsolatos%20megkeres%C3%A9s%20-%20Napelem">Kapcsolatfelvétel</a>
+          <a class="btn alt" href="mailto:info@newtonszimulator.hu?subject=Landinggel%20kapcsolatos%20megkeres%C3%A9s%20-%20Napelem">Ajánlat egyeztetése</a>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            }
+          });
+        },
+        { threshold: 0.13 }
+      );
+
+      document.querySelectorAll(".reveal").forEach((el, i) => {
+        el.style.transitionDelay = `${Math.min(i * 70, 300)}ms`;
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>
