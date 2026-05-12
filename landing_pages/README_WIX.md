@@ -3,6 +3,7 @@
 Ez a mappa ket kesz landing oldalt tartalmaz:
 
 - `offline-ai-landing.html`
+- `offline-ai-cegeknek.html`
 - `napelem-landing.html`
 
 ## 1) Gyors opcio: kulso host + Wix iframe
