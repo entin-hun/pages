@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tornatermi VR - Kevert valóság élmény</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .hero-bg {
+            /* Sötét, high-tech háttér, finom hálós mintával */
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        
+        /* Simább görgetés */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <main class="hero-bg text-white relative overflow-hidden">
+        <!-- Dekoratív fényfoltok -->
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-sky-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+        <div class="container mx-auto px-6 py-24 md:py-32 flex flex-col md:flex-row items-center relative z-10 gap-12">
+            <div class="md:w-1/2 space-y-8">
+                <div class="inline-block bg-slate-800/50 border border-slate-700 rounded-full px-4 py-1.5 text-sm font-medium text-sky-300 backdrop-blur-sm">
+                    <i class="fa-solid fa-location-dot mr-2"></i> Budakeszi • Tornatermi VR élmény
+                </div>
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+                    Mozgás, játék és taktika <br />
+                    <span class="gradient-text">tornatermi VR-ben</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-lg">
+                    Közös, aktív VR élmény valódi térben: fuss, taktikázz és játssz a csapatoddal kábelek nélkül. Ez az oldal Wix-be ágyazható változat, külön felső menü és lábléc nélkül.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 px-8 rounded-lg text-center transition-all shadow-lg shadow-sky-500/30 flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-calendar-check"></i> Foglalás / Érdeklődés
+                    </a>
+                    <a href="#hogyan-mukodik" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-semibold py-4 px-8 rounded-lg text-center transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-play"></i> Hogyan működik?
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 relative w-full h-[400px] md:h-[500px]">
+                <!-- Placeholder a Hero képnek/videónak -->
+                <div class="w-full h-full rounded-2xl overflow-hidden neon-border relative group">
+                    <img src="https://placehold.co/800x600/1e293b/38bdf8?text=Spatial+Ops+Aréna+Kép" alt="VR Park Aréna" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <!-- Opcionális play gomb overlay, ha videóra linkelne -->
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="fa-solid fa-play text-white text-6xl drop-shadow-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section id="hogyan-mukodik" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Nem csak egy játék. <span class="text-sky-500">Új dimenzió.</span></h2>
+                <p class="text-slate-600">A hagyományos VR-ral ellentétben nálunk látod a környezeted és a csapattársaidat is. Egy 8 fős arénában a fizikai akadályok és a digitális világ tökéletesen egybeolvad.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Feature 1 -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-sky-500 transition-colors duration-300">
+                        <i class="fa-solid fa-tree text-2xl text-sky-500 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Hatalmas Árnyékos Liget</h3>
+                    <p class="text-slate-600 leading-relaxed">Felejtsd el a szűk szobákat! Kialakított pályánk a természetben található, speciális árnyékolókkal, amelyek tökéletes láthatóságot biztosítanak a jó levegőn.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-500 transition-colors duration-300">
+                        <i class="fa-solid fa-users text-2xl text-indigo-500 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Akár 8 Játékos Egyidőben</h3>
+                    <p class="text-slate-600 leading-relaxed">Hozd a barátaidat, kollégáidat vagy a családot! A rendszer 4v4 felállásban valós idejű, pörgős csatákat tesz lehetővé egy közös fizikai térben.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
+                        <i class="fa-solid fa-bolt text-2xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">100% Adrenalin, Nulla Fájdalom</h3>
+                    <p class="text-slate-600 leading-relaxed">A paintball és a lézerharc izgalma, kék foltok és kosz nélkül. Fegyverek, pajzsok és effektek csak a headseten keresztül – de a fizikai fáradtság nagyon is valós!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="arak" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <!-- Háttér design -->
+        <div class="absolute inset-0 opacity-10">
+             <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-sky-500 to-indigo-600 rounded-full filter blur-[100px] transform translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl font-bold mb-4">Bérelj Pályát Óránként, vagy Szervezz Rendezvényt!</h2>
+                    <p class="text-slate-400">Rugalmas megoldásokat kínálunk kisebb baráti társaságoknak és nagy céges csapatépítőknek egyaránt.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Ár kártya 1: Óradíjas -->
+                <div class="bg-slate-800/80 border border-slate-700 rounded-3xl p-8 backdrop-blur-md flex flex-col h-full">
+                    <div class="mb-8">
+                        <span class="inline-block bg-sky-500/20 text-sky-400 text-sm font-semibold px-3 py-1 rounded-full mb-4">Baráti Társaságoknak</span>
+                        <h3 class="text-2xl font-bold mb-2">Óránkénti Pályabérlés</h3>
+                        <p class="text-slate-400 text-sm">Tökéletes egy gyors kikapcsolódásra, születésnapra vagy suli utáni programnak.</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-sky-400 mt-1"></i>
+                            <span class="text-slate-300">Teljes eszközbiztosítás (MR Headsetek)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-sky-400 mt-1"></i>
+                            <span class="text-slate-300">Szakmai animátor a helyszínen</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-sky-400 mt-1"></i>
+                            <span class="text-slate-300">Kizárólagos pálya használat (1-8 főig)</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="w-full block bg-slate-700 hover:bg-slate-600 border border-slate-500 text-white font-semibold py-4 px-6 rounded-xl text-center transition-colors">
+                        Időpontot foglalok
+                    </a>
+                </div>
+
+                <!-- Ár kártya 2: Rendezvény -->
+                <div class="bg-gradient-to-b from-sky-900/90 to-slate-800/90 border border-sky-500/50 rounded-3xl p-8 backdrop-blur-md flex flex-col h-full relative transform md:-translate-y-4 shadow-2xl shadow-sky-900/50">
+                    <div class="absolute top-0 right-8 transform -translate-y-1/2">
+                        <span class="bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Népszerű</span>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <span class="inline-block bg-indigo-500/20 text-indigo-300 text-sm font-semibold px-3 py-1 rounded-full mb-4">Cégeknek & Iskoláknak</span>
+                        <h3 class="text-2xl font-bold mb-2">Rendezvény & Csapatépítő</h3>
+                        <p class="text-slate-300 text-sm">Személyre szabott élmény nagy létszám esetén, hosszabb időtartamra.</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-sky-400 mt-1"></i>
+                            <span class="text-slate-200">Bajnokságok megszervezése (folyamatos rotációval)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-sky-400 mt-1"></i>
+                            <span class="text-slate-200">Dedikált játékvezetők és technikai stáb</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-sky-400 mt-1"></i>
+                            <span class="text-slate-200">Testreszabható játékmódok (Team Deathmatch, CTF)</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="w-full block bg-sky-500 hover:bg-sky-400 text-white font-bold py-4 px-6 rounded-xl text-center transition-all shadow-lg shadow-sky-500/25">
+                        Egyedi Ajánlatkérés
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-sky-600">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Készen állsz a harcra?</h2>
+            <p class="text-sky-100 text-lg mb-10 max-w-2xl mx-auto">Vedd fel velünk a kapcsolatot, és biztosítsd be a helyed Magyarország legújabb digitális sportarénájában, Budakeszin!</p>
+            <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center gap-3 bg-white text-sky-700 hover:bg-slate-50 font-bold text-lg py-4 px-10 rounded-full transition-transform transform hover:scale-105 shadow-xl">
+                <i class="fa-regular fa-envelope"></i> Írj nekünk: vr@newtonszimulator.hu
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>
