@@ -97,6 +97,11 @@
             background: #0f172a;
             transform: scale(1.15);
         }
+
+        .fillout-wrap {
+            width: 100%;
+            height: 500px;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -139,9 +144,9 @@
                         </article>
                     </div>
                     <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-                        <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white shadow-xl shadow-sky-500/30 transition hover:bg-sky-400">
-                            <i class="fa-regular fa-envelope"></i>
-                            Ajánlatot kérek
+                        <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white shadow-xl shadow-sky-500/30 transition hover:bg-sky-400">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            Kérem az ajánlatot
                         </a>
                         <a href="#tornaterem" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-slate-100 transition hover:bg-white/10">
                             <i class="fa-solid fa-play"></i>
@@ -167,10 +172,23 @@
             </div>
         </section>
 
+        <section id="cel-urlap" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Gyors jelentkezés</p>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Kérj ajánlatot itt, és küldjük a megfelelő VR megoldást</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Ha tornatermi kitelepülést, tábori programot, céges eseményt vagy budakeszi kipróbálást keresel, az alábbi űrlapon gyorsan meg tudod írni a létszámot, a helyszínt és az elképzelést. Így pontosabban tudunk válaszolni, mintha csak egy általános e-mail érkezne.</p>
+                </div>
+                <div>
+                    <div class="fillout-wrap" data-fillout-id="cdLvWabUhKus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
+                </div>
+            </div>
+        </section>
+
         <section id="elonyok" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
             <div class="max-w-3xl">
                 <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Miért működik ennyire jól?</p>
-                <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Olyan program, amely a technológiát nem elszigetel, hanem megmozgat</h2>
+                <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Olyan immerzív élmény, amely nem elszigetel, hanem megmozgat</h2>
                 <p class="mt-4 text-lg leading-8 text-slate-600">A mai generáció figyelméért nehéz versenyezni. A VR programjaink pont ezért erősek: a digitális vonzerőt összekötik a valódi fizikai aktivitással, a csapatmunkával és a közös sikerélménnyel.</p>
             </div>
 
@@ -264,6 +282,29 @@
         </section>
 
         <section class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="grid gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Ajánlatkérés helyben</p>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Ha már látod az előnyöket, kérj konkrét ajánlatot</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Az űrlapon megadhatod, hogy iskolai napra, táborba, céges csapatépítőre vagy kisebb kipróbálásra keresed-e a programot. Ez segít, hogy rögtön a megfelelő konstrukcióval keressünk vissza.</p>
+                    <div class="mt-6 flex flex-col gap-4 sm:flex-row">
+                        <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white transition hover:bg-sky-400">
+                            <i class="fa-regular fa-clipboard"></i>
+                            Kitöltöm az űrlapot
+                        </a>
+                        <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-slate-700 transition hover:bg-slate-50">
+                            <i class="fa-regular fa-envelope"></i>
+                            Inkább e-mailt írnék
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="fillout-wrap" data-fillout-id="cdLvWabUhKus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
             <div class="grid gap-5 lg:grid-cols-3">
                 <article class="rounded-[1.5rem] bg-slate-50 p-6">
                     <p class="text-sm font-bold uppercase tracking-[0.18em] text-sky-600">Iskoláknak</p>
@@ -310,9 +351,9 @@
                         </div>
                     </div>
                     <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-                        <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-6 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white transition hover:bg-sky-400">
+                        <a href="#also-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-6 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white transition hover:bg-sky-400">
                             <i class="fa-regular fa-calendar-check"></i>
-                            Időpontot kérek
+                            Kérek konkrét ajánlatot
                         </a>
                         <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-white transition hover:bg-white/10">
                             <i class="fa-regular fa-envelope"></i>
@@ -352,6 +393,19 @@
             </div>
         </section>
 
+        <section id="also-urlap" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Végső CTA</p>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Írd meg itt, mire keresel VR programot</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Tornatermi kitelepülés, tábori nap, céges esemény vagy 1 órás budakeszi kipróbálás: az űrlap kitöltése után célzottan tudunk visszajelezni árral és szervezési javaslattal.</p>
+                </div>
+                <div>
+                    <div class="fillout-wrap" data-fillout-id="cdLvWabUhKus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
+                </div>
+            </div>
+        </section>
+
         <section class="mt-8 rounded-[2rem] bg-sky-600 px-6 py-10 text-white shadow-xl shadow-sky-500/20 sm:px-8 lg:px-10">
             <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
@@ -360,9 +414,9 @@
                     <p class="mt-4 max-w-3xl text-lg leading-8 text-sky-50/90">Iskolai napra, táborba, céges eseményre vagy 1 órás kipróbálásra is tudunk javaslatot adni. Írj, és a tervezett létszám, helyszín és cél alapján visszaküldjük a legjobb megoldást.</p>
                 </div>
                 <div class="flex flex-col gap-4 sm:flex-row lg:flex-col">
-                    <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-white px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-sky-700 transition hover:bg-slate-100">
-                        <i class="fa-regular fa-envelope"></i>
-                        Ajánlatkérés
+                    <a href="#also-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-white px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-sky-700 transition hover:bg-slate-100">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        Űrlap kitöltése
                     </a>
                     <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/35 bg-transparent px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-white transition hover:bg-white/10">
                         <i class="fa-solid fa-phone-volume"></i>
@@ -406,5 +460,6 @@
             renderSlide((activeSlide + 1) % dots.length);
         }, 5000);
     </script>
+    <script src="https://server.fillout.com/embed/v1/"></script>
 </body>
 </html>
