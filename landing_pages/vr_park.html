@@ -102,6 +102,111 @@
             width: 100%;
             height: 500px;
         }
+
+        .diak-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 9999px;
+            border: 1px solid #d6e7f4;
+            background: #ffffff;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1f3a5b;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .diak-tab:hover {
+            background: #f0f8fd;
+        }
+
+        .diak-tab.is-active {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+            transform: translateY(-1px);
+        }
+
+        .diak-panel {
+            display: none;
+        }
+
+        .diak-panel.is-active {
+            display: block;
+        }
+
+        .diak-message {
+            margin-top: 16px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            border-radius: 1.25rem;
+            border: 1px solid #cfe1ee;
+            background: #f4f9fd;
+            padding: 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #0f2c47;
+        }
+
+        .diak-copy {
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 9999px;
+            background: #0ea5e9;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #ffffff;
+            transition: background 0.2s ease;
+        }
+
+        .diak-copy:hover {
+            background: #0284c7;
+        }
+
+        .diak-copy.is-copied {
+            background: #16a34a;
+        }
+
+        .diak-aside {
+            min-width: 280px;
+            border-radius: 1.5rem;
+            background: linear-gradient(140deg, #0f172a, #134060);
+            padding: 20px 22px;
+            color: #e2edf7;
+            box-shadow: 0 18px 40px rgba(5, 18, 31, 0.18);
+        }
+
+        .diak-aside h4 {
+            margin: 0;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        .diak-aside p {
+            margin-top: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #b6cde0;
+        }
+
+        .diak-aside ul {
+            margin: 14px 0 0;
+            padding-left: 18px;
+            color: #d6e3f0;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .diak-aside li {
+            margin: 6px 0;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -406,6 +511,146 @@
             </div>
         </section>
 
+        <section id="diak-ajanlas" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="max-w-4xl">
+                <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Diákoknak szóló ajánló</p>
+                <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Ajánld be te is a programot a tanárodnak vagy a táborvezetőnek</h2>
+                <p class="mt-4 text-lg leading-8 text-slate-600">Válaszd ki, kinek szeretnéd ajánlani a VR programot, másold ki az üzenetet, és küldd el. Az alábbi szövegeket úgy fogalmaztuk meg, hogy a pedagógusok, a táborszervezők és a szponzorok nyelvén szólaljanak meg, és minden lényeges információt tartalmazzanak.</p>
+            </div>
+
+            <div class="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Ajánlás címzettje">
+                <button type="button" class="diak-tab is-active" data-target="diak-tanar" role="tab" aria-selected="true">
+                    <i class="fa-solid fa-chalkboard-teacher"></i>
+                    Tanárnak / iskolának
+                </button>
+                <button type="button" class="diak-tab" data-target="diak-tabor" role="tab" aria-selected="false">
+                    <i class="fa-solid fa-campground"></i>
+                    Táborvezetőnek
+                </button>
+                <button type="button" class="diak-tab" data-target="diak-szponzor" role="tab" aria-selected="false">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    Szponzornak
+                </button>
+            </div>
+
+            <div class="mt-6">
+                <article id="diak-tanar" class="diak-panel is-active" role="tabpanel">
+                    <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
+                        <div>
+                            <h3 class="text-2xl font-extrabold text-slate-900">Rövid diák e-mail sablon</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-500">Ezt másold be az e-mailbe, és csatold a tanári tájékoztatót.</p>
+                            <pre class="diak-message">Tárgy: Javaslat egy szuper programra (Osztálykirándulás / Diáknap)
+
+Kedves [Tanár / Szervező neve]!
+
+Találtam egy hihetetlenül jó programot, amit szerintem az egész [osztály / tábor] imádna! Ez egy új, kiterjesztett valóság (MR) alapú sport, a Spatial Ops, ahol a tornatermünkben tudnánk csapatokban játszani, mint egy élő videojátékban, csak kék foltok és kosz nélkül.
+
+A legjobb, hogy ők jönnek ki hozzánk a felszereléssel, így nem kell buszt bérelni, és a meleg/eső miatt sem kell aggódni az üres tornateremben.
+
+Csatoltam egy hivatalos tájékoztatót a szervezőktől, amiben minden logisztikai és pénzügyi részlet benne van. Nagyon szuper lenne, ha meg tudnánk valósítani!
+
+Üdvözlettel,
+[Diák Neve]</pre>
+                            <button type="button" class="diak-copy" data-copy-target="diak-tanar">
+                                <i class="fa-regular fa-copy"></i>
+                                Üzenet másolása
+                            </button>
+                        </div>
+                        <aside class="diak-aside">
+                            <h4>Tanári tájékoztató (összefoglaló)</h4>
+                            <p><strong>Digitális sportintegráció az iskolában</strong> - a tornaterem, mint a jövő high-tech mozgásközpontja, Spatial Ops MR program.</p>
+                            <ul>
+                                <li>Maximális fizikai aktivitás a játék Flow-élménye miatt.</li>
+                                <li>Fejleszti a térbeli tájékozódást, reflexet és a valós idejű döntést.</li>
+                                <li>4v4 felállás: valódi kooperáció, kommunikáció.</li>
+                                <li>100% biztonságos, nincs fizikai lövedék, kosz, kék folt.</li>
+                                <li>Mi visszük a teljes felszerelést, helyszín: min. 100-200 m² tornaterem.</li>
+                                <li>6 órás napi kitelepülés akár 144 diáknak, 300.000 Ft napi alap.</li>
+                                <li>Finanszírozás: alapítvány, önkormányzati keret, helyi CSR szponzor.</li>
+                            </ul>
+                        </aside>
+                    </div>
+                </article>
+
+                <article id="diak-tabor" class="diak-panel" role="tabpanel" hidden>
+                    <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
+                        <div>
+                            <h3 class="text-2xl font-extrabold text-slate-900">Rövid diák e-mail sablon</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-500">Táboroztatóknak szóló ajánló, a táborvezető nyelvén.</p>
+                            <pre class="diak-message">Tárgy: Javaslat egy esőnap-biztos tábori programra
+
+Kedves [Táborvezető neve]!
+
+Tudom, hogy a nyári táboroknál mindig kérdés, mi legyen a program kánikulában vagy esőben, és a buszoztatás is sok szervezés. Találtam egy megoldást, ami pont ezért működik jól: a Spatial Ops MR program.
+
+A VR Park Budakeszi csapata kijön a táborba a felszereléssel, és a meglévő, nyáron üresen álló tornatermetekben vagy aulátokban alakítanak ki egy futurisztikus csapatjáték-arénát. Egyszerre 8 fő játszik, rotációval egy teljes turnust le tudnak mozgatni.
+
+Esőnapra, kánikulára és hosszabb esőszakaszokra is tökéletes, és a gyerekek imádni fogják, mert közben valóban mozognak, taktikáznak, közös élményt kapnak.
+
+Csatoltam egy rövid tájékoztatót a szervezőktől, amiben az árak és a finanszírozási lehetőségek is benne vannak. Szerintem nagyon megérné megpróbálni!
+
+Üdvözlettel,
+[Diák Neve]</pre>
+                            <button type="button" class="diak-copy" data-copy-target="diak-tabor">
+                                <i class="fa-regular fa-copy"></i>
+                                Üzenet másolása
+                            </button>
+                        </div>
+                        <aside class="diak-aside">
+                            <h4>Tábori tájékoztató (összefoglaló)</h4>
+                            <p><strong>A nyár legjobb esőnap-biztos tábori programja</strong> - auggie-díjas Spatial Ops MR bajnokság kiszállással.</p>
+                            <ul>
+                                <li>Időjárásfüggetlen: üres tornatermetekből vagy aulátokból alakítunk arénát.</li>
+                                <li>Kültéren, erősen árnyékos fák alatt is működik.</li>
+                                <li>Nulla utazási költség: mi visszünk mindent és az animátorokat is.</li>
+                                <li>8 fős rotáció: rövid, pörgős menetek, nincs várakozás.</li>
+                                <li>300.000 Ft napi alap, kb. 3500 Ft / fő / 10 perc.</li>
+                                <li>Finanszírozás: önkormányzati nyári keret, helyi CSR szponzor.</li>
+                            </ul>
+                        </aside>
+                    </div>
+                </article>
+
+                <article id="diak-szponzor" class="diak-panel" role="tabpanel" hidden>
+                    <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
+                        <div>
+                            <h3 class="text-2xl font-extrabold text-slate-900">Rövid diák e-mail sablon</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-500">Helyi vállalkozásoknak szóló ajánló, akik szponzorálhatják a programot.</p>
+                            <pre class="diak-message">Tárgy: Javaslat helyi szponzorációra - iskolai / tábori VR program
+
+Tisztelt [Cég neve]!
+
+A [Iskola / Tábor neve] szeretne egy különleges, high-tech sportprogramot szervezni a diákoknak: a Spatial Ops MR programot, amelyet a VR Park Budakeszi tart nálunk, a saját tornatermünkben.
+
+A program amellett, hogy igazán élménydús, kiemelt lokális PR értéket is ad a támogató cégnek, mert az eseményről beszámolunk a közösségi médiában, az iskolai/tábori kiadványokban, és a résztvevők családjai is látják a támogatást.
+
+Különösen fontos, hogy a támogatással a hátrányos helyzetű gyerekek ingyenesen vehetnek részt a programon.
+
+Csatoltam egy rövid összefoglalót a programról és a lehetséges támogatási formákról. Szívesen egyeztetünk személyesen vagy e-mailben.
+
+Köszönettel,
+[Diák Neve / Szervező Neve]</pre>
+                            <button type="button" class="diak-copy" data-copy-target="diak-szponzor">
+                                <i class="fa-regular fa-copy"></i>
+                                Üzenet másolása
+                            </button>
+                        </div>
+                        <aside class="diak-aside">
+                            <h4>Szponzori összefoglaló</h4>
+                            <p><strong>Miért éri meg helyi vállalkozásként támogatni?</strong></p>
+                            <ul>
+                                <li>Erős lokális PR: iskolai, tábori és online megjelenés.</li>
+                                <li>Hátrányos helyzetű gyerekek ingyenes részvétele.</li>
+                                <li>Egészség- és ifjúságfejlesztési cél, ami jól kommunikálható.</li>
+                                <li>300.000 Ft napi program ára több forrásból is összehozható.</li>
+                                <li>Mentor- és önkormányzati együttműködésre is nyitottak vagyunk.</li>
+                            </ul>
+                        </aside>
+                    </div>
+                </article>
+            </div>
+        </section>
+
         <section class="mt-8 rounded-[2rem] bg-sky-600 px-6 py-10 text-white shadow-xl shadow-sky-500/20 sm:px-8 lg:px-10">
             <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
@@ -459,6 +704,64 @@
         setInterval(() => {
             renderSlide((activeSlide + 1) % dots.length);
         }, 5000);
+
+        const diakTabs = Array.from(document.querySelectorAll('.diak-tab'));
+        const diakPanels = Array.from(document.querySelectorAll('.diak-panel'));
+
+        diakTabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.dataset.target;
+                diakTabs.forEach((otherTab) => {
+                    otherTab.classList.toggle('is-active', otherTab === tab);
+                    otherTab.setAttribute('aria-selected', otherTab === tab ? 'true' : 'false');
+                });
+                diakPanels.forEach((panel) => {
+                    const isActive = panel.id === targetId;
+                    panel.classList.toggle('is-active', isActive);
+                    if (isActive) {
+                        panel.removeAttribute('hidden');
+                    } else {
+                        panel.setAttribute('hidden', '');
+                    }
+                });
+            });
+        });
+
+        const diakCopyButtons = Array.from(document.querySelectorAll('.diak-copy'));
+        diakCopyButtons.forEach((button) => {
+            button.addEventListener('click', async () => {
+                const targetId = button.dataset.copyTarget;
+                const panel = document.getElementById(targetId);
+                if (!panel) return;
+                const messageNode = panel.querySelector('.diak-message');
+                if (!messageNode) return;
+                const text = messageNode.textContent.trim();
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(text);
+                    } else {
+                        const fallback = document.createElement('textarea');
+                        fallback.value = text;
+                        fallback.setAttribute('readonly', '');
+                        fallback.style.position = 'absolute';
+                        fallback.style.left = '-9999px';
+                        document.body.appendChild(fallback);
+                        fallback.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(fallback);
+                    }
+                    const originalLabel = button.innerHTML;
+                    button.classList.add('is-copied');
+                    button.innerHTML = '<i class="fa-solid fa-check"></i> Másolva';
+                    setTimeout(() => {
+                        button.classList.remove('is-copied');
+                        button.innerHTML = originalLabel;
+                    }, 1800);
+                } catch (error) {
+                    console.error('Clipboard error', error);
+                }
+            });
+        });
     </script>
     <script src="https://server.fillout.com/embed/v1/"></script>
 </body>
