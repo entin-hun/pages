@@ -696,6 +696,7 @@ Tisztelettel,
         let activeSlide = 0;
 
         function renderSlide(index) {
+            if (!sliderTrack || !dots.length) return;
             activeSlide = index;
             sliderTrack.style.transform = `translateX(-${index * 100}%)`;
             dots.forEach((dot, dotIndex) => {
@@ -703,23 +704,25 @@ Tisztelettel,
             });
         }
 
-        prevButton.addEventListener('click', () => {
-            renderSlide((activeSlide - 1 + dots.length) % dots.length);
-        });
-
-        nextButton.addEventListener('click', () => {
-            renderSlide((activeSlide + 1) % dots.length);
-        });
-
-        dots.forEach((dot) => {
-            dot.addEventListener('click', () => {
-                renderSlide(Number(dot.dataset.slide));
+        if (prevButton && nextButton && sliderTrack && dots.length) {
+            prevButton.addEventListener('click', () => {
+                renderSlide((activeSlide - 1 + dots.length) % dots.length);
             });
-        });
 
-        setInterval(() => {
-            renderSlide((activeSlide + 1) % dots.length);
-        }, 5000);
+            nextButton.addEventListener('click', () => {
+                renderSlide((activeSlide + 1) % dots.length);
+            });
+
+            dots.forEach((dot) => {
+                dot.addEventListener('click', () => {
+                    renderSlide(Number(dot.dataset.slide));
+                });
+            });
+
+            setInterval(() => {
+                renderSlide((activeSlide + 1) % dots.length);
+            }, 5000);
+        }
 
         const diakTabs = Array.from(document.querySelectorAll('.diak-tab'));
         const diakPanels = Array.from(document.querySelectorAll('.diak-panel'));
