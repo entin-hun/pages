@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tornatermi és kültéri VR programok - VR Park Budakeszi</title>
+    <title>Nyári tornatermi VR program iskoláknak - VR Park Budakeszi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Sora:wght@600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
         :root {
-            --deep: #081a2a;
-            --deep-2: #0f2840;
-            --ink: #163047;
-            --muted: #5c7992;
-            --line: #d6e7f4;
+            --deep: #282e3c;
+            --deep-2: #5b606d;
+            --ink: #282e3c;
+            --muted: #5b606d;
+            --line: #d8dae2;
             --panel: rgba(255, 255, 255, 0.92);
-            --panel-soft: #f4f9fd;
-            --accent: #38bdf8;
-            --accent-2: #14b8a6;
+            --panel-soft: #eff0f5;
+            --accent: #f8c500;
+            --accent-2: #5b606d;
         }
 
         html {
@@ -26,26 +26,26 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             color: var(--ink);
             background:
-                radial-gradient(1100px 700px at 100% 0%, rgba(56, 189, 248, 0.16), transparent 58%),
-                radial-gradient(900px 600px at 0% 0%, rgba(20, 184, 166, 0.12), transparent 60%),
-                #edf5fa;
+                radial-gradient(1100px 700px at 100% 0%, rgba(248, 197, 0, 0.18), transparent 58%),
+                radial-gradient(900px 600px at 0% 0%, rgba(91, 96, 109, 0.12), transparent 60%),
+                #eff0f5;
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         .hero-shell {
             background:
-                linear-gradient(140deg, rgba(8, 26, 42, 0.96), rgba(15, 40, 64, 0.92)),
-                radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 32%);
+                linear-gradient(140deg, rgba(40, 46, 60, 0.98), rgba(91, 96, 109, 0.92)),
+                radial-gradient(circle at top right, rgba(248, 197, 0, 0.2), transparent 34%);
         }
 
         .gradient-text {
-            background: linear-gradient(to right, #7dd3fc, #67e8f9);
+            background: linear-gradient(to right, #f8c500, #ffe680);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -53,8 +53,8 @@
 
         .glass-card {
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(125, 211, 252, 0.18);
-            box-shadow: 0 20px 60px rgba(5, 18, 31, 0.22);
+            border: 1px solid rgba(248, 197, 0, 0.22);
+            box-shadow: 0 20px 60px rgba(40, 46, 60, 0.22);
             backdrop-filter: blur(14px);
         }
 
@@ -94,8 +94,41 @@
         }
 
         .slider-dot.active {
-            background: #0f172a;
+            background: #282e3c;
             transform: scale(1.15);
+        }
+
+        .text-sky-600,
+        .text-sky-700,
+        .text-indigo-600,
+        .text-emerald-600 {
+            color: #5b606d !important;
+        }
+
+        .text-sky-300,
+        .text-cyan-300,
+        .text-emerald-300 {
+            color: #f8c500 !important;
+        }
+
+        .bg-sky-500 {
+            background-color: #f8c500 !important;
+            color: #282e3c !important;
+        }
+
+        .hover\:bg-sky-400:hover {
+            background-color: #e0b200 !important;
+        }
+
+        .bg-sky-100,
+        .bg-indigo-100,
+        .bg-emerald-100 {
+            background-color: rgba(248, 197, 0, 0.16) !important;
+        }
+
+        .bg-slate-900,
+        .bg-slate-950\/95 {
+            background-color: #282e3c !important;
         }
 
         .fillout-wrap {
@@ -142,12 +175,12 @@
             word-break: break-word;
             border-radius: 1.25rem;
             border: 1px solid #cfe1ee;
-            background: #f4f9fd;
+            background: #eff0f5;
             padding: 18px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 14px;
             line-height: 1.55;
-            color: #0f2c47;
+            color: #282e3c;
         }
 
         .diak-copy {
@@ -156,18 +189,18 @@
             align-items: center;
             gap: 8px;
             border-radius: 9999px;
-            background: #0ea5e9;
+            background: #f8c500;
             padding: 10px 18px;
             font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: #ffffff;
+            color: #282e3c;
             transition: background 0.2s ease;
         }
 
         .diak-copy:hover {
-            background: #0284c7;
+            background: #e0b200;
         }
 
         .diak-copy.is-copied {
@@ -177,10 +210,10 @@
         .diak-aside {
             min-width: 280px;
             border-radius: 1.5rem;
-            background: linear-gradient(140deg, #0f172a, #134060);
+            background: linear-gradient(140deg, #282e3c, #5b606d);
             padding: 20px 22px;
-            color: #e2edf7;
-            box-shadow: 0 18px 40px rgba(5, 18, 31, 0.18);
+            color: #eff0f5;
+            box-shadow: 0 18px 40px rgba(40, 46, 60, 0.18);
         }
 
         .diak-aside h4 {
@@ -219,11 +252,13 @@
                         VR Park Budakeszi
                     </div>
                     <h1 class="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
-                        Mozgás, csapatjáték és <span class="gradient-text">futurisztikus élmény</span> egyetlen programban
+                        Töltse meg nyáron is élménnyel a <span class="gradient-text">tornatermet és a fiatalok naptárát</span>
                     </h1>
                     <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-200 sm:text-xl">
-                        A Spatial Ops MR program nem csak látványos technológia. Olyan aktív élmény, amely egyszerre mozgatja meg a résztvevőket,
-                        közös taktikázásra kényszeríti a csapatot, és maradandó "ezt még sosem próbáltuk" élményt ad iskolai, tábori, céges vagy baráti közegben.
+                        Tisztelt Intézményvezető! A Spatial Ops MR program olyan aktív, biztonságos és emlékezetes
+                        digitális sportélmény, amely az iskola meglévő tornatermét vagy nagyobb belső terét rövid időre
+                        futurisztikus arénává alakítja. Különösen erős lehet nyári időszakban, táboroknál, diáknapokon,
+                        sportnapokon és önkormányzati ifjúsági programokban.
                     </p>
                     <div class="mt-8 grid gap-4 sm:grid-cols-3">
                         <article class="glass-card rounded-3xl p-5">
@@ -231,31 +266,31 @@
                                 <i class="fa-solid fa-person-running text-xl"></i>
                             </div>
                             <h3 class="mt-4 text-lg font-bold">Valódi mozgás</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-200">A játék Flow-élménye miatt a résztvevők észre sem veszik, milyen intenzív aktivitást végeznek.</p>
+                            <p class="mt-2 text-sm leading-6 text-slate-200">A résztvevők játék közben futnak, fordulnak, kommunikálnak és taktikáznak.</p>
                         </article>
                         <article class="glass-card rounded-3xl p-5">
                             <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-400/15 text-cyan-300">
                                 <i class="fa-solid fa-rocket text-xl"></i>
                             </div>
                             <h3 class="mt-4 text-lg font-bold">Futurisztikus hatás</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-200">A valós tér és a sci-fi digitális környezet együtt adja azt a wow-élményt, amit mindenki emleget utána.</p>
+                            <p class="mt-2 text-sm leading-6 text-slate-200">A tornaterem vagy aula rövid idő alatt látványos MR élménytérré válik.</p>
                         </article>
                         <article class="glass-card rounded-3xl p-5">
                             <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
                                 <i class="fa-solid fa-star text-xl"></i>
                             </div>
                             <h3 class="mt-4 text-lg font-bold">Maradandó emlék</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-200">Nem passzív nézői program, hanem közös történet, amit a résztvevők még hetek múlva is felidéznek.</p>
+                            <p class="mt-2 text-sm leading-6 text-slate-200">Közös élmény, amely a fiatalok, szülők és támogatók felé is jól kommunikálható.</p>
                         </article>
                     </div>
                     <div class="mt-8 flex flex-col gap-4 sm:flex-row">
                         <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white shadow-xl shadow-sky-500/30 transition hover:bg-sky-400">
                             <i class="fa-regular fa-pen-to-square"></i>
-                            Kérem az ajánlatot
+                            Kapcsolatfelvétel
                         </a>
                         <a href="#tornaterem" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-slate-100 transition hover:bg-white/10">
                             <i class="fa-solid fa-play"></i>
-                            Nézd meg a helyszínt
+                            Tornatermi lehetőség
                         </a>
                     </div>
                 </div>
@@ -269,7 +304,7 @@
                             </div>
                             <div>
                                 <h2 class="text-xl font-extrabold text-slate-900">Akár 8 fő egyszerre, 4v4 felállásban</h2>
-                                <p class="mt-2 text-sm leading-6 text-slate-600">A résztvevők látják egymást, futnak, bújnak, taktikáznak és kommunikálnak, miközben a tér digitális akadálypályává változik.</p>
+                                <p class="mt-2 text-sm leading-6 text-slate-600">A program rotációban nagyobb csoportokat is képes kiszolgálni, miközben az intézményi helyszín használatban marad.</p>
                             </div>
                         </div>
                     </div>
@@ -280,9 +315,9 @@
         <section id="cel-urlap" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
             <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
                 <div>
-                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Gyors jelentkezés</p>
-                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Kérj ajánlatot itt, és küldjük a megfelelő VR megoldást</h2>
-                    <p class="mt-4 text-lg leading-8 text-slate-600">Ha tornatermi kitelepülést, tábori programot, céges eseményt vagy budakeszi kipróbálást keresel, az alábbi űrlapon gyorsan meg tudod írni a létszámot, a helyszínt és az elképzelést. Így pontosabban tudunk válaszolni, mintha csak egy általános e-mail érkezne.</p>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Kapcsolatfelvétel</p>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Kérjen egyeztetést intézményi vagy nyári VR programra</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Az űrlapon megadhatja, hogy iskolai, tábori, önkormányzati vagy külsős programszervezői együttműködésről lenne szó. Így célzottan tudunk visszajelezni helyszín, létszám, időpont és finanszírozási lehetőségek alapján.</p>
                 </div>
                 <div>
                     <div class="fillout-wrap" data-fillout-id="cdLvWabUhKus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
@@ -371,8 +406,8 @@
                         <img src="../media/tornatermi.webp" alt="VR program tornatermi környezetben" class="h-72 w-full object-cover sm:h-80" />
                     </div>
                     <div class="mt-6">
-                        <h3 class="text-2xl font-bold">Nézd meg működés közben</h3>
-                        <p class="mt-3 leading-7 text-slate-300">Az alábbi videó jól mutatja, hogyan válik egy beltéri térből rövid idő alatt dinamikus, sci-fi hangulatú csapatjáték-aréna.</p>
+                        <h3 class="text-2xl font-bold">Így képzelhető el a kitelepülés élménye</h3>
+                        <p class="mt-3 leading-7 text-slate-300">A beágyazott videó segít elképzelni, mit élhet át egy résztvevő a kitelepülésünkön: a Spatial Ops csapatjáték dinamikáját, illetve a Figmin jellegű, elvarázsolt digitális világban való sétát és felfedezést.</p>
                     </div>
                     <div class="video-frame mt-5 border border-white/10 bg-black">
                         <iframe
@@ -387,24 +422,21 @@
         </section>
 
         <section class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
-            <div class="grid gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+            <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
                     <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Ajánlatkérés helyben</p>
-                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Ha már látod az előnyöket, kérj konkrét ajánlatot</h2>
-                    <p class="mt-4 text-lg leading-8 text-slate-600">Az űrlapon megadhatod, hogy iskolai napra, táborba, céges csapatépítőre vagy kisebb kipróbálásra keresed-e a programot. Ez segít, hogy rögtön a megfelelő konstrukcióval keressünk vissza.</p>
-                    <div class="mt-6 flex flex-col gap-4 sm:flex-row">
-                        <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white transition hover:bg-sky-400">
-                            <i class="fa-regular fa-clipboard"></i>
-                            Kitöltöm az űrlapot
-                        </a>
-                        <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-slate-700 transition hover:bg-slate-50">
-                            <i class="fa-regular fa-envelope"></i>
-                            Inkább e-mailt írnék
-                        </a>
-                    </div>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Ha a program illeszkedik az intézmény nyári vagy tanévi tervéhez, kérjen egyeztetést</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Az egyetlen űrlapon megadhatja, hogy iskolai napra, táborba, önkormányzati ifjúsági programba vagy külsős programszervezői együttműködésbe keres megoldást. Mobilon is gyorsabb, ha minden CTA ugyanoda vezet.</p>
                 </div>
-                <div>
-                    <div class="fillout-wrap" data-fillout-id="cdLvWabUhKus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
+                <div class="flex flex-col gap-4 sm:flex-row lg:flex-col">
+                    <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white transition hover:bg-sky-400">
+                        <i class="fa-regular fa-clipboard"></i>
+                        Űrlap kitöltése
+                    </a>
+                    <a href="#diak-ajanlas" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-slate-700 transition hover:bg-slate-50">
+                        <i class="fa-regular fa-copy"></i>
+                        Mintaszövegek
+                    </a>
                 </div>
             </div>
         </section>
@@ -432,9 +464,9 @@
         <section id="budakeszi" class="panel mt-8 overflow-hidden rounded-[2rem]">
             <div class="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
                 <div class="bg-slate-900 p-6 text-white sm:p-8 lg:p-10">
-                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-300">Kipróbálás helyben</p>
-                    <h2 class="section-title mt-3 text-3xl font-extrabold sm:text-4xl">Ha nem kitelepülést kérnél, nálunk is kipróbálhatod 1-1 órára</h2>
-                    <p class="mt-4 text-lg leading-8 text-slate-300">Akik nem kiszállásos rendezvényt szeretnének, hanem először saját élményként néznék meg a programot, azok Budakeszi szélén is lefoglalhatnak időpontot. A diófák alatti kültéri verzió nyáron is árnyékos, kellemesebb hőmérsékletű és kifejezetten jó hangulatú helyszín.</p>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-300">Előzetes kipróbálás</p>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold sm:text-4xl">A döntés előtt nálunk is kipróbálható 1-1 órára</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-300">Ha az intézményvezetés, a programszervező vagy az önkormányzati döntéshozó előbb személyesen is megnézné az élményt, Budakeszi szélén időpontot tudunk biztosítani. A diófák alatti kültéri verzió nyáron is árnyékos, kellemesebb hőmérsékletű, és jól mutatja, milyen élménnyel tölthető meg a helyi fiatalok naptára.</p>
                     <div class="mt-6 space-y-4">
                         <div class="flex items-start gap-4 rounded-[1.4rem] border border-white/10 bg-white/5 p-5">
                             <div class="mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-400/15 text-sky-300">
@@ -450,19 +482,19 @@
                                 <i class="fa-solid fa-people-group text-xl"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold">Baráti társaságoknak és családoknak is</h3>
-                                <p class="mt-2 leading-7 text-slate-300">1-1 órás kipróbálásra, kisebb eseményre vagy első élményre ideális belépési pont, ha még nem egész napos kitelepülésben gondolkodsz.</p>
+                                <h3 class="text-xl font-bold">Döntés-előkészítéshez is ideális</h3>
+                                <p class="mt-2 leading-7 text-slate-300">Egy rövidebb kipróbálás segíthet abban, hogy a vezetőség, a támogató vagy a programszervező pontosan értse, milyen élményt kapnak majd a résztvevők.</p>
                             </div>
                         </div>
                     </div>
                     <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-                        <a href="#also-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-6 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white transition hover:bg-sky-400">
+                        <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-6 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white transition hover:bg-sky-400">
                             <i class="fa-regular fa-calendar-check"></i>
                             Kérek konkrét ajánlatot
                         </a>
-                        <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-white transition hover:bg-white/10">
-                            <i class="fa-regular fa-envelope"></i>
-                            Kérek részleteket
+                        <a href="#diak-ajanlas" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-white transition hover:bg-white/10">
+                            <i class="fa-regular fa-copy"></i>
+                            Továbbküldhető üzenetek
                         </a>
                     </div>
                 </div>
@@ -498,38 +530,25 @@
             </div>
         </section>
 
-        <section id="also-urlap" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
-            <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-                <div>
-                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Végső CTA</p>
-                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Írd meg itt, mire keresel VR programot</h2>
-                    <p class="mt-4 text-lg leading-8 text-slate-600">Tornatermi kitelepülés, tábori nap, céges esemény vagy 1 órás budakeszi kipróbálás: az űrlap kitöltése után célzottan tudunk visszajelezni árral és szervezési javaslattal.</p>
-                </div>
-                <div>
-                    <div class="fillout-wrap" data-fillout-id="cdLvWabUhKus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
-                </div>
-            </div>
-        </section>
-
         <section id="diak-ajanlas" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
             <div class="max-w-4xl">
-                <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Diákoknak szóló ajánló</p>
-                <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Ajánld be te is a programot a tanárodnak vagy a táborvezetőnek</h2>
-                <p class="mt-4 text-lg leading-8 text-slate-600">Válaszd ki, kinek szeretnéd ajánlani a VR programot, másold ki az üzenetet, és küldd el. Az alábbi szövegeket úgy fogalmaztuk meg, hogy a pedagógusok, a táborszervezők és a szponzorok nyelvén szólaljanak meg, és minden lényeges információt tartalmazzanak.</p>
+                <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Továbbküldhető üzenetek</p>
+                <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Előkészített megkeresések támogatók és partnerek felé</h2>
+                <p class="mt-4 text-lg leading-8 text-slate-600">Az intézményvezetés számára az egyik legfontosabb kérdés a finanszírozás és a szervezési háttér. Az alábbi üzenetek másolhatók és továbbküldhetők helyi szponzoroknak, külsős programszervezőknek vagy az önkormányzatnak pénzbeli hozzájárulás reményében.</p>
             </div>
 
-            <div class="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Ajánlás címzettje">
+            <div class="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Továbbküldhető üzenet címzettje">
                 <button type="button" class="diak-tab is-active" data-target="diak-tanar" role="tab" aria-selected="true">
-                    <i class="fa-solid fa-chalkboard-teacher"></i>
-                    Tanárnak / iskolának
-                </button>
-                <button type="button" class="diak-tab" data-target="diak-tabor" role="tab" aria-selected="false">
-                    <i class="fa-solid fa-campground"></i>
-                    Táborvezetőnek
-                </button>
-                <button type="button" class="diak-tab" data-target="diak-szponzor" role="tab" aria-selected="false">
                     <i class="fa-solid fa-hand-holding-dollar"></i>
                     Szponzornak
+                </button>
+                <button type="button" class="diak-tab" data-target="diak-tabor" role="tab" aria-selected="false">
+                    <i class="fa-solid fa-people-roof"></i>
+                    Külsős programszervezőnek
+                </button>
+                <button type="button" class="diak-tab" data-target="diak-szponzor" role="tab" aria-selected="false">
+                    <i class="fa-solid fa-landmark"></i>
+                    Önkormányzatnak
                 </button>
             </div>
 
@@ -537,36 +556,36 @@
                 <article id="diak-tanar" class="diak-panel is-active" role="tabpanel">
                     <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
                         <div>
-                            <h3 class="text-2xl font-extrabold text-slate-900">Rövid diák e-mail sablon</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-500">Ezt másold be az e-mailbe, és csatold a tanári tájékoztatót.</p>
-                            <pre class="diak-message">Tárgy: Javaslat egy szuper programra (Osztálykirándulás / Diáknap)
+                            <h3 class="text-2xl font-extrabold text-slate-900">Szponzori megkeresés</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-500">Helyi vállalkozásnak vagy vállalati CSR kapcsolattartónak küldhető, tiszteletteljes szöveg.</p>
+                            <pre class="diak-message">Tárgy: Helyi ifjúsági VR sportprogram támogatási lehetősége
 
-Kedves [Tanár / Szervező neve]!
+Tisztelt [Cég neve / Kapcsolattartó neve]!
 
-Találtam egy hihetetlenül jó programot, amit szerintem az egész [osztály / tábor] imádna! Ez egy új, kiterjesztett valóság (MR) alapú sport, a Spatial Ops, ahol a tornatermünkben tudnánk csapatokban játszani, mint egy élő videojátékban, csak kék foltok és kosz nélkül.
+Intézményünk nyári, illetve tanévi közösségi programjaihoz olyan modern, mozgásra ösztönző élményt keresünk, amely egyszerre szólítja meg a fiatalokat és értékteremtő módon kapcsolja össze a technológiát az egészségfejlesztéssel.
 
-A legjobb, hogy ők jönnek ki hozzánk a felszereléssel, így nem kell buszt bérelni, és a meleg/eső miatt sem kell aggódni az üres tornateremben.
+Erre kínál lehetőséget a VR Park Budakeszi Spatial Ops MR programja. A kitelepülés során a tornaterem vagy nagyobb belső tér rövid időre futurisztikus, biztonságos mozgásközponttá alakul, ahol a résztvevők csapatokban, 4v4 felállásban mozognak, taktikáznak és együttműködnek.
 
-Csatoltam egy hivatalos tájékoztatót a szervezőktől, amiben minden logisztikai és pénzügyi részlet benne van. Nagyon szuper lenne, ha meg tudnánk valósítani!
+Szponzori támogatás esetén a program a helyi fiatalok számára elérhetőbbé válhat, különösen azoknak, akik önerőből nem tudnának részt venni hasonló élményprogramon. A támogatás egyúttal pozitív helyi PR-megjelenést is biztosíthat az Önök vállalkozása számára.
 
-Üdvözlettel,
-[Diák Neve]</pre>
+Örömmel egyeztetnénk arról, hogy milyen formában tudna a cégük hozzájárulni a program megvalósításához.
+
+Tisztelettel,
+[Név]
+[Intézmény / szervezet]</pre>
                             <button type="button" class="diak-copy" data-copy-target="diak-tanar">
                                 <i class="fa-regular fa-copy"></i>
                                 Üzenet másolása
                             </button>
                         </div>
                         <aside class="diak-aside">
-                            <h4>Tanári tájékoztató (összefoglaló)</h4>
-                            <p><strong>Digitális sportintegráció az iskolában</strong> - a tornaterem, mint a jövő high-tech mozgásközpontja, Spatial Ops MR program.</p>
+                            <h4>Szponzori érvek</h4>
+                            <p><strong>Helyi láthatóság + társadalmi haszon</strong></p>
                             <ul>
-                                <li>Maximális fizikai aktivitás a játék Flow-élménye miatt.</li>
-                                <li>Fejleszti a térbeli tájékozódást, reflexet és a valós idejű döntést.</li>
-                                <li>4v4 felállás: valódi kooperáció, kommunikáció.</li>
-                                <li>100% biztonságos, nincs fizikai lövedék, kosz, kék folt.</li>
-                                <li>Mi visszük a teljes felszerelést, helyszín: min. 100-200 m² tornaterem.</li>
-                                <li>6 órás napi kitelepülés akár 144 diáknak, 300.000 Ft napi alap.</li>
-                                <li>Finanszírozás: alapítvány, önkormányzati keret, helyi CSR szponzor.</li>
+                                <li>Ifjúsági, sport- és egészségfejlesztési cél.</li>
+                                <li>Helyi fiatalok nyári programnaptárának gazdagítása.</li>
+                                <li>Hátrányos helyzetű résztvevők támogatása is kommunikálható.</li>
+                                <li>Pozitív PR iskolai, önkormányzati vagy közösségi felületeken.</li>
                             </ul>
                         </aside>
                     </div>
@@ -575,37 +594,35 @@ Csatoltam egy hivatalos tájékoztatót a szervezőktől, amiben minden logiszti
                 <article id="diak-tabor" class="diak-panel" role="tabpanel" hidden>
                     <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
                         <div>
-                            <h3 class="text-2xl font-extrabold text-slate-900">Rövid diák e-mail sablon</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-500">Táboroztatóknak szóló ajánló, a táborvezető nyelvén.</p>
-                            <pre class="diak-message">Tárgy: Javaslat egy esőnap-biztos tábori programra
+                            <h3 class="text-2xl font-extrabold text-slate-900">Külsős programszervezői megkeresés</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-500">Olyan partnernek küldhető, aki nyári tábort, városi programot, céges vagy ifjúsági eseményt szervez.</p>
+                            <pre class="diak-message">Tárgy: Együttműködési lehetőség nyári és ifjúsági VR programhoz
 
-Kedves [Táborvezető neve]!
+Tisztelt [Programszervező neve]!
 
-Tudom, hogy a nyári táboroknál mindig kérdés, mi legyen a program kánikulában vagy esőben, és a buszoztatás is sok szervezés. Találtam egy megoldást, ami pont ezért működik jól: a Spatial Ops MR program.
+Intézményünk olyan nyári és tanévi programelemeket keres, amelyek a fiatalokat aktív részvételre ösztönzik, ugyanakkor logisztikailag egyszerűen megvalósíthatók. A VR Park Budakeszi Spatial Ops MR kitelepülése ebben különösen ígéretes lehet.
 
-A VR Park Budakeszi csapata kijön a táborba a felszereléssel, és a meglévő, nyáron üresen álló tornatermetekben vagy aulátokban alakítanak ki egy futurisztikus csapatjáték-arénát. Egyszerre 8 fő játszik, rotációval egy teljes turnust le tudnak mozgatni.
+A program egy tornateremben, aulában vagy nagyobb belső térben is lebonyolítható, így nem igényel bonyolult utaztatást. A résztvevők speciális headsetekkel mozognak a térben, csapatokban játszanak, miközben a valós helyszínt digitális akadálypálya és sci-fi környezet egészíti ki.
 
-Esőnapra, kánikulára és hosszabb esőszakaszokra is tökéletes, és a gyerekek imádni fogják, mert közben valóban mozognak, taktikáznak, közös élményt kapnak.
+Úgy gondoljuk, hogy ez a program jól illeszthető lehet nyári tábori napokhoz, diáknapokhoz, városi ifjúsági rendezvényekhez vagy tematikus sport- és technológiai eseményekhez.
 
-Csatoltam egy rövid tájékoztatót a szervezőktől, amiben az árak és a finanszírozási lehetőségek is benne vannak. Szerintem nagyon megérné megpróbálni!
+Kérem, jelezze, lát-e lehetőséget együttműködésre a program megszervezésében, lebonyolításában vagy kommunikációjában.
 
-Üdvözlettel,
-[Diák Neve]</pre>
+Tisztelettel,
+[Név]
+[Intézmény / szervezet]</pre>
                             <button type="button" class="diak-copy" data-copy-target="diak-tabor">
                                 <i class="fa-regular fa-copy"></i>
                                 Üzenet másolása
                             </button>
                         </div>
                         <aside class="diak-aside">
-                            <h4>Tábori tájékoztató (összefoglaló)</h4>
-                            <p><strong>A nyár legjobb esőnap-biztos tábori programja</strong> - auggie-díjas Spatial Ops MR bajnokság kiszállással.</p>
+                            <h4>Programszervezői fókusz</h4>
                             <ul>
-                                <li>Időjárásfüggetlen: üres tornatermetekből vagy aulátokból alakítunk arénát.</li>
-                                <li>Kültéren, erősen árnyékos fák alatt is működik.</li>
-                                <li>Nulla utazási költség: mi visszünk mindent és az animátorokat is.</li>
-                                <li>8 fős rotáció: rövid, pörgős menetek, nincs várakozás.</li>
-                                <li>300.000 Ft napi alap, kb. 3500 Ft / fő / 10 perc.</li>
-                                <li>Finanszírozás: önkormányzati nyári keret, helyi CSR szponzor.</li>
+                                <li>Esőnap- és kánikulabiztos beltéri program.</li>
+                                <li>Erős újdonságérték, könnyen kommunikálható vizuális élmény.</li>
+                                <li>Rotációs lebonyolítással nagyobb csoportok is kezelhetők.</li>
+                                <li>Spatial Ops mellett elvarázsolt Figmin jellegű felfedező élmény is bemutatható.</li>
                             </ul>
                         </aside>
                     </div>
@@ -614,36 +631,35 @@ Csatoltam egy rövid tájékoztatót a szervezőktől, amiben az árak és a fin
                 <article id="diak-szponzor" class="diak-panel" role="tabpanel" hidden>
                     <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
                         <div>
-                            <h3 class="text-2xl font-extrabold text-slate-900">Rövid diák e-mail sablon</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-500">Helyi vállalkozásoknak szóló ajánló, akik szponzorálhatják a programot.</p>
-                            <pre class="diak-message">Tárgy: Javaslat helyi szponzorációra - iskolai / tábori VR program
+                            <h3 class="text-2xl font-extrabold text-slate-900">Önkormányzati támogatási megkeresés</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-500">Pénzbeli hozzájárulás kéréséhez használható, formális és közösségi haszonra építő szöveg.</p>
+                            <pre class="diak-message">Tárgy: Önkormányzati hozzájárulás kérése nyári ifjúsági VR sportprogramhoz
 
-Tisztelt [Cég neve]!
+Tisztelt [Polgármester Asszony/Úr / Bizottság / Kapcsolattartó]!
 
-A [Iskola / Tábor neve] szeretne egy különleges, high-tech sportprogramot szervezni a diákoknak: a Spatial Ops MR programot, amelyet a VR Park Budakeszi tart nálunk, a saját tornatermünkben.
+Intézményünk szeretné a helyi fiatalok nyári programlehetőségeit egy innovatív, mozgásra ösztönző és biztonságos élménnyel bővíteni. Ennek érdekében vizsgáljuk a VR Park Budakeszi Spatial Ops MR programjának kitelepülési lehetőségét.
 
-A program amellett, hogy igazán élménydús, kiemelt lokális PR értéket is ad a támogató cégnek, mert az eseményről beszámolunk a közösségi médiában, az iskolai/tábori kiadványokban, és a résztvevők családjai is látják a támogatást.
+A program különösen alkalmas arra, hogy a nyári időszakban is hasznos és élményszerű tartalommal töltse meg az iskola tornatermét vagy más önkormányzati/intézményi helyszínt. A résztvevők nem passzív digitális tartalmat fogyasztanak, hanem aktívan mozognak, csapatban kommunikálnak, és biztonságos, ellenőrzött környezetben próbálhatnak ki egy modern MR sportélményt.
 
-Különösen fontos, hogy a támogatással a hátrányos helyzetű gyerekek ingyenesen vehetnek részt a programon.
+Az önkormányzati hozzájárulás lehetővé tenné, hogy a program szélesebb körben, akár kedvezményesen vagy ingyenesen legyen elérhető a helyi fiatalok számára.
 
-Csatoltam egy rövid összefoglalót a programról és a lehetséges támogatási formákról. Szívesen egyeztetünk személyesen vagy e-mailben.
+Kérjük, amennyiben van rá lehetőség, szíveskedjenek megvizsgálni a program pénzbeli támogatásának vagy közös szervezésének lehetőségét.
 
-Köszönettel,
-[Diák Neve / Szervező Neve]</pre>
+Tisztelettel,
+[Név]
+[Intézmény / szervezet]</pre>
                             <button type="button" class="diak-copy" data-copy-target="diak-szponzor">
                                 <i class="fa-regular fa-copy"></i>
                                 Üzenet másolása
                             </button>
                         </div>
                         <aside class="diak-aside">
-                            <h4>Szponzori összefoglaló</h4>
-                            <p><strong>Miért éri meg helyi vállalkozásként támogatni?</strong></p>
+                            <h4>Önkormányzati indokok</h4>
                             <ul>
-                                <li>Erős lokális PR: iskolai, tábori és online megjelenés.</li>
-                                <li>Hátrányos helyzetű gyerekek ingyenes részvétele.</li>
-                                <li>Egészség- és ifjúságfejlesztési cél, ami jól kommunikálható.</li>
-                                <li>300.000 Ft napi program ára több forrásból is összehozható.</li>
-                                <li>Mentor- és önkormányzati együttműködésre is nyitottak vagyunk.</li>
+                                <li>Nyári ifjúsági naptár tartalmas bővítése.</li>
+                                <li>Intézményi tornatermek jobb kihasználása.</li>
+                                <li>Egészségmegőrzés, mozgás és digitális kultúra összekapcsolása.</li>
+                                <li>Helyi fiatalok számára hozzáférhető, biztonságos közösségi élmény.</li>
                             </ul>
                         </aside>
                     </div>
@@ -651,21 +667,21 @@ Köszönettel,
             </div>
         </section>
 
-        <section class="mt-8 rounded-[2rem] bg-sky-600 px-6 py-10 text-white shadow-xl shadow-sky-500/20 sm:px-8 lg:px-10">
+        <section class="mt-8 rounded-[2rem] bg-[#282e3c] px-6 py-10 text-white shadow-xl shadow-[#282e3c]/20 sm:px-8 lg:px-10">
             <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
-                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-100">Következő lépés</p>
-                    <h2 class="mt-3 text-3xl font-extrabold sm:text-4xl">Kérj ajánlatot tornatermi vagy kültéri VR programra</h2>
-                    <p class="mt-4 max-w-3xl text-lg leading-8 text-sky-50/90">Iskolai napra, táborba, céges eseményre vagy 1 órás kipróbálásra is tudunk javaslatot adni. Írj, és a tervezett létszám, helyszín és cél alapján visszaküldjük a legjobb megoldást.</p>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#f8c500]">Következő lépés</p>
+                    <h2 class="mt-3 text-3xl font-extrabold sm:text-4xl">Kérjen egyeztetést tornatermi vagy nyári VR programra</h2>
+                    <p class="mt-4 max-w-3xl text-lg leading-8 text-[#eff0f5]">Iskolai, tábori, önkormányzati vagy támogatói együttműködés esetén az űrlapon keresztül tudjuk a leggyorsabban pontosítani a helyszínt, létszámot, időpontot és finanszírozási lehetőséget.</p>
                 </div>
                 <div class="flex flex-col gap-4 sm:flex-row lg:flex-col">
-                    <a href="#also-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-white px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-sky-700 transition hover:bg-slate-100">
+                    <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-[#f8c500] px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-[#282e3c] transition hover:bg-[#e0b200]">
                         <i class="fa-regular fa-pen-to-square"></i>
                         Űrlap kitöltése
                     </a>
-                    <a href="mailto:vr@newtonszimulator.hu?subject=Tornatermi%20VR" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/35 bg-transparent px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-white transition hover:bg-white/10">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        Kapcsolatfelvétel
+                    <a href="#diak-ajanlas" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/35 bg-transparent px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-white transition hover:bg-white/10">
+                        <i class="fa-regular fa-copy"></i>
+                        Mintaszövegek másolása
                     </a>
                 </div>
             </div>
