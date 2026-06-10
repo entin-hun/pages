@@ -240,10 +240,129 @@
         .diak-aside li {
             margin: 6px 0;
         }
+
+        /* ── Mobile responsive overrides (< 900px, full-width) ─────────────── */
+        @media (max-width: 899px) {
+            /* Main: full-width, no max-width constraint, no horizontal padding */
+            main {
+                max-width: none !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                padding-bottom: 1.5rem !important;
+            }
+
+            /* Sections: extend edge-to-edge, drop the boxed card look */
+            main > section {
+                border-radius: 0 !important;
+                border-left: 0 !important;
+                border-right: 0 !important;
+                box-shadow: none !important;
+                padding: 1.25rem 1rem !important;
+                margin-top: 0.5rem !important;
+            }
+
+            /* Hero: flush to top of page, slightly more breathing room inside */
+            main > section.hero-shell {
+                margin-top: 0 !important;
+                padding: 1.5rem 1.25rem !important;
+            }
+
+            /* Final dark CTA: keep visual weight, tighter padding */
+            main > section:last-child {
+                padding: 1.75rem 1.25rem !important;
+            }
+
+            /* Body and headings – reduced sizes */
+            body { font-size: 14px; }
+            h1   { font-size: 1.625rem !important; line-height: 1.2  !important; }
+            .section-title,
+            h2   { font-size: 1.25rem  !important; line-height: 1.3  !important; }
+            h3   { font-size: 1.0625rem !important; line-height: 1.35 !important; }
+
+            /* Paragraphs and muted body text */
+            p,
+            .text-slate-200,
+            .text-slate-300,
+            .text-slate-500,
+            .text-slate-600 {
+                font-size: 0.875rem !important;
+                line-height: 1.55 !important;
+            }
+
+            .text-lg,
+            p.text-lg,
+            .text-lg.leading-8,
+            p.leading-8 {
+                font-size: 0.875rem !important;
+                line-height: 1.55 !important;
+            }
+            .text-xl  { font-size: 1rem     !important; }
+            .text-base{ font-size: 0.875rem !important; }
+
+            /* Eyebrow / uppercase tracking labels */
+            p.text-sm.font-bold.uppercase,
+            .text-sm.font-bold.uppercase {
+                font-size: 0.6875rem !important;
+                letter-spacing: 0.14em !important;
+            }
+
+            /* Hero grids: tighten gaps */
+            .grid.gap-10 { gap: 1.5rem  !important; }
+            .grid.gap-8  { gap: 1.25rem !important; }
+            .grid.gap-5  { gap: 0.875rem !important; }
+            .grid.gap-4  { gap: 0.75rem  !important; }
+
+            /* Hero image height */
+            img.h-\[280px\] { height: 200px !important; }
+
+            /* Glass cards in hero */
+            .glass-card { padding: 0.875rem !important; }
+            .glass-card h3 { font-size: 0.9375rem !important; }
+            .glass-card p  { font-size: 0.75rem   !important; line-height: 1.45 !important; }
+
+            /* Inner hero panel (image card) */
+            main .panel:not(main > section) { padding: 0.75rem !important; }
+
+            /* Diak (tabs + message + aside) */
+            .diak-message {
+                font-size: 0.8125rem !important;
+                padding: 14px !important;
+                line-height: 1.5 !important;
+                border-radius: 1rem !important;
+            }
+            .diak-tab {
+                padding: 8px 12px !important;
+                font-size: 12px !important;
+                gap: 6px !important;
+            }
+            .diak-aside {
+                min-width: 0 !important;
+                padding: 16px 18px !important;
+                border-radius: 1rem !important;
+            }
+            .diak-aside h4 { font-size: 16px !important; }
+            .diak-aside p,
+            .diak-aside ul,
+            .diak-aside li { font-size: 12px !important; line-height: 1.5 !important; }
+            .diak-copy { padding: 9px 14px !important; font-size: 11px !important; }
+
+            /* Fillout embed */
+            .fillout-wrap { height: 380px; }
+
+            /* CTA buttons */
+            a.rounded-2xl { padding: 12px 18px !important; font-size: 12px !important; }
+
+            /* Inner article cards (still keep some rounding inside sections) */
+            main article.rounded-\[1\.5rem\] {
+                border-radius: 0.875rem !important;
+                padding: 1rem !important;
+            }
+            .rounded-3xl { border-radius: 0.875rem !important; }
+        }
     </style>
 </head>
 <body class="antialiased">
-    <main class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+    <main class="mx-auto px-0 pb-12 sm:px-4 sm:pb-16 lg:max-w-7xl lg:px-8">
         <section class="hero-shell mt-6 overflow-hidden rounded-[2rem] px-6 py-10 text-white sm:px-10 lg:px-12 lg:py-14">
             <div class="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
                 <div>
@@ -251,7 +370,7 @@
                         <i class="fa-solid fa-vr-cardboard"></i>
                         VR Park Budakeszi
                     </div>
-                    <h1 class="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+                    <h1 class="mt-5 text-3xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
                         Töltse meg nyáron is élménnyel a <span class="gradient-text">tornatermet és a fiatalok naptárát</span>
                     </h1>
                     <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-200 sm:text-xl">
@@ -337,21 +456,21 @@
                     <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-100 text-sky-600">
                         <i class="fa-solid fa-heart-pulse text-2xl"></i>
                     </div>
-                    <h3 class="mt-5 text-2xl font-bold text-slate-900">Egészségesen aktív</h3>
+                    <h3 class="mt-5 text-xl font-bold text-slate-900">Egészségesen aktív</h3>
                     <p class="mt-3 leading-7 text-slate-600">A résztvevők futnak, fordulnak, fedezékbe mennek, reagálnak. A program sportértékű mozgást ad anélkül, hogy kötelező edzésnek éreznék.</p>
                 </article>
                 <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
                     <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600">
                         <i class="fa-solid fa-brain text-2xl"></i>
                     </div>
-                    <h3 class="mt-5 text-2xl font-bold text-slate-900">Kognitív kihívás</h3>
+                    <h3 class="mt-5 text-xl font-bold text-slate-900">Kognitív kihívás</h3>
                     <p class="mt-3 leading-7 text-slate-600">Térbeli tájékozódás, gyors döntéshozatal, reflexek és valós idejű stratégia. Nem csak mozogni kell, hanem együtt gondolkodni is.</p>
                 </article>
                 <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
                     <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
                         <i class="fa-solid fa-shield-heart text-2xl"></i>
                     </div>
-                    <h3 class="mt-5 text-2xl font-bold text-slate-900">Biztonságos és tiszta</h3>
+                    <h3 class="mt-5 text-xl font-bold text-slate-900">Biztonságos és tiszta</h3>
                     <p class="mt-3 leading-7 text-slate-600">A paintball és lézerharc izgalmát nyújtja fizikai lövedékek, kosz, kék foltok és kellemetlen találatok nélkül.</p>
                 </article>
             </div>
@@ -406,7 +525,7 @@
                         <img src="../media/tornatermi.webp" alt="VR program tornatermi környezetben" class="h-72 w-full object-cover sm:h-80" />
                     </div>
                     <div class="mt-6">
-                        <h3 class="text-2xl font-bold">Így képzelhető el a kitelepülés élménye</h3>
+                        <h3 class="text-xl font-bold">Így képzelhető el a kitelepülés élménye</h3>
                         <p class="mt-3 leading-7 text-slate-300">A beágyazott videó segít elképzelni, mit élhet át egy résztvevő a kitelepülésünkön: a Spatial Ops csapatjáték dinamikáját, illetve a Figmin jellegű, elvarázsolt digitális világban való sétát és felfedezést.</p>
                     </div>
                     <div class="video-frame mt-5 border border-white/10 bg-black">
@@ -445,17 +564,17 @@
             <div class="grid gap-5 lg:grid-cols-3">
                 <article class="rounded-[1.5rem] bg-slate-50 p-6">
                     <p class="text-sm font-bold uppercase tracking-[0.18em] text-sky-600">Iskoláknak</p>
-                    <h3 class="mt-3 text-2xl font-bold text-slate-900">Diáknap, sportnap, alapítványi program</h3>
+                    <h3 class="mt-3 text-xl font-bold text-slate-900">Diáknap, sportnap, alapítványi program</h3>
                     <p class="mt-3 leading-7 text-slate-600">A tornaterem a jövő high-tech mozgásközpontjává válik: a diákok mozognak, taktikáznak, együttműködnek, miközben az élmény modern és motiváló marad.</p>
                 </article>
                 <article class="rounded-[1.5rem] bg-slate-50 p-6">
                     <p class="text-sm font-bold uppercase tracking-[0.18em] text-sky-600">Táboroknak</p>
-                    <h3 class="mt-3 text-2xl font-bold text-slate-900">Esőnap-biztos nyári program</h3>
+                    <h3 class="mt-3 text-xl font-bold text-slate-900">Esőnap-biztos nyári program</h3>
                     <p class="mt-3 leading-7 text-slate-600">Kánikula, zivatar vagy üresen álló tornaterem? A program beltérben is teljes értékű, így a tábor nem az időjáráson múlik.</p>
                 </article>
                 <article class="rounded-[1.5rem] bg-slate-50 p-6">
                     <p class="text-sm font-bold uppercase tracking-[0.18em] text-sky-600">Finanszírozás</p>
-                    <h3 class="mt-3 text-2xl font-bold text-slate-900">Többféle modell</h3>
+                    <h3 class="mt-3 text-xl font-bold text-slate-900">Többféle modell</h3>
                     <p class="mt-3 leading-7 text-slate-600">Alapítványi, önkormányzati vagy szponzori forrásból is finanszírozható. Így a program nemcsak különleges, hanem reálisan megszervezhető is.</p>
                 </article>
             </div>
@@ -556,7 +675,7 @@
                 <article id="diak-tanar" class="diak-panel is-active" role="tabpanel">
                     <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
                         <div>
-                            <h3 class="text-2xl font-extrabold text-slate-900">Szponzori megkeresés</h3>
+                            <h3 class="text-xl font-extrabold text-slate-900">Szponzori megkeresés</h3>
                             <p class="mt-2 text-sm leading-6 text-slate-500">Helyi vállalkozásnak vagy vállalati CSR kapcsolattartónak küldhető, tiszteletteljes szöveg.</p>
                             <pre class="diak-message">Tárgy: Helyi ifjúsági VR sportprogram támogatási lehetősége
 
@@ -594,7 +713,7 @@ Tisztelettel,
                 <article id="diak-tabor" class="diak-panel" role="tabpanel" hidden>
                     <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
                         <div>
-                            <h3 class="text-2xl font-extrabold text-slate-900">Külsős programszervezői megkeresés</h3>
+                            <h3 class="text-xl font-extrabold text-slate-900">Külsős programszervezői megkeresés</h3>
                             <p class="mt-2 text-sm leading-6 text-slate-500">Olyan partnernek küldhető, aki nyári tábort, városi programot, céges vagy ifjúsági eseményt szervez.</p>
                             <pre class="diak-message">Tárgy: Együttműködési lehetőség nyári és ifjúsági VR programhoz
 
@@ -631,7 +750,7 @@ Tisztelettel,
                 <article id="diak-szponzor" class="diak-panel" role="tabpanel" hidden>
                     <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
                         <div>
-                            <h3 class="text-2xl font-extrabold text-slate-900">Önkormányzati támogatási megkeresés</h3>
+                            <h3 class="text-xl font-extrabold text-slate-900">Önkormányzati támogatási megkeresés</h3>
                             <p class="mt-2 text-sm leading-6 text-slate-500">Pénzbeli hozzájárulás kéréséhez használható, formális és közösségi haszonra építő szöveg.</p>
                             <pre class="diak-message">Tárgy: Önkormányzati hozzájárulás kérése nyári ifjúsági VR sportprogramhoz
 
@@ -671,7 +790,7 @@ Tisztelettel,
             <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
                     <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#f8c500]">Következő lépés</p>
-                    <h2 class="mt-3 text-3xl font-extrabold sm:text-4xl">Kérjen egyeztetést tornatermi vagy nyári VR programra</h2>
+                    <h2 class="mt-3 text-xl font-extrabold sm:text-3xl lg:text-4xl">Kérjen egyeztetést tornatermi vagy nyári VR programra</h2>
                     <p class="mt-4 max-w-3xl text-lg leading-8 text-[#eff0f5]">Iskolai, tábori, önkormányzati vagy támogatói együttműködés esetén az űrlapon keresztül tudjuk a leggyorsabban pontosítani a helyszínt, létszámot, időpontot és finanszírozási lehetőséget.</p>
                 </div>
                 <div class="flex flex-col gap-4 sm:flex-row lg:flex-col">
