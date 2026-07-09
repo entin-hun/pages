@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="hu" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Park Budakeszi – Nyílt jelenetek Spatial Ops / Figmin / Photon alapokon (Quest 3)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --deep: #282e3c;
+            --deep-2: #5b606d;
+            --ink: #282e3c;
+            --muted: #5b606d;
+            --line: #d8dae2;
+            --panel: rgba(255, 255, 255, 0.92);
+            --panel-soft: #eff0f5;
+            --accent: #f8c500;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(1100px 700px at 100% 0%, rgba(248, 197, 0, 0.18), transparent 58%),
+                radial-gradient(900px 600px at 0% 0%, rgba(91, 96, 109, 0.12), transparent 60%),
+                #eff0f5;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
+
+        .hero-shell {
+            background:
+                linear-gradient(140deg, rgba(40, 46, 60, 0.98), rgba(91, 96, 109, 0.92)),
+                radial-gradient(circle at top right, rgba(248, 197, 0, 0.2), transparent 34%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #f8c500, #ffe680);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(248, 197, 0, 0.22);
+            box-shadow: 0 20px 60px rgba(40, 46, 60, 0.22);
+            backdrop-filter: blur(14px);
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            box-shadow: 0 18px 40px rgba(16, 41, 63, 0.08);
+        }
+
+        .section-title { letter-spacing: -0.03em; }
+
+        .text-sky-600, .text-sky-700, .text-indigo-600, .text-emerald-600 { color: #5b606d !important; }
+        .text-sky-300, .text-cyan-300, .text-emerald-300 { color: #f8c500 !important; }
+        .bg-sky-500 { background-color: #f8c500 !important; color: #282e3c !important; }
+        .hover\:bg-sky-400:hover { background-color: #e0b200 !important; }
+        .bg-sky-100, .bg-indigo-100, .bg-emerald-100 { background-color: rgba(248, 197, 0, 0.16) !important; }
+        .bg-slate-900, .bg-slate-950\/95 { background-color: #282e3c !important; }
+
+        .fillout-wrap { width: 100%; height: 500px; }
+
+        /* Mobile overrides (mirror vr_park.html) */
+        @media (max-width: 899px) {
+            main {
+                max-width: none !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                padding-bottom: 1.5rem !important;
+            }
+            main > section {
+                border-radius: 0 !important;
+                border-left: 0 !important;
+                border-right: 0 !important;
+                box-shadow: none !important;
+                padding: 1.25rem 1rem !important;
+                margin-top: 0.5rem !important;
+            }
+            main > section.hero-shell {
+                margin-top: 0 !important;
+                padding: 1.5rem 1.25rem !important;
+            }
+            main > section:last-child {
+                padding: 1.75rem 1.25rem !important;
+            }
+            body { font-size: 14px; }
+            h1   { font-size: 1.625rem !important; line-height: 1.2  !important; }
+            .section-title, h2 { font-size: 1.25rem  !important; line-height: 1.3  !important; }
+            h3   { font-size: 1.0625rem !important; line-height: 1.35 !important; }
+            p, .text-slate-200, .text-slate-300, .text-slate-500, .text-slate-600 {
+                font-size: 0.875rem !important;
+                line-height: 1.55 !important;
+            }
+            .text-lg, p.text-lg, .text-lg.leading-8, p.leading-8 {
+                font-size: 0.875rem !important;
+                line-height: 1.55 !important;
+            }
+            .text-xl  { font-size: 1rem     !important; }
+            .text-base{ font-size: 0.875rem !important; }
+            p.text-sm.font-bold.uppercase, .text-sm.font-bold.uppercase {
+                font-size: 0.6875rem !important;
+                letter-spacing: 0.14em !important;
+            }
+            .grid.gap-10 { gap: 1.5rem  !important; }
+            .grid.gap-8  { gap: 1.25rem !important; }
+            .grid.gap-5  { gap: 0.875rem !important; }
+            .grid.gap-4  { gap: 0.75rem  !important; }
+            img.h-\[280px\] { height: 200px !important; }
+            .glass-card { padding: 0.875rem !important; }
+            .glass-card h3 { font-size: 0.9375rem !important; }
+            .glass-card p  { font-size: 0.75rem   !important; line-height: 1.45 !important; }
+            main .panel:not(main > section) { padding: 0.75rem !important; }
+            .fillout-wrap { height: 380px; }
+            a.rounded-2xl { padding: 12px 18px !important; font-size: 12px !important; }
+            main article.rounded-\[1\.5rem\] {
+                border-radius: 0.875rem !important;
+                padding: 1rem !important;
+            }
+            .rounded-3xl { border-radius: 0.875rem !important; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <main class="mx-auto px-0 pb-12 sm:px-4 sm:pb-16 lg:max-w-7xl lg:px-8">
+
+        <!-- HERO -->
+        <section class="hero-shell mt-6 overflow-hidden rounded-[2rem] px-6 py-10 text-white sm:px-10 lg:px-12 lg:py-14">
+            <div class="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+                <div>
+                    <div class="inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-sky-200">
+                        <i class="fa-solid fa-cube"></i>
+                        VR Park Budakeszi – Open
+                    </div>
+                    <h1 class="mt-5 text-3xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+                        A nyílt <span class="gradient-text">Quest 3 jelenetek</span> játszótere
+                    </h1>
+                    <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-200 sm:text-xl">
+                        A VR Park Budakeszi nem egy zárt élménycsomag: a futó programjaink a Spatial Ops kevert valóság (MR) csapatjátékra épülnek, a nyílt jeleneteket pedig Figmin és Photon Engine alapokon, Meta Quest 3 headsetre tervezzük. Így a helyszín nem csak egy nyári program, hanem egy könnyen bővíthető, testre szabható platform.
+                    </p>
+                    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+                        <article class="glass-card rounded-3xl p-5">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-400/15 text-sky-300">
+                                <i class="fa-solid fa-vr-cardboard text-xl"></i>
+                            </div>
+                            <h3 class="mt-4 text-lg font-bold">Spatial Ops MR</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-200">4v4 csapatjáték, ahol a tornaterem falai digitális akadálypályává alakulnak.</p>
+                        </article>
+                        <article class="glass-card rounded-3xl p-5">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-400/15 text-cyan-300">
+                                <i class="fa-solid fa-hat-wizard text-xl"></i>
+                            </div>
+                            <h3 class="mt-4 text-lg font-bold">Figmin jelenetek</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-200">Elvarázsolt, felfedezős tájak, amelyek vizuálisan és hangulatban is eltérnek egymástól.</p>
+                        </article>
+                        <article class="glass-card rounded-3xl p-5">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
+                                <i class="fa-solid fa-bolt text-xl"></i>
+                            </div>
+                            <h3 class="mt-4 text-lg font-bold">Photon Engine</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-200">Egyedi, Quest 3-ra optimalizált többjátékos pályák, ha van rá keret.</p>
+                        </article>
+                    </div>
+                    <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+                        <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white shadow-xl shadow-sky-500/30 transition hover:bg-sky-400">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            Kapcsolatfelvétel
+                        </a>
+                        <a href="#jelenetek" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-slate-100 transition hover:bg-white/10">
+                            <i class="fa-solid fa-layer-group"></i>
+                            Jelenet példák
+                        </a>
+                    </div>
+                </div>
+                <div class="panel rounded-[1.75rem] p-4 sm:p-5">
+                    <img src="../media/tornatermi.webp" alt="Tornatermi VR programhelyszín" class="h-[280px] w-full rounded-[1.4rem] object-cover sm:h-[380px] lg:h-[480px]" />
+                    <div class="mt-4 rounded-3xl bg-slate-50 p-5">
+                        <div class="flex items-start gap-4">
+                            <div class="mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-100 text-sky-600">
+                                <i class="fa-solid fa-diagram-project text-xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-extrabold text-slate-900">Három réteg, egy rendszer</h2>
+                                <p class="mt-2 text-sm leading-6 text-slate-600">A futó program a Spatial Ops MR, a vizuális világot Figmin építi, az egyedi Quest 3 pályák pedig Photon Engine alapúak.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KAPCSOLAT / FILLOUT -->
+        <section id="cel-urlap" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Kapcsolatfelvétel</p>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Kérjen egyeztetést a nyílt Quest 3 jelenetekre</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Az űrlapon megadhatja, hogy iskolai, tábori, önkormányzati vagy külsős programszervezői együttműködésről lenne szó. Így célzottan tudunk visszajelezni helyszín, létszám, időpont és a kiválasztott jelenet típusa alapján.</p>
+                </div>
+                <div>
+                    <div class="fillout-wrap" data-fillout-id="cdLvWabUhKus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ELŐNYÖK -->
+        <section id="elonyok" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="max-w-3xl">
+                <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Miért nyílt?</p>
+                <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Mert így a program az intézmény igényeihez igazítható</h2>
+                <p class="mt-4 text-lg leading-8 text-slate-600">A zárt, „egy méret mindenkire” típusú VR csomagokkal szemben a Spatial Ops + Figmin + Photon kombináció lehetővé teszi, hogy a jelenetek, a nehézség, a tempó és a téma is a célcsoporthoz illeszkedjen.</p>
+            </div>
+            <div class="mt-8 grid gap-5 lg:grid-cols-3">
+                <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-100 text-sky-600">
+                        <i class="fa-solid fa-sliders text-2xl"></i>
+                    </div>
+                    <h3 class="mt-5 text-xl font-bold text-slate-900">Testre szabható</h3>
+                    <p class="mt-3 leading-7 text-slate-600">A jelenetek témája, nehézsége és tempója a csoporthoz igazítható: gyerekeknek, családi napra, céges csapatépítőre vagy sportnapra más-más verzióval.</p>
+                </article>
+                <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600">
+                        <i class="fa-solid fa-cubes-stacked text-2xl"></i>
+                    </div>
+                    <h3 class="mt-5 text-xl font-bold text-slate-900">Könnyen bővíthető</h3>
+                    <p class="mt-3 leading-7 text-slate-600">A Figmin és Photon Engine alapú jelenetek cserélhetők, frissíthetők. Nem ragadunk le egyetlen lezárt csomagnál.</p>
+                </article>
+                <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
+                        <i class="fa-solid fa-headset text-2xl"></i>
+                    </div>
+                    <h3 class="mt-5 text-xl font-bold text-slate-900">Quest 3-ra optimalizálva</h3>
+                    <p class="mt-3 leading-7 text-slate-600">A jelenetek a Meta Quest 3 hardverére vannak hangolva: kényelmes, biztonságos, és önállóan, PC nélkül is futtatható.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- JELENETEK / FIGMIN + PHOTON -->
+        <section id="jelenetek" class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="max-w-3xl">
+                <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Jelenet példák</p>
+                <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">Három jelenet-típus, amit a helyszínre vihetünk</h2>
+                <p class="mt-4 text-lg leading-8 text-slate-600">Ezek a jelenetek a Figmin és Photon Engine eszköztárával, Meta Quest 3 headsetre készülnek. A futó programunk a Spatial Ops kevert valóság (MR) csapatjáték, a nyílt világok vizuális és hangulati hátterét a Figmin, az egyedi, többjátékos Quest 3 pályákat pedig Photon Engine szolgálja ki – ha van rá keret.</p>
+            </div>
+
+            <div class="mt-8 grid gap-5 lg:grid-cols-3">
+                <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                    <div class="flex items-center gap-3">
+                        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-yellow-400 text-slate-900 font-extrabold">01</span>
+                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-sky-600">Figmin</p>
+                    </div>
+                    <h3 class="mt-4 text-xl font-bold text-slate-900">Felfedező táj – „Elvarázsolt liget”</h3>
+                    <p class="mt-3 leading-7 text-slate-600">Lágy, mesés hangulatú, kültéri ihletésű táj: lombsátor, rejtett ösvények, fényjátékok. Kiváló családi napra, ifjúsági programra vagy hangulatalapú ráhangolódásnak.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> Meta Quest 3 standalone futtatás.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> Alacsony mozgásigény, inkább rácsodálkozás.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> Kb. 8–15 perces sétálós élmény.</li>
+                    </ul>
+                </article>
+                <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                    <div class="flex items-center gap-3">
+                        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-yellow-400 text-slate-900 font-extrabold">02</span>
+                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-sky-600">Figmin + Spatial Ops</p>
+                    </div>
+                    <h3 class="mt-4 text-xl font-bold text-slate-900">Csapat-aréna – „Pálya a lombok alatt”</h3>
+                    <p class="mt-3 leading-7 text-slate-600">A Figmin hangulati világa köré szerveződő, 4v4 felállású, kevert valóság csapatjáték. A liget digitális akadálypályává alakul, a futás, fedezék és kommunikáció áll a középpontban.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> 4v4 felállás, rotációban nagyobb csoport is kiszolgálható.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> Tornaterem, aula, 100–200 m²-es beltéri tér.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> Alapélmény, ami a futó programunkat adja.</li>
+                    </ul>
+                </article>
+                <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                    <div class="flex items-center gap-3">
+                        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-yellow-400 text-slate-900 font-extrabold">03</span>
+                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-sky-600">Photon Engine (Quest 3)</p>
+                    </div>
+                    <h3 class="mt-4 text-xl font-bold text-slate-900">Egyedi többjátékos pálya – „Opcionális, ha van rá keret”</h3>
+                    <p class="mt-3 leading-7 text-slate-600">Photon Engine alapú, Quest 3-ra optimalizált, testre szabott pálya. Saját téma, saját logika, akár szponzori brandfelület is. Csak akkor kerül elő, ha a projektbe van rá büdzsé.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> Photon Fusion / Quantum alapú többjátékos.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> Teljesen egyedi vizuális és játékmenet.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-yellow-500"></i> Ajánlott nagyobb CSR / céges partnerségnél.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- BIOSIGNÁL (opcionális) -->
+        <section class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="grid gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Opcionális plusz réteg</p>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">HRV és EEG mérés a játék mellé (Muse 3 / OpenBCI headband)</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Ha a projektben van rá keret és igény, a játék mellé bioszignál-monitorozás is kapcsolható. A Muse 3 fejpánt az EEG-t és a pulzust, az OpenBCI headband pedig részletesebb agyi jeleket rögzít – kutatási, edukációs vagy edzéscélú felhasználásra.</p>
+                    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                        <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
+                            <h3 class="text-lg font-bold text-slate-900">Muse 3</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-600">Fogyasztói kategóriás EEG + PPG. Egyszerűen használható, jó belépő szint a HRV / relaxáció témakörébe.</p>
+                        </div>
+                        <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
+                            <h3 class="text-lg font-bold text-slate-900">OpenBCI headband</h3>
+                            <p class="mt-2 text-sm leading-6 text-slate-600">Részletesebb, kutatás-kompatibilis EEG. Kutatási együttműködéseknél, edukációs projekteknél jöhet szóba.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-[1.75rem] border border-slate-200 bg-slate-900 p-6 text-white sm:p-8">
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-300">Hogyan kapcsolódik?</p>
+                    <h3 class="mt-3 text-xl font-extrabold">Élő jelek → játékbeli visszacsatolás</h3>
+                    <p class="mt-3 text-sm leading-6 text-slate-300">A bioszignál-adatok (pulzus, HRV, EEG sávok) opcionálisan a játék vizuális vagy auditív visszacsatolásába köthetők: például a pulzus emelkedésével a játék színvilága vagy a pálya nehézsége finoman változhat. Erősen ajánlott kutatási / edukációs partnerek bevonása az értelmezéshez.</p>
+                    <ul class="mt-5 space-y-2 text-sm text-slate-200">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-info mt-1 text-sky-300"></i> Nem orvosi diagnosztikai eszköz.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-info mt-1 text-sky-300"></i> Adatkezelés: csak a résztvevők hozzájárulásával, GDPR-kompatibilisen.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-info mt-1 text-sky-300"></i> Ajánlott: iskolai / egyetemi partner a kiértékeléshez.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUDAKESZI KIÁLLÍTÁS -->
+        <section class="panel mt-8 rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Előzetes kipróbálás</p>
+                    <h2 class="section-title mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">A döntés előtt nálunk is kipróbálható 1-1 órára</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600">Ha a döntéshozó vagy a programszervező előbb személyesen is megnézné az élményt, Budakeszi szélén időpontot tudunk biztosítani. A kültéri kipróbálás nyáron is kellemes, és megmutatja, milyen élménnyel tölthető meg a helyi fiatalok naptára.</p>
+                </div>
+                <div class="flex flex-col gap-4 sm:flex-row lg:flex-col">
+                    <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-sky-500 px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-white transition hover:bg-sky-400">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        Kérek konkrét ajánlatot
+                    </a>
+                    <a href="#jelenetek" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-slate-700 transition hover:bg-slate-50">
+                        <i class="fa-solid fa-layer-group"></i>
+                        Jelenetek áttekintése
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- VÉGSŐ CTA -->
+        <section class="mt-8 rounded-[2rem] bg-[#282e3c] px-6 py-10 text-white shadow-xl shadow-[#282e3c]/20 sm:px-8 lg:px-10">
+            <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#f8c500]">Következő lépés</p>
+                    <h2 class="mt-3 text-xl font-extrabold sm:text-3xl lg:text-4xl">Kérjen egyeztetést a nyílt Quest 3 jelenetekre</h2>
+                    <p class="mt-4 max-w-3xl text-lg leading-8 text-[#eff0f5]">Iskolai, tábori, önkormányzati vagy támogatói együttműködés esetén az űrlapon keresztül tudjuk a leggyorsabban pontosítani a helyszínt, létszámot, időpontot és a választott jelenet típusát.</p>
+                </div>
+                <div class="flex flex-col gap-4 sm:flex-row lg:flex-col">
+                    <a href="#cel-urlap" class="inline-flex items-center justify-center gap-3 rounded-2xl bg-[#f8c500] px-7 py-4 text-center text-sm font-extrabold uppercase tracking-[0.14em] text-[#282e3c] transition hover:bg-[#e0b200]">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        Űrlap kitöltése
+                    </a>
+                    <a href="#jelenetek" class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/35 bg-transparent px-7 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-white transition hover:bg-white/10">
+                        <i class="fa-solid fa-layer-group"></i>
+                        Jelenetek böngészése
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://server.fillout.com/embed/v1/"></script>
+</body>
+</html>
