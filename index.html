@@ -199,31 +199,31 @@
     </div>
   </section>
 
-  <!-- Category-Based Routing -->
+  <!-- Smart Request Routing -->
   <section class="section section--alt" id="routing">
     <div class="section__header">
-      <span class="section__eyebrow">Smart Request Routing</span>
-      <h2 class="section__title">One key. Every request. Solved.</h2>
+      <span class="section__eyebrow">Federated Resource Discovery</span>
+      <h2 class="section__title">Discover. Route. Compose.</h2>
       <p class="section__lead">
-        Most users have <strong>one LLM key</strong> in their vault — maybe Anthropic,
-        maybe OpenAI, maybe a local Ollama instance, maybe routed through OpenRouter.
-        The question isn't "which provider?" — it's <em>"how do I make this request work
-        with the key I already have?"</em>
+        Inspired by <a href="https://agenticresourcediscovery.org/" target="_blank" rel="noopener">Agentic Resource Discovery (ARD)</a> —
+        SwarmKey treats every API key as a <strong>discoverable resource</strong>, not just a credential.
+        Each key publishes a <em>capability card</em>: what it does, its endpoints, its parameters, its constraints.
+        The router matches request intent to capabilities — across AI, maps, speech, data, and beyond.
       </p>
     </div>
 
     <div class="routing-explain">
       <div class="routing-explain__text">
         <p>
-          SwarmKey's routing layer understands your key's <strong>capabilities</strong>,
-          <strong>model lineup</strong>, and <strong>pricing tiers</strong>. When a request comes in,
-          it doesn't ask "which provider?" — it asks "what does this request need?" and figures out
-          how to fulfill it with what you have.
+          A website doesn't hardcode "use OpenAI." It declares: <code>"I need an AI text completion"</code>.
+          The router scans your vault's resource cards, finds the matching capability, checks parameters
+          (model, region, cost), and routes there. Same flow for Mapbox geocoding, Soniox speech-to-text,
+          or any other service — all discovered dynamically from your vault.
         </p>
         <p>
-          Need maps? The router knows you don't have a Maps key, so it either uses a built-in
-          fallback, prompts you to add one, or delegates to a compatible service.
-          Need speech-to-text? Same logic. The vault holds your keys; the router bridges gaps.
+          This is <strong>federated discovery</strong>: each resource describes itself once (on Swarm, via ACT).
+          Any agent runtime can query the vault, build a policy-filtered toolbox, and compose requests.
+          No central registry, no per-collection re-registration. Just self-describing resources.
         </p>
       </div>
     </div>
@@ -231,53 +231,63 @@
     <div class="routing-layout">
       <!-- Interactive router -->
       <div class="routing-demo">
-        <h3>What kind of request is this?</h3>
-        <p class="routing-demo__hint">Your vault has <strong>Anthropic Claude</strong> as the LLM key. Watch how the router adapts.</p>
+        <h3>What does this website need?</h3>
+        <p class="routing-demo__hint">Your vault holds these resources. Watch how the router discovers and routes.</p>
         <div class="routing-demo__buttons">
-          <button class="routing-btn is-active" data-request="write-code">💻 Write code</button>
-          <button class="routing-btn" data-request="summarize">📝 Summarize text</button>
-          <button class="routing-btn" data-request="analyze-image">🖼️ Analyze image</button>
-          <button class="routing-btn" data-request="translate">🌍 Translate</button>
+          <button class="routing-btn is-active" data-request="ai-text">📝 AI text completion</button>
+          <button class="routing-btn" data-request="ai-vision">🖼️ AI image understanding</button>
+          <button class="routing-btn" data-request="geocode">🗺️ Geocode address</button>
+          <button class="routing-btn" data-request="reverse-geocode">📍 Reverse geocode</button>
           <button class="routing-btn" data-request="speech-to-text">🎤 Speech → text</button>
-          <button class="routing-btn" data-request="maps">🗺️ Find nearby restaurants</button>
-          <button class="routing-btn" data-request="generate-image">🎨 Generate image</button>
-          <button class="routing-btn" data-request="extract-data">📊 Extract table from PDF</button>
+          <button class="routing-btn" data-request="text-to-speech">🔊 Text → speech</button>
+          <button class="routing-btn" data-request="embeddings">🔢 Generate embeddings</button>
+          <button class="routing-btn" data-request="web-search">🌐 Web search</button>
+          <button class="routing-btn" data-request="email-send">✉️ Send email</button>
+          <button class="routing-btn" data-request="pdf-parse">📄 Parse PDF table</button>
         </div>
         <div class="routing-demo__result" id="routingResult">
           <!-- Filled by JS -->
         </div>
       </div>
 
-      <!-- Policy manifest -->
+      <!-- Resource catalog -->
       <div class="routing-code">
         <div class="routing-code__header">
           <span class="routing-code__dot" style="background:#ff5f56"></span>
           <span class="routing-code__dot" style="background:#ffbd2e"></span>
           <span class="routing-code__dot" style="background:#27c93f"></span>
-          <span class="routing-code__name">manifest.json</span>
+          <span class="routing-code__name">ai-catalog.json</span>
         </div>
         <pre class="routing-code__block"><code id="policyCode"></code></pre>
       </div>
     </div>
 
     <div class="routing-why">
-      <h3>Why this matters</h3>
+      <h3>Why federated discovery beats hardcoded routing</h3>
       <div class="routing-why__grid">
         <div class="routing-why__card">
-          <h4>🔑 One key, many tasks</h4>
-          <p>You only need to manage one LLM key. The router picks the cheapest model for simple tasks and escalates to the best model for hard ones — all from the same key.</p>
+          <h4>🏷️ Capability-based, not provider-based</h4>
+          <p>Websites declare <em>what</em> they need ("geocode this address"), not <em>who</em> provides it. The router matches capabilities to your vault's resources. Swap Mapbox for Google? Update one card, everything adapts.</p>
         </div>
         <div class="routing-why__card">
-          <h4>🧩 Gap-filling</h4>
-          <p>Your vault has Claude but not Mapbox. The router detects the gap and either uses a workaround (Claude can describe locations), prompts you to add a Maps key, or falls back gracefully.</p>
+          <h4>📋 Self-describing resources</h4>
+          <p>Each key publishes a capability card: endpoints, parameters, supported models, cost, region. Like ARD's <code>ai-catalog.json</code> but stored on Swarm with ACT encryption. No central gatekeeper.</p>
         </div>
         <div class="routing-why__card">
-          <h4>🔄 Provider-agnostic</h4>
-          <p>Whether your key is Anthropic, OpenAI, local Ollama, or OpenRouter — the routing logic is identical. Change your key, the manifest updates, everything else stays the same.</p>
+          <h4>🔀 MCP-native routing</h4>
+          <p>Resources can expose MCP servers alongside REST APIs. The router detects MCP endpoints and connects via JSON-RPC automatically. One manifest, multiple transport protocols.</p>
         </div>
         <div class="routing-why__card">
-          <h4>👥 Real-world stacks</h4>
-          <p>A typical vault might hold: 1 LLM key + Mapbox + Soniox (STT) + Alibaba Cloud (TTS) + Google Vision. The router knows each key's specialty and calls the right one for each task.</p>
+          <h4>🧩 Gap detection &amp; fallbacks</h4>
+          <p>No Maps key? The router knows and either suggests adding one, uses a workaround (Claude can describe locations), or returns a structured error the UI can handle gracefully.</p>
+        </div>
+        <div class="routing-why__card">
+          <h4>🏛️ Policy-filtered toolbox</h4>
+          <p>Like ARD discovery services, SwarmKey builds a policy-filtered toolbox: approved resources only, cost caps, region constraints, compliance rules. The client's tool search ranks over this curated set.</p>
+        </div>
+        <div class="routing-why__card">
+          <h4>🌐 Works with any stack</h4>
+          <p>LLM keys (Anthropic, OpenAI, Ollama, OpenRouter), Maps (Mapbox, Google), STT (Soniox, Alibaba), TTS, email (SendGrid, AWS SES), search (Brave, SerpAPI) — all described uniformly, routed identically.</p>
         </div>
       </div>
     </div>
@@ -388,17 +398,31 @@
           </tr>
           <tr>
             <td>Smart routing</td>
-            <td class="compare-table__highlight">Policy manifest (category-based)</td>
+            <td class="compare-table__highlight">Capability-based (ARD-style)</td>
             <td>Limited</td>
             <td>Policy engine</td>
             <td>Manual</td>
           </tr>
           <tr>
             <td>Tool registry</td>
-            <td class="compare-table__highlight">P2P, content-addressed</td>
+            <td class="compare-table__highlight">Federated, self-describing cards</td>
             <td>Centralized catalog</td>
             <td>Centralized</td>
             <td>None</td>
+          </tr>
+          <tr>
+            <td>Resource discovery</td>
+            <td class="compare-table__highlight">Decoupled from execution (ARD spec)</td>
+            <td>Built-in search</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>MCP support</td>
+            <td class="compare-table__highlight">Native JSON-RPC routing</td>
+            <td>Partial</td>
+            <td>No</td>
+            <td>No</td>
           </tr>
           <tr>
             <td>Vendor lock-in</td>
