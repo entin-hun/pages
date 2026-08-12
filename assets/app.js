@@ -619,6 +619,23 @@ document.head.appendChild(style);
 
 policyCode.innerHTML = highlightJson(policyManifest);
 
+// ===== Carousel Navigation =====
+const carouselTrack = document.getElementById('carouselTrack');
+const carouselPrev = document.getElementById('carouselPrev');
+const carouselNext = document.getElementById('carouselNext');
+
+if (carouselTrack && carouselPrev && carouselNext) {
+  const scrollAmount = 364; // card width + gap
+  
+  carouselPrev.addEventListener('click', () => {
+    carouselTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+  
+  carouselNext.addEventListener('click', () => {
+    carouselTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+}
+
 // ===== Smooth scroll for nav links =====
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', (e) => {

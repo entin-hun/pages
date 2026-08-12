@@ -290,56 +290,187 @@
     </div>
   </section>
 
-  <!-- Live ARD Reference Implementations -->
+  <!-- ARD Provider Catalog Carousel -->
   <section class="section" id="ardref">
     <div class="section__header">
-      <span class="section__eyebrow">Real Implementations</span>
-      <h2 class="section__title">ARD discovery is running in production today</h2>
+      <span class="section__eyebrow">Provider Catalog</span>
+      <h2 class="section__title">Biggest ARD-compliant registries</h2>
       <p class="section__lead">
-        SwarmKey's router speaks the open <a href="https://agenticresourcediscovery.org/spec/" target="_blank" rel="noopener">ARD protocol</a> — which means it can query <strong>live</strong> federated registries right now. These reference implementations all serve the same <code>application/java-card</code> resource model SwarmKey uses:
+        These production registries serve thousands of discoverable resources — MCP servers, Skills, APIs, and agents — all queryable via the open <a href="https://agenticresourcediscovery.org/spec/" target="_blank" rel="noopener">ARD protocol</a>. Scroll to explore what each offers.
       </p>
     </div>
-    <div class="registry-layout">
-      <div class="registry-features">
-        <div class="registry-feature">
-          <h3>🐙 GitHub Agent Finder</h3>
-          <p>Hosted discovery service at <code>https://agentfinder.github.com/api/v1</code>. Search Skills, tools, and MCP servers, then install ranked matches into your agent. Reachable via <code>POST /search</code> or the MCP endpoint at <code>/api/v1/mcp</code>.</p>
+
+    <div class="carousel">
+      <button class="carousel__nav carousel__nav--prev" id="carouselPrev" aria-label="Previous">‹</button>
+      <div class="carousel__track" id="carouselTrack">
+
+        <!-- GitHub Agent Finder -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">🐙</span>
+            <div>
+              <h3 class="carousel__card-title">GitHub Agent Finder</h3>
+              <span class="carousel__card-badge">agentfinder.github.com</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Discovery service for Skills, tools, and MCP servers across GitHub's ecosystem. Integrated directly into GitHub Copilot.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">POST</span>
+              <code>/api/v1/search</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">MCP</span>
+              <code>/api/v1/mcp</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">GET</span>
+              <code>/api/v1/agents</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">Skills</span>
+            <span class="carousel__tag">MCP Servers</span>
+            <span class="carousel__tag">Tools</span>
+          </div>
         </div>
-        <div class="registry-feature">
-          <h3>🤗 Hugging Face Discover</h3>
-          <p>Built into the <code>hf</code> CLI. Search thousands of Skills, ML apps, and MCP servers — on HF, or any other ARD-compliant service. REST API at <code>huggingface-hf-discover.hf.space/search</code>, MCP at <code>/mcp</code>.</p>
+
+        <!-- Hugging Face Discover -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">🤗</span>
+            <div>
+              <h3 class="carousel__card-title">Hugging Face Discover</h3>
+              <span class="carousel__card-badge">huggingface-hf-discover.hf.space</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Search thousands of Skills, ML Applications, and MCP Servers on Hugging Face — or any ARD-compliant service. Built into the <code>hf</code> CLI.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">POST</span>
+              <code>/search</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">MCP</span>
+              <code>/mcp</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">CLI</span>
+              <code>hf discover search "..."</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">ML Models</span>
+            <span class="carousel__tag">MCP Servers</span>
+            <span class="carousel__tag">Skills</span>
+            <span class="carousel__tag">Spaces</span>
+          </div>
         </div>
-        <div class="registry-feature">
-          <h3>🧭 Ora Directory</h3>
-          <p>Agent-readiness directory at <code>ora.ai</code>. Every product gets a signed trust attestation scorecard (Ed25519 JWS), plus x402/MPP payable endpoints. Full <code>POST /search</code>, <code>POST /explore</code>, <code>GET /agents</code> surface.</p>
+
+        <!-- Ora Directory -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">🧭</span>
+            <div>
+              <h3 class="carousel__card-title">Ora Directory</h3>
+              <span class="carousel__card-badge">ora.ai/api/ard</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Agent-readiness directory with signed trust scorecards (Ed25519 JWS). Scans products for agent-readiness via live agent runs. Includes x402/MPP payable endpoints.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">POST</span>
+              <code>/api/ard/search</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">POST</span>
+              <code>/api/ard/explore</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">GET</span>
+              <code>/api/ard/agents</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">MCP</span>
+              <code>/api/mcp</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">APIs</span>
+            <span class="carousel__tag">MCP Servers</span>
+            <span class="carousel__tag">Scorecards</span>
+            <span class="carousel__tag">x402 Pay</span>
+          </div>
         </div>
-        <div class="registry-feature">
-          <h3>🔌 Cisco AI Catalog</h3>
-          <p>AGNTCY-based catalog at <code>ai-catalog.outshift.io</code>. Pull the manifest at <code>/.well-known/ai-catalog.json</code>, discover A2A and MCP cards, and verify publisher identity via trust manifests (SPIFFE/DID).</p>
+
+        <!-- Cisco AI Catalog -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">🔌</span>
+            <div>
+              <h3 class="carousel__card-title">Cisco AI Catalog</h3>
+              <span class="carousel__card-badge">ai-catalog.outshift.io</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">AGNTCY Agent Directory reference implementation. Enterprise-grade catalog with trust manifests, SPIFFE/DID identities, and A2A agent cards.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">GET</span>
+              <code>/.well-known/ai-catalog.json</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">GET</span>
+              <code>/v1/agents</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">POST</span>
+              <code>/v1/search</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">A2A Agents</span>
+            <span class="carousel__tag">MCP Servers</span>
+            <span class="carousel__tag">Trust Manifests</span>
+          </div>
         </div>
+
+        <!-- AGNTCY Directory -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">🌐</span>
+            <div>
+              <h3 class="carousel__card-title">AGNTCY Directory</h3>
+              <span class="carousel__card-badge">dir.agntcy.org</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Open-source agent directory by Cisco. Federated, decentralized catalog supporting multiple agent card types and cross-registry discovery.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">GET</span>
+              <code>/.well-known/ai-catalog.json</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">POST</span>
+              <code>/v1/search</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">GET</span>
+              <code>/v1/agents</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">Federated</span>
+            <span class="carousel__tag">Open Source</span>
+            <span class="carousel__tag">A2A</span>
+          </div>
+        </div>
+
       </div>
-      <div class="registry-features">
-        <div class="registry-feature">
-          <h3>🛠️ Try it yourself</h3>
-          <pre class="walkthrough__code" style="margin:0;font-size:0.72rem;"><code># GitHub Agent Finder
-curl -sS -X POST https://agentfinder.github.com/api/v1/search \
-  -H 'content-type: application/json' \
-  -d '{"query":{"text":"geocode address"}}'
+      <button class="carousel__nav carousel__nav--next" id="carouselNext" aria-label="Next">›</button>
+    </div>
 
-# Hugging Face Discover CLI
-hf discover search "Generate an image" --json --kind mcp
-
-# Ora Directory — find MCP servers
-curl -sS -G https://ora.ai/api/ard/agents \
-  --data-urlencode "filter=type='application/mcp-server-card+json'" \
-  --data-urlencode "pageSize=5"
-
-# Cisco AI Catalog — pull manifest
-curl -sS https://ai-catalog.outshift.io/.well-known/ai-catalog.json \
-  | jq '.specVersion, .host.displayName'</code></pre>
-          <p style="margin-top:10px;">Meanwhile, your <strong>keys never leave your vault</strong>. SwarmKey only uses ARD to <em>discover</em> capabilities — the credential itself is always ACT-encrypted on Swarm and reconstructed locally.</p>
-        </div>
-      </div>
+    <div class="carousel__hint">
+      <span>← Scroll to explore providers →</span>
     </div>
   </section>
 
