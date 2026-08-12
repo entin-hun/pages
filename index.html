@@ -294,9 +294,9 @@
   <section class="section" id="ardref">
     <div class="section__header">
       <span class="section__eyebrow">Provider Catalog</span>
-      <h2 class="section__title">Biggest ARD-compliant registries</h2>
+      <h2 class="section__title">Real providers discoverable via ARD</h2>
       <p class="section__lead">
-        These production registries serve thousands of discoverable resources — MCP servers, Skills, APIs, and agents — all queryable via the open <a href="https://agenticresourcediscovery.org/spec/" target="_blank" rel="noopener">ARD protocol</a>. Scroll to explore what each offers.
+        These are actual providers, MCP servers, and tools indexed in live ARD registries right now — each with real endpoints your agent can connect to. Data pulled from <a href="https://directory.ora.ai/" target="_blank" rel="noopener">Ora Directory</a>, <a href="https://ai-catalog.outshift.io/" target="_blank" rel="noopener">Cisco AI Catalog</a>, and <a href="https://agentfinder.github.com/" target="_blank" rel="noopener">GitHub Agent Finder</a>.
       </p>
     </div>
 
@@ -304,164 +304,343 @@
       <button class="carousel__nav carousel__nav--prev" id="carouselPrev" aria-label="Previous">‹</button>
       <div class="carousel__track" id="carouselTrack">
 
-        <!-- GitHub Agent Finder -->
+        <!-- Telnyx -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">📞</span>
+            <div>
+              <h3 class="carousel__card-title">Telnyx</h3>
+              <span class="carousel__card-badge">telnyx.com</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Voice, SMS, and real-time communications APIs. Top-ranked on Ora Directory with agent-readiness score <strong>97 (A+)</strong>. MCP server + OpenAPI spec available.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">MCP</span>
+              <code>telnyx-mcp-server</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">REST</span>
+              <code>api.telnyx.com/v2</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">OpenAPI</span>
+              <code>+3 specs indexed</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">Voice</span>
+            <span class="carousel__tag">SMS</span>
+            <span class="carousel__tag">WebRTC</span>
+            <span class="carousel__tag">Score: 97</span>
+          </div>
+        </div>
+
+        <!-- Postman MCP -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">📮</span>
+            <div>
+              <h3 class="carousel__card-title">Postman MCP Server</h3>
+              <span class="carousel__card-badge">postman.com</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Operate on the Postman API via MCP. Manage collections, environments, and workspaces through natural language. Verified with Sigstore attestation.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">HTTP</span>
+              <code>mcp.postman.com/mcp</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">HTTP</span>
+              <code>mcp.postman.com/minimal</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">STDIO</span>
+              <code>npx @postman/postman-mcp-server</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">API Testing</span>
+            <span class="carousel__tag">Collections</span>
+            <span class="carousel__tag">v2.11.2</span>
+          </div>
+        </div>
+
+        <!-- GitHub MCP -->
         <div class="carousel__card">
           <div class="carousel__card-header">
             <span class="carousel__card-icon">🐙</span>
             <div>
-              <h3 class="carousel__card-title">GitHub Agent Finder</h3>
-              <span class="carousel__card-badge">agentfinder.github.com</span>
+              <h3 class="carousel__card-title">GitHub MCP Server</h3>
+              <span class="carousel__card-badge">github.com</span>
             </div>
           </div>
-          <p class="carousel__card-desc">Discovery service for Skills, tools, and MCP servers across GitHub's ecosystem. Integrated directly into GitHub Copilot.</p>
+          <p class="carousel__card-desc">Connect AI assistants to GitHub — manage repos, issues, PRs, and workflows through natural language. Available via Copilot or standalone.</p>
           <div class="carousel__card-endpoints">
             <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">POST</span>
-              <code>/api/v1/search</code>
+              <span class="carousel__endpoint-method">HTTP</span>
+              <code>api.githubcopilot.com/mcp/</code>
             </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">STDIO</span>
+              <code>docker ghcr.io/github/github-mcp-server</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">Repos</span>
+            <span class="carousel__tag">Issues</span>
+            <span class="carousel__tag">PRs</span>
+            <span class="carousel__tag">v1.9.0</span>
+          </div>
+        </div>
+
+        <!-- Firecrawl -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">🔥</span>
+            <div>
+              <h3 class="carousel__card-title">Firecrawl</h3>
+              <span class="carousel__card-badge">firecrawl.dev</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Web scraping and crawling MCP server. Turn any website into clean, LLM-ready data. Agent-readiness score <strong>76 (B)</strong> on Ora Directory.</p>
+          <div class="carousel__card-endpoints">
             <div class="carousel__endpoint">
               <span class="carousel__endpoint-method">MCP</span>
-              <code>/api/v1/mcp</code>
+              <code>firecrawl-mcp-server</code>
             </div>
             <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">GET</span>
-              <code>/api/v1/agents</code>
+              <span class="carousel__endpoint-method">REST</span>
+              <code>api.firecrawl.dev/v1</code>
             </div>
           </div>
           <div class="carousel__card-tags">
-            <span class="carousel__tag">Skills</span>
-            <span class="carousel__tag">MCP Servers</span>
-            <span class="carousel__tag">Tools</span>
+            <span class="carousel__tag">Scraping</span>
+            <span class="carousel__tag">Crawling</span>
+            <span class="carousel__tag">LLM-ready</span>
+            <span class="carousel__tag">Score: 76</span>
           </div>
         </div>
 
-        <!-- Hugging Face Discover -->
+        <!-- Google MCP Toolbox -->
         <div class="carousel__card">
           <div class="carousel__card-header">
-            <span class="carousel__card-icon">🤗</span>
+            <span class="carousel__card-icon">🗄️</span>
             <div>
-              <h3 class="carousel__card-title">Hugging Face Discover</h3>
-              <span class="carousel__card-badge">huggingface-hf-discover.hf.space</span>
+              <h3 class="carousel__card-title">Google MCP Toolbox</h3>
+              <span class="carousel__card-badge">googleapis</span>
             </div>
           </div>
-          <p class="carousel__card-desc">Search thousands of Skills, ML Applications, and MCP Servers on Hugging Face — or any ARD-compliant service. Built into the <code>hf</code> CLI.</p>
+          <p class="carousel__card-desc">Connect your agent to any database via MCP. Supports PostgreSQL, MySQL, Spanner, and more. Streamable HTTP transport with dynamic tool loading.</p>
           <div class="carousel__card-endpoints">
             <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">POST</span>
-              <code>/search</code>
+              <span class="carousel__endpoint-method">HTTP</span>
+              <code>{host}:{port}/mcp</code>
             </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">STDIO</span>
+              <code>--stdio flag available</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">OCI</span>
+              <code>us-central1-docker.pkg.dev/.../toolbox:1.8.0</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">Databases</span>
+            <span class="carousel__tag">SQL</span>
+            <span class="carousel__tag">v1.8.0</span>
+          </div>
+        </div>
+
+        <!-- Vercel -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">▲</span>
+            <div>
+              <h3 class="carousel__card-title">Vercel</h3>
+              <span class="carousel__card-badge">vercel.com</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Deploy and manage frontend projects via MCP. Agent-readiness score <strong>78 (B)</strong> on Ora. MCP server + llms.txt indexed.</p>
+          <div class="carousel__card-endpoints">
             <div class="carousel__endpoint">
               <span class="carousel__endpoint-method">MCP</span>
-              <code>/mcp</code>
+              <code>vercel-mcp-server</code>
             </div>
             <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">CLI</span>
-              <code>hf discover search "..."</code>
+              <span class="carousel__endpoint-method">REST</span>
+              <code>api.vercel.com/v13</code>
             </div>
           </div>
           <div class="carousel__card-tags">
-            <span class="carousel__tag">ML Models</span>
-            <span class="carousel__tag">MCP Servers</span>
-            <span class="carousel__tag">Skills</span>
-            <span class="carousel__tag">Spaces</span>
+            <span class="carousel__tag">Deploy</span>
+            <span class="carousel__tag">Frontend</span>
+            <span class="carousel__tag">Edge</span>
+            <span class="carousel__tag">Score: 78</span>
           </div>
         </div>
 
-        <!-- Ora Directory -->
+        <!-- Twilio -->
         <div class="carousel__card">
           <div class="carousel__card-header">
-            <span class="carousel__card-icon">🧭</span>
+            <span class="carousel__card-icon">📱</span>
             <div>
-              <h3 class="carousel__card-title">Ora Directory</h3>
-              <span class="carousel__card-badge">ora.ai/api/ard</span>
+              <h3 class="carousel__card-title">Twilio</h3>
+              <span class="carousel__card-badge">twilio.com</span>
             </div>
           </div>
-          <p class="carousel__card-desc">Agent-readiness directory with signed trust scorecards (Ed25519 JWS). Scans products for agent-readiness via live agent runs. Includes x402/MPP payable endpoints.</p>
+          <p class="carousel__card-desc">Messaging, voice, and video APIs. MCP server indexed with agent-readiness score <strong>73 (B)</strong>. Send SMS, make calls, manage conversations.</p>
           <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">POST</span>
-              <code>/api/ard/search</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">POST</span>
-              <code>/api/ard/explore</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">GET</span>
-              <code>/api/ard/agents</code>
-            </div>
             <div class="carousel__endpoint">
               <span class="carousel__endpoint-method">MCP</span>
-              <code>/api/mcp</code>
+              <code>twilio-mcp-server</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">REST</span>
+              <code>api.twilio.com/2010-04-01</code>
             </div>
           </div>
           <div class="carousel__card-tags">
-            <span class="carousel__tag">APIs</span>
-            <span class="carousel__tag">MCP Servers</span>
-            <span class="carousel__tag">Scorecards</span>
-            <span class="carousel__tag">x402 Pay</span>
+            <span class="carousel__tag">SMS</span>
+            <span class="carousel__tag">Voice</span>
+            <span class="carousel__tag">Video</span>
+            <span class="carousel__tag">Score: 73</span>
           </div>
         </div>
 
-        <!-- Cisco AI Catalog -->
+        <!-- Datadog -->
         <div class="carousel__card">
           <div class="carousel__card-header">
-            <span class="carousel__card-icon">🔌</span>
+            <span class="carousel__card-icon">🐕</span>
             <div>
-              <h3 class="carousel__card-title">Cisco AI Catalog</h3>
-              <span class="carousel__card-badge">ai-catalog.outshift.io</span>
+              <h3 class="carousel__card-title">Datadog</h3>
+              <span class="carousel__card-badge">datadoghq.com</span>
             </div>
           </div>
-          <p class="carousel__card-desc">AGNTCY Agent Directory reference implementation. Enterprise-grade catalog with trust manifests, SPIFFE/DID identities, and A2A agent cards.</p>
+          <p class="carousel__card-desc">Observability and monitoring MCP server. Query metrics, logs, and traces through natural language. Agent-readiness score <strong>68 (C)</strong>.</p>
           <div class="carousel__card-endpoints">
             <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">GET</span>
-              <code>/.well-known/ai-catalog.json</code>
+              <span class="carousel__endpoint-method">MCP</span>
+              <code>datadog-mcp-server</code>
             </div>
             <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">GET</span>
-              <code>/v1/agents</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">POST</span>
-              <code>/v1/search</code>
+              <span class="carousel__endpoint-method">REST</span>
+              <code>api.datadoghq.com/api/v2</code>
             </div>
           </div>
           <div class="carousel__card-tags">
-            <span class="carousel__tag">A2A Agents</span>
-            <span class="carousel__tag">MCP Servers</span>
-            <span class="carousel__tag">Trust Manifests</span>
+            <span class="carousel__tag">Monitoring</span>
+            <span class="carousel__tag">Logs</span>
+            <span class="carousel__tag">Metrics</span>
+            <span class="carousel__tag">Score: 68</span>
           </div>
         </div>
 
-        <!-- AGNTCY Directory -->
+        <!-- Red Hat Lightspeed -->
         <div class="carousel__card">
           <div class="carousel__card-header">
-            <span class="carousel__card-icon">🌐</span>
+            <span class="carousel__card-icon">🎩</span>
             <div>
-              <h3 class="carousel__card-title">AGNTCY Directory</h3>
-              <span class="carousel__card-badge">dir.agntcy.org</span>
+              <h3 class="carousel__card-title">Red Hat Lightspeed MCP</h3>
+              <span class="carousel__card-badge">redhat.com</span>
             </div>
           </div>
-          <p class="carousel__card-desc">Open-source agent directory by Cisco. Federated, decentralized catalog supporting multiple agent card types and cross-registry discovery.</p>
+          <p class="carousel__card-desc">Advisor, image builder, inventory management, and more for Red Hat infrastructure. MCP server with Sigstore-verified publisher identity.</p>
           <div class="carousel__card-endpoints">
             <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">GET</span>
-              <code>/.well-known/ai-catalog.json</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">POST</span>
-              <code>/v1/search</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">GET</span>
-              <code>/v1/agents</code>
+              <span class="carousel__endpoint-method">STDIO</span>
+              <code>docker ghcr.io/redhatinsights/red-hat-lightspeed-mcp</code>
             </div>
           </div>
           <div class="carousel__card-tags">
-            <span class="carousel__tag">Federated</span>
-            <span class="carousel__tag">Open Source</span>
-            <span class="carousel__tag">A2A</span>
+            <span class="carousel__tag">Infrastructure</span>
+            <span class="carousel__tag">Advisor</span>
+            <span class="carousel__tag">v1.0.29</span>
+          </div>
+        </div>
+
+        <!-- Grafana -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">📊</span>
+            <div>
+              <h3 class="carousel__card-title">Grafana</h3>
+              <span class="carousel__card-badge">grafana.com</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Observability dashboards and alerting via MCP. Query Prometheus, Loki, Tempo data sources. Agent-readiness score <strong>70 (B)</strong> with OpenAPI spec.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">MCP</span>
+              <code>grafana-mcp-server</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">REST</span>
+              <code>grafana.com/api</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">OpenAPI</span>
+              <code>+3 specs indexed</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">Dashboards</span>
+            <span class="carousel__tag">Alerting</span>
+            <span class="carousel__tag">Score: 70</span>
+          </div>
+        </div>
+
+        <!-- Prisma -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">💎</span>
+            <div>
+              <h3 class="carousel__card-title">Prisma</h3>
+              <span class="carousel__card-badge">prisma.io</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">Database ORM and migrations via MCP. Manage schemas, run queries, and handle migrations through natural language. Score <strong>69 (C)</strong>.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">MCP</span>
+              <code>prisma-mcp-server</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">ORM</span>
+            <span class="carousel__tag">Migrations</span>
+            <span class="carousel__tag">Schema</span>
+            <span class="carousel__tag">Score: 69</span>
+          </div>
+        </div>
+
+        <!-- HeyGen -->
+        <div class="carousel__card">
+          <div class="carousel__card-header">
+            <span class="carousel__card-icon">🎬</span>
+            <div>
+              <h3 class="carousel__card-title">HeyGen</h3>
+              <span class="carousel__card-badge">heygen.com</span>
+            </div>
+          </div>
+          <p class="carousel__card-desc">AI video generation MCP server. Create avatar videos, translate content, and manage video projects. Agent-readiness score <strong>69 (C)</strong>.</p>
+          <div class="carousel__card-endpoints">
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">MCP</span>
+              <code>heygen-mcp-server</code>
+            </div>
+            <div class="carousel__endpoint">
+              <span class="carousel__endpoint-method">REST</span>
+              <code>api.heygen.com/v2</code>
+            </div>
+          </div>
+          <div class="carousel__card-tags">
+            <span class="carousel__tag">Video</span>
+            <span class="carousel__tag">Avatars</span>
+            <span class="carousel__tag">AI Gen</span>
+            <span class="carousel__tag">Score: 69</span>
           </div>
         </div>
 
@@ -470,7 +649,7 @@
     </div>
 
     <div class="carousel__hint">
-      <span>← Scroll to explore providers →</span>
+      <span>← Scroll to explore 1,868+ providers across registries →</span>
     </div>
   </section>
 
