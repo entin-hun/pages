@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Offline AI cégeknek - saját AI internetes adattovábbítás nélkül</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Teko:wght@500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg-0: #061126;
+        --bg-1: #08214b;
+        --bg-2: #0d3778;
+        --surface: rgba(8, 25, 58, 0.8);
+        --surface-2: rgba(9, 31, 69, 0.94);
+        --line: rgba(123, 191, 255, 0.34);
+        --text: #e9f4ff;
+        --muted: #aed0ef;
+        --accent: #4ec9ff;
+        --accent-2: #93e7ff;
+        --ok: #7ff7c9;
+        --max: 1160px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background:
+          radial-gradient(900px 600px at 100% 0%, rgba(43, 126, 245, 0.24), transparent 58%),
+          radial-gradient(800px 560px at 0% 0%, rgba(10, 189, 227, 0.13), transparent 62%),
+          linear-gradient(145deg, var(--bg-0), var(--bg-1) 48%, var(--bg-2));
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image: radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0);
+        background-size: 3px 3px;
+      }
+
+      .shell {
+        width: min(var(--max), calc(100% - 28px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        margin-top: 24px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        background: rgba(4, 16, 39, 0.56);
+        box-shadow: 0 24px 60px rgba(1, 8, 20, 0.32);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.08fr 0.92fr;
+      }
+
+      .hero-copy {
+        padding: 28px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(140, 214, 255, 0.52);
+        padding: 6px 12px;
+        color: var(--accent-2);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        font-family: "Teko", sans-serif;
+        line-height: 0.96;
+        letter-spacing: 0.02em;
+      }
+
+      h1 {
+        margin-top: 14px;
+        font-size: clamp(46px, 7vw, 88px);
+      }
+
+      h1 .accent,
+      h2 .accent {
+        color: var(--accent);
+      }
+
+      .lead {
+        margin-top: 14px;
+        max-width: 60ch;
+        color: #d6ebff;
+        font-size: clamp(17px, 2vw, 21px);
+        line-height: 1.55;
+      }
+
+      .hero-points {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .hero-points article,
+      .tile,
+      .card,
+      .price,
+      .faq,
+      .highlight {
+        border: 1px solid rgba(123, 191, 255, 0.34);
+        border-radius: 14px;
+        background: var(--surface-2);
+      }
+
+      .hero-points article {
+        padding: 14px;
+      }
+
+      .hero-points strong {
+        display: block;
+        color: var(--accent-2);
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .hero-points span {
+        display: block;
+        margin-top: 8px;
+        line-height: 1.45;
+        color: #dcecff;
+        font-size: 15px;
+      }
+
+      .actions {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .btn {
+        text-decoration: none;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        font-size: 13px;
+      }
+
+      .btn.main {
+        color: #03243a;
+        background: linear-gradient(180deg, #90ebff, #43c9ff);
+      }
+
+      .btn.ghost {
+        color: var(--text);
+        border: 1px solid rgba(151, 212, 255, 0.78);
+      }
+
+      .hero-visual {
+        min-height: 100%;
+        display: grid;
+      }
+
+      .hero-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .kpis {
+        padding: 14px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .kpi {
+        border: 1px solid rgba(123, 191, 255, 0.42);
+        border-radius: 12px;
+        padding: 14px 12px;
+        text-align: center;
+        background: linear-gradient(170deg, rgba(37, 111, 192, 0.26), rgba(10, 37, 84, 0.65));
+      }
+
+      .kpi strong {
+        display: block;
+        font-size: clamp(22px, 2.8vw, 34px);
+      }
+
+      .kpi span {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .section {
+        margin-top: 22px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--surface);
+      }
+
+      .section-head {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(120deg, rgba(7, 30, 72, 0.88), rgba(10, 48, 105, 0.92));
+      }
+
+      .section-head h2 {
+        font-size: clamp(32px, 5vw, 52px);
+      }
+
+      .section-head p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .content {
+        padding: 18px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        display: grid;
+        gap: 14px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .card,
+      .tile,
+      .price,
+      .faq,
+      .highlight {
+        padding: 14px;
+      }
+
+      .card h3,
+      .price h3,
+      .faq h3,
+      .tile h3 {
+        font-size: 32px;
+        color: var(--accent-2);
+      }
+
+      .card p,
+      .card li,
+      .tile p,
+      .tile li,
+      .price p,
+      .price li,
+      .faq p,
+      .highlight p {
+        color: #dcebff;
+        line-height: 1.55;
+        font-size: 15px;
+      }
+
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      .highlight {
+        border-left: 4px solid var(--ok);
+        background: rgba(20, 86, 117, 0.42);
+      }
+
+      .steps {
+        counter-reset: step;
+      }
+
+      .steps .tile::before {
+        counter-increment: step;
+        content: counter(step);
+        display: inline-grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        background: rgba(75, 197, 255, 0.18);
+        color: var(--accent);
+        font-family: "Teko", sans-serif;
+        font-size: 28px;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .showcase {
+        border: 1px solid rgba(123, 191, 255, 0.34);
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(9, 31, 69, 0.88);
+      }
+
+      .showcase img {
+        width: 100%;
+        display: block;
+      }
+
+      .showcase p {
+        margin: 0;
+        padding: 10px 12px 12px;
+        color: #d2e8ff;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .price strong {
+        color: var(--accent-2);
+      }
+
+      .pill-row {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        border-radius: 999px;
+        border: 1px solid rgba(140, 214, 255, 0.44);
+        padding: 7px 11px;
+        font-size: 13px;
+        color: #d8ecff;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .cta {
+        margin: 24px 0 36px;
+        border: 1px solid rgba(123, 191, 255, 0.44);
+        border-radius: 16px;
+        padding: 18px;
+        background: linear-gradient(150deg, rgba(9, 34, 78, 0.94), rgba(12, 56, 117, 0.92));
+      }
+
+      .cta h2 {
+        font-size: clamp(34px, 5vw, 54px);
+      }
+
+      .cta p {
+        margin: 8px 0 0;
+        color: #d4eaff;
+        line-height: 1.55;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+
+      .reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .grid-2,
+        .grid-3,
+        .grid-4,
+        .hero-points,
+        .kpis {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero reveal">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="badge">Offline AI cégeknek</div>
+            <h1>
+              Saját <span class="accent">AI rendszer</span><br />
+              internetes adattovábbítás nélkül
+            </h1>
+            <p class="lead">
+              Ha Ön szerződésekkel, ügyféladatokkal, pénzügyi anyagokkal, egészségügyi dokumentációval vagy belső
+              tudásanyaggal dolgozik, az AI akkor igazán hasznos, ha közben az adatai nem kerülnek fel külső
+              szerverekre. Ez a rendszer helyben fut, az Ön környezetében, már <strong>5 millió Ft + ÁFA</strong>
+              induló beruházástól.
+            </p>
+            <div class="hero-points">
+              <article>
+                <strong>Adatvédelem</strong>
+                <span>Az adatok nem töltődnek fel nyilvános online AI szolgáltatásokba.</span>
+              </article>
+              <article>
+                <strong>Saját tulajdon</strong>
+                <span>Nincs kötelező havi API-díj, nincs kiszolgáltatottság egy külföldi platform felé.</span>
+              </article>
+            </div>
+            <div class="actions">
+              <a class="btn main" href="mailto:info@newtonszimulator.hu?subject=Offline%20AI%20aj%C3%A1nlatk%C3%A9r%C3%A9s">Ajánlatot kérek</a>
+              <a class="btn ghost" href="mailto:info@newtonszimulator.hu?subject=Offline%20AI%20konzult%C3%A1ci%C3%B3">Konzultációt kérek</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img src="../aiofflinebefektetianyag/pdf_images/img-003.png" alt="Offline AI szerver infrastruktúra" />
+          </div>
+        </div>
+        <div class="kpis">
+          <article class="kpi"><strong>5 M Ft + ÁFA-tól</strong><span>Induló rendszerár</span></article>
+          <article class="kpi"><strong>Offline</strong><span>Külső adattovábbítás nélkül</span></article>
+          <article class="kpi"><strong>Skálázható</strong><span>Kisebb cégtől nagyvállalatig</span></article>
+          <article class="kpi"><strong>Ellenőrzött</strong><span>Frissítés és hozzáférés kontroll alatt</span></article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Mi a probléma az <span class="accent">online AI-val</span>?</h2>
+          <p>A legtöbb cég itt veszít kontrollt az adatai felett.</p>
+        </header>
+        <div class="content grid-2">
+          <article class="card">
+            <h3>Amit sokan nem mérnek fel</h3>
+            <p>
+              Ha egy online AI eszközbe bemásol egy szerződést, ajánlatot, orvosi leletet, pénzügyi táblát vagy belső
+              üzleti tervet, az adat elhagyja az Ön közvetlen informatikai környezetét.
+            </p>
+            <ul>
+              <li>ügyfélnevek és partneradatok,</li>
+              <li>belső folyamatleírások és know-how,</li>
+              <li>szerződések és érzékeny jogi anyagok,</li>
+              <li>pénzügyi kimutatások és előkészítő anyagok,</li>
+              <li>egészségügyi vagy műszaki dokumentáció.</li>
+            </ul>
+          </article>
+          <article class="highlight">
+            <p>
+              Az Offline AI lényege egyszerű: a rendszer ugyanúgy segít összefoglalni, elemezni, rendszerezni és
+              javaslatot adni, de közben az adatok az Ön cégén belül maradnak. Ez különösen fontos ott, ahol titoktartás,
+              GDPR, belső szabályozás vagy reputációs kockázat miatt az adatkezelés nem kiszervezhető.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Mit jelent ez <span class="accent">közérthetően</span>?</h2>
+          <p>Nem chatbotot kap, hanem belső munkatársi szintű döntéstámogatást.</p>
+        </header>
+        <div class="content grid-3 steps">
+          <article class="tile">
+            <h3>Beolvassa</h3>
+            <p>Átnézi a dokumentumokat, táblázatokat, leírásokat és belső anyagokat.</p>
+          </article>
+          <article class="tile">
+            <h3>Összeveti</h3>
+            <p>Több szempontból ellenőrzi az információt, mintha több munkatárs vizsgálná ugyanazt az ügyet.</p>
+          </article>
+          <article class="tile">
+            <h3>Összefoglalja</h3>
+            <p>Érthető, strukturált kimenetet ad: mire figyeljen, mi hiányzik, mi a következő lépés.</p>
+          </article>
+        </div>
+        <div class="content" style="padding-top: 0;">
+          <div class="highlight">
+            <p>
+              A 14 magos logikai hálózatot úgy érdemes elképzelni, mint egy többfős szakértői csapatot: az egyik rész a
+              szöveget értelmezi, a másik a logikát ellenőrzi, a harmadik az ellentmondásokat keresi, a negyedik a
+              végső választ strukturálja. Ettől a rendszer nemcsak gyors, hanem megbízhatóbb is.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Mire használható a <span class="accent">gyakorlatban</span>?</h2>
+          <p>Valós vállalati feladatokra, nem látványdemóra.</p>
+        </header>
+        <div class="content grid-2">
+          <article class="card">
+            <h3>Irodai és jogi előkészítés</h3>
+            <ul>
+              <li>szerződések első körös áttekintése,</li>
+              <li>ajánlatok és dokumentumok összefoglalása,</li>
+              <li>hiányzó pontok és kockázatok listázása,</li>
+              <li>belső szabályzatok és tudásanyagok kereshető rendszerezése.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Ügyfélkezelés és operáció</h3>
+            <ul>
+              <li>e-mailek és ügyfélkommunikáció előkészítése,</li>
+              <li>CRM-bejegyzések és meeting-jegyzetek összefoglalása,</li>
+              <li>műszaki vagy termékdokumentáció feldolgozása,</li>
+              <li>ismétlődő adminisztratív feladatok gyorsítása.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Pénzügy és kontrolling</h3>
+            <ul>
+              <li>kimutatások értelmezése és rövid összefoglalása,</li>
+              <li>előterjesztések, riportok, vezetői kivonatok készítése,</li>
+              <li>eltérések, hiányosságok és figyelmeztető pontok keresése.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Egészségügyi és szakértői területek</h3>
+            <ul>
+              <li>anamnézisek, leletek és korábbi anyagok összevetése,</li>
+              <li>szakmai dokumentáció strukturált áttekintése,</li>
+              <li>nagy mennyiségű érzékeny adat belső elemzése felhő nélkül.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Kinek ajánlott?</h2>
+          <p>Nem csak nagyvállalatoknak.</p>
+        </header>
+        <div class="content grid-3">
+          <article class="price">
+            <h3>Kisebb cégeknek</h3>
+            <p>
+              Már <strong>5 millió Ft + ÁFA</strong> induló beruházástól elérhető olyan kompakt rendszer, amely belső
+              dokumentumok feldolgozására, szerződés-előkészítésre, ügyfélkommunikáció támogatására és tudásanyagok
+              rendszerezésére használható.
+            </p>
+          </article>
+          <article class="price">
+            <h3>Közepes vállalkozásoknak</h3>
+            <p>
+              Nagyobb dokumentummennyiség, több felhasználó és összetettebb belső munkafolyamat is kiszolgálható, ha
+              rendszeresen keletkeznek érzékeny jogi, pénzügyi vagy műszaki anyagok.
+            </p>
+          </article>
+          <article class="price">
+            <h3>Nagyvállalatoknak és intézményeknek</h3>
+            <p>
+              Nagyobb infrastruktúrán több feladat és több felhasználó kezelhető egyszerre, auditálható, zárt és
+              jogosultságkezelt környezetben.
+            </p>
+          </article>
+        </div>
+        <div class="content" style="padding-top: 0;">
+          <div class="pill-row">
+            <span class="pill">jogi</span>
+            <span class="pill">pénzügyi</span>
+            <span class="pill">orvosi</span>
+            <span class="pill">mérnöki</span>
+            <span class="pill">vállalati tudásbázis</span>
+            <span class="pill">belső döntéstámogatás</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Hardver nélkül is van <span class="accent">belépési pont</span></h2>
+          <p>Nem minden esetben kell saját nagy infrastruktúrát vásárolni.</p>
+        </header>
+        <div class="content grid-2">
+          <article class="card">
+            <h3>Saját rendszer</h3>
+            <p>
+              Akkor jó választás, ha napi szinten akar AI-t használni belső dokumentumokra, saját szabályokkal és saját
+              kontroll alatt.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Kapacitásbérlés</h3>
+            <p>
+              Akkor ideális, ha időszakosan van szükség nagyobb teljesítményre, de nem akar azonnal nagy hardverberuházást
+              indítani. Ilyenkor a képességet bérli, nem a teljes infrastruktúrát vásárolja meg.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Miért előnyös üzletileg?</h2>
+          <p>Az AI akkor hoz értéket, ha a gyakorlatban használható.</p>
+        </header>
+        <div class="content grid-2">
+          <article class="showcase">
+            <img src="../aiofflinebefektetianyag/pdf_images/img-013.png" alt="Hardver és biztonsági vizuál" />
+            <p>Helyi működés, jogosultságkezelés, ellenőrzött hozzáférés és auditálható folyamatok.</p>
+          </article>
+          <article class="card">
+            <h3>Röviden a fő előnyök</h3>
+            <ul>
+              <li>az adatok az Ön kezében maradnak,</li>
+              <li>nincs kötelező havi API-díj,</li>
+              <li>nem függ egy külső szolgáltató üzleti döntéseitől,</li>
+              <li>a működés az Ön folyamataihoz igazítható,</li>
+              <li>internetkiesés esetén is használható helyi módban,</li>
+              <li>kisebb cégtől a nagy intézményi környezetig skálázható.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <header class="section-head">
+          <h2>Gyakori kérdések</h2>
+          <p>Az első döntés előtt ezek szoktak felmerülni.</p>
+        </header>
+        <div class="content grid-2">
+          <article class="faq">
+            <h3>Felkerülnek az adatok az internetre?</h3>
+            <p>Nem. A rendszer lényege éppen az, hogy a feldolgozás helyben, zárt környezetben történjen.</p>
+          </article>
+          <article class="faq">
+            <h3>Kell havi előfizetést fizetni?</h3>
+            <p>Nem kötelező online API-előfizetésre épül. A frissítés ellenőrzött módon, külön folyamatban történik.</p>
+          </article>
+          <article class="faq">
+            <h3>Csak nagy cégeknek éri meg?</h3>
+            <p>Nem. Az induló rendszer kisebb cégeknek is elérhető, a nagyobb infrastruktúra pedig igény szerint skálázható.</p>
+          </article>
+          <article class="faq">
+            <h3>Mi az első lépés?</h3>
+            <p>Egy rövid konzultáció, ahol átbeszéljük, milyen dokumentumokra, folyamatokra és terhelésre kell méretezni a rendszert.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta reveal">
+        <h2>Kérjen ajánlatot <span class="accent">Offline AI rendszerre</span></h2>
+        <p>
+          Ha szeretné megtudni, hogy az Ön cégének egy induló, közepes vagy nagyobb Offline AI rendszer lenne-e az ideális,
+          írjon nekünk. A konzultáció nem kötelezettségvállalás, viszont gyorsan kiderül belőle, hol térül meg a rendszer.
+        </p>
+        <div class="actions">
+          <a class="btn main" href="mailto:info@newtonszimulator.hu?subject=Offline%20AI%20aj%C3%A1nlatk%C3%A9r%C3%A9s">Ajánlatot kérek</a>
+          <a class="btn ghost" href="mailto:info@newtonszimulator.hu?subject=Offline%20AI%20konzult%C3%A1ci%C3%B3">Rövid konzultációt kérek</a>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("show");
+          });
+        },
+        { threshold: 0.14 }
+      );
+
+      document.querySelectorAll(".reveal").forEach((node, index) => {
+        node.style.transitionDelay = `${Math.min(index * 60, 280)}ms`;
+        observer.observe(node);
+      });
+    </script>
+  </body>
+</html>
