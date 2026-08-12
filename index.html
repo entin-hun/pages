@@ -247,16 +247,6 @@
         </div>
       </div>
 
-      <!-- Live ARD entries -->
-      <div class="routing-code">
-        <div class="routing-code__header">
-          <span class="routing-code__dot" style="background:#ff5f56"></span>
-          <span class="routing-code__dot" style="background:#ffbd2e"></span>
-          <span class="routing-code__dot" style="background:#27c93f"></span>
-          <span class="routing-code__name">ard-discovery-result.json</span>
-        </div>
-        <pre class="routing-code__block"><code id="policyCode"></code></pre>
-      </div>
     </div>
 
     <div class="routing-why">
@@ -290,453 +280,288 @@
     </div>
   </section>
 
-  <!-- ARD Provider Catalog Carousel -->
+<!-- ARD Provider Catalog -->
   <section class="section" id="ardref">
     <div class="section__header">
       <span class="section__eyebrow">Provider Catalog</span>
-      <h2 class="section__title">Real providers discoverable via ARD</h2>
+      <h2 class="section__title">A few of the popular ones</h2>
       <p class="section__lead">
-        These are actual providers, MCP servers, and tools indexed in live ARD registries right now — each with real endpoints your agent can connect to. Data pulled from <a href="https://directory.ora.ai/" target="_blank" rel="noopener">Ora Directory</a>, <a href="https://ai-catalog.outshift.io/" target="_blank" rel="noopener">Cisco AI Catalog</a>, and <a href="https://agentfinder.github.com/" target="_blank" rel="noopener">GitHub Agent Finder</a>.
+        Over <strong>2,000 providers</strong> are indexed in live ARD-compatible registries today. Below is a curated sample of the ones developers reach for most &mdash; but your agent discovers any of them on demand, whether it's a niche API or a household name. Pulled from
+        <a href="https://directory.ora.ai/" target="_blank" rel="noopener">Ora Directory</a>,
+        <a href="https://agentfinder.github.com/" target="_blank" rel="noopener">GitHub Agent Finder</a>,
+        <a href="https://ai-catalog.outshift.io/" target="_blank" rel="noopener">Cisco AI Catalog</a>, and
+        <a href="https://huggingface.co/spaces" target="_blank" rel="noopener">Hugging Face Spaces</a>.
       </p>
     </div>
 
-    <div class="carousel">
-      <button class="carousel__nav carousel__nav--prev" id="carouselPrev" aria-label="Previous">‹</button>
-      <div class="carousel__track" id="carouselTrack">
+    <div class="provider-grid">
 
-        <!-- Telnyx -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">📞</span>
-            <div>
-              <h3 class="carousel__card-title">Telnyx</h3>
-              <span class="carousel__card-badge">telnyx.com</span>
-            </div>
+      <!-- ROW 1 — Communication & Deploy -->
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">📞</span>
+          <div>
+            <h3 class="provider__name">Telnyx</h3>
+            <span class="provider__src">Ora · 97 (A+)</span>
           </div>
-          <p class="carousel__card-desc">Voice, SMS, and real-time communications APIs. Top-ranked on Ora Directory with agent-readiness score <strong>97 (A+)</strong>. MCP server + OpenAPI spec available.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>telnyx-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">REST</span>
-              <code>api.telnyx.com/v2</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">OpenAPI</span>
-              <code>+3 specs indexed</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Voice</span>
-            <span class="carousel__tag">SMS</span>
-            <span class="carousel__tag">WebRTC</span>
-            <span class="carousel__tag">Score: 97</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Send "running late" SMS to 50 contacts in one prompt</li>
+          <li>Auto-transcribe call-center recordings to text</li>
+          <li>Set up number-masking for a two-sided marketplace</li>
+        </ul>
+      </article>
 
-        <!-- Postman MCP -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">📮</span>
-            <div>
-              <h3 class="carousel__card-title">Postman MCP Server</h3>
-              <span class="carousel__card-badge">postman.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">📱</span>
+          <div>
+            <h3 class="provider__name">Twilio</h3>
+            <span class="provider__src">Ora · 73 (B)</span>
           </div>
-          <p class="carousel__card-desc">Operate on the Postman API via MCP. Manage collections, environments, and workspaces through natural language. Verified with Sigstore attestation.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">HTTP</span>
-              <code>mcp.postman.com/mcp</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">HTTP</span>
-              <code>mcp.postman.com/minimal</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">STDIO</span>
-              <code>npx @postman/postman-mcp-server</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">API Testing</span>
-            <span class="carousel__tag">Collections</span>
-            <span class="carousel__tag">v2.11.2</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Verify 10,000 new users via SMS OTP</li>
+          <li>Track delivery status across a campaign</li>
+          <li>Build an IVR menu without writing code</li>
+        </ul>
+      </article>
 
-        <!-- GitHub MCP -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🐙</span>
-            <div>
-              <h3 class="carousel__card-title">GitHub MCP Server</h3>
-              <span class="carousel__card-badge">github.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">▲</span>
+          <div>
+            <h3 class="provider__name">Vercel</h3>
+            <span class="provider__src">Ora · 78 (B)</span>
           </div>
-          <p class="carousel__card-desc">Connect AI assistants to GitHub — manage repos, issues, PRs, and workflows through natural language. Available via Copilot or standalone.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">HTTP</span>
-              <code>api.githubcopilot.com/mcp/</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">STDIO</span>
-              <code>docker ghcr.io/github/github-mcp-server</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Repos</span>
-            <span class="carousel__tag">Issues</span>
-            <span class="carousel__tag">PRs</span>
-            <span class="carousel__tag">v1.9.0</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>"Deploy this branch to a preview URL"</li>
+          <li>Roll production back to last green build</li>
+          <li>Show me the deploy logs for the last 3 failures</li>
+        </ul>
+      </article>
 
-        <!-- Firecrawl -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🔥</span>
-            <div>
-              <h3 class="carousel__card-title">Firecrawl</h3>
-              <span class="carousel__card-badge">firecrawl.dev</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🔐</span>
+          <div>
+            <h3 class="provider__name">Scalekit</h3>
+            <span class="provider__src">Ora · 67 (C)</span>
           </div>
-          <p class="carousel__card-desc">Web scraping and crawling MCP server. Turn any website into clean, LLM-ready data. Agent-readiness score <strong>76 (B)</strong> on Ora Directory.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>firecrawl-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">REST</span>
-              <code>api.firecrawl.dev/v1</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Scraping</span>
-            <span class="carousel__tag">Crawling</span>
-            <span class="carousel__tag">LLM-ready</span>
-            <span class="carousel__tag">Score: 76</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Add SSO login to your SaaS in one prompt</li>
+          <li>Provision SCIM access for a new enterprise customer</li>
+          <li>Map an OIDC claim to a custom role</li>
+        </ul>
+      </article>
 
-        <!-- Google MCP Toolbox -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🗄️</span>
-            <div>
-              <h3 class="carousel__card-title">Google MCP Toolbox</h3>
-              <span class="carousel__card-badge">googleapis</span>
-            </div>
+      <!-- ROW 2 — Code, Repos, Databases -->
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🐙</span>
+          <div>
+            <h3 class="provider__name">GitHub MCP Server</h3>
+            <span class="provider__src">Cisco AI Catalog · v1.9.0</span>
           </div>
-          <p class="carousel__card-desc">Connect your agent to any database via MCP. Supports PostgreSQL, MySQL, Spanner, and more. Streamable HTTP transport with dynamic tool loading.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">HTTP</span>
-              <code>{host}:{port}/mcp</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">STDIO</span>
-              <code>--stdio flag available</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">OCI</span>
-              <code>us-central1-docker.pkg.dev/.../toolbox:1.8.0</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Databases</span>
-            <span class="carousel__tag">SQL</span>
-            <span class="carousel__tag">v1.8.0</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Open a PR from a Jira ticket description</li>
+          <li>Triage 200 issues by label + age in one pass</li>
+          <li>Comment "needs tests" on every PR without coverage</li>
+        </ul>
+      </article>
 
-        <!-- Vercel -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">▲</span>
-            <div>
-              <h3 class="carousel__card-title">Vercel</h3>
-              <span class="carousel__card-badge">vercel.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">📮</span>
+          <div>
+            <h3 class="provider__name">Postman MCP Server</h3>
+            <span class="provider__src">Cisco AI Catalog · v2.11.2</span>
           </div>
-          <p class="carousel__card-desc">Deploy and manage frontend projects via MCP. Agent-readiness score <strong>78 (B)</strong> on Ora. MCP server + llms.txt indexed.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>vercel-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">REST</span>
-              <code>api.vercel.com/v13</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Deploy</span>
-            <span class="carousel__tag">Frontend</span>
-            <span class="carousel__tag">Edge</span>
-            <span class="carousel__tag">Score: 78</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Run an entire regression collection on a schedule</li>
+          <li>Diff two environments to spot leaked secrets</li>
+          <li>Generate a Postman test from a recorded HAR</li>
+        </ul>
+      </article>
 
-        <!-- Twilio -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">📱</span>
-            <div>
-              <h3 class="carousel__card-title">Twilio</h3>
-              <span class="carousel__card-badge">twilio.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🗄️</span>
+          <div>
+            <h3 class="provider__name">Google MCP Toolbox</h3>
+            <span class="provider__src">Cisco AI Catalog · v1.8.0</span>
           </div>
-          <p class="carousel__card-desc">Messaging, voice, and video APIs. MCP server indexed with agent-readiness score <strong>73 (B)</strong>. Send SMS, make calls, manage conversations.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>twilio-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">REST</span>
-              <code>api.twilio.com/2010-04-01</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">SMS</span>
-            <span class="carousel__tag">Voice</span>
-            <span class="carousel__tag">Video</span>
-            <span class="carousel__tag">Score: 73</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Query Postgres, MySQL, or Spanner via natural language</li>
+          <li>Stream rows into a notebook without writing SQLAlchemy</li>
+          <li>Auto-generate migrations from a schema diff</li>
+        </ul>
+      </article>
 
-        <!-- Datadog -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🐕</span>
-            <div>
-              <h3 class="carousel__card-title">Datadog</h3>
-              <span class="carousel__card-badge">datadoghq.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">💎</span>
+          <div>
+            <h3 class="provider__name">Prisma</h3>
+            <span class="provider__src">Ora · 69 (C)</span>
           </div>
-          <p class="carousel__card-desc">Observability and monitoring MCP server. Query metrics, logs, and traces through natural language. Agent-readiness score <strong>68 (C)</strong>.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>datadog-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">REST</span>
-              <code>api.datadoghq.com/api/v2</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Monitoring</span>
-            <span class="carousel__tag">Logs</span>
-            <span class="carousel__tag">Metrics</span>
-            <span class="carousel__tag">Score: 68</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>"Add a <code>deletedAt</code> field to every model"</li>
+          <li>Generate the migration and run it on staging</li>
+          <li>Explain why this query is slow in plain English</li>
+        </ul>
+      </article>
 
-        <!-- Red Hat Lightspeed -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🎩</span>
-            <div>
-              <h3 class="carousel__card-title">Red Hat Lightspeed MCP</h3>
-              <span class="carousel__card-badge">redhat.com</span>
-            </div>
+      <!-- ROW 3 — LLM & AI infra -->
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🧪</span>
+          <div>
+            <h3 class="provider__name">Microsoft Foundry</h3>
+            <span class="provider__src">GitHub Agent Finder</span>
           </div>
-          <p class="carousel__card-desc">Advisor, image builder, inventory management, and more for Red Hat infrastructure. MCP server with Sigstore-verified publisher identity.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">STDIO</span>
-              <code>docker ghcr.io/redhatinsights/red-hat-lightspeed-mcp</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Infrastructure</span>
-            <span class="carousel__tag">Advisor</span>
-            <span class="carousel__tag">v1.0.29</span>
-          </div>
-        </div>
+          <span class="provider__type">Skill</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Fine-tune Llama on our last 5,000 support tickets</li>
+          <li>Deploy GPT-4o with provisioned capacity in eu-west</li>
+          <li>List available embedding models for 3072-dim search</li>
+        </ul>
+      </article>
 
-        <!-- Grafana -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">📊</span>
-            <div>
-              <h3 class="carousel__card-title">Grafana</h3>
-              <span class="carousel__card-badge">grafana.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🧠</span>
+          <div>
+            <h3 class="provider__name">OpenAI Docs Skill</h3>
+            <span class="provider__src">Ora · 71 (B)</span>
           </div>
-          <p class="carousel__card-desc">Observability dashboards and alerting via MCP. Query Prometheus, Loki, Tempo data sources. Agent-readiness score <strong>70 (B)</strong> with OpenAPI spec.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>grafana-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">REST</span>
-              <code>grafana.com/api</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">OpenAPI</span>
-              <code>+3 specs indexed</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Dashboards</span>
-            <span class="carousel__tag">Alerting</span>
-            <span class="carousel__tag">Score: 70</span>
-          </div>
-        </div>
+          <span class="provider__type">Skill</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Look up the latest gpt-4o pricing per 1K tokens</li>
+          <li>Find the right rate-limit header to parse</li>
+          <li>Check if a beta feature hit GA this week</li>
+        </ul>
+      </article>
 
-        <!-- Prisma -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">💎</span>
-            <div>
-              <h3 class="carousel__card-title">Prisma</h3>
-              <span class="carousel__card-badge">prisma.io</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🦜</span>
+          <div>
+            <h3 class="provider__name">LangChain</h3>
+            <span class="provider__src">Ora · 67 (C)</span>
           </div>
-          <p class="carousel__card-desc">Database ORM and migrations via MCP. Manage schemas, run queries, and handle migrations through natural language. Score <strong>69 (C)</strong>.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>prisma-mcp-server</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">ORM</span>
-            <span class="carousel__tag">Migrations</span>
-            <span class="carousel__tag">Schema</span>
-            <span class="carousel__tag">Score: 69</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Wire an agent loop over any MCP server</li>
+          <li>Build a RAG pipeline over your Drive folder</li>
+          <li>Swap models without rewriting your graph</li>
+        </ul>
+      </article>
 
-        <!-- HeyGen -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🎬</span>
-            <div>
-              <h3 class="carousel__card-title">HeyGen</h3>
-              <span class="carousel__card-badge">heygen.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🔥</span>
+          <div>
+            <h3 class="provider__name">Firecrawl</h3>
+            <span class="provider__src">Ora · 76 (B)</span>
           </div>
-          <p class="carousel__card-desc">AI video generation MCP server. Create avatar videos, translate content, and manage video projects. Agent-readiness score <strong>69 (C)</strong>.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>heygen-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">REST</span>
-              <code>api.heygen.com/v2</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Video</span>
-            <span class="carousel__tag">Avatars</span>
-            <span class="carousel__tag">AI Gen</span>
-            <span class="carousel__tag">Score: 69</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Crawl a competitor's docs into clean Markdown</li>
+          <li>Extract structured data from 10,000 product pages</li>
+          <li>Build a knowledge base from any website URL</li>
+        </ul>
+      </article>
 
-        <!-- OpenAI -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🧠</span>
-            <div>
-              <h3 class="carousel__card-title">OpenAI</h3>
-              <span class="carousel__card-badge">openai.com</span>
-            </div>
+      <!-- ROW 4 — Observability & Media -->
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">📊</span>
+          <div>
+            <h3 class="provider__name">Grafana</h3>
+            <span class="provider__src">Ora · 70 (B)</span>
           </div>
-          <p class="carousel__card-desc">OpenAI's official Documentation Agent Skill on Ora Directory. Indexes model docs, pricing, and rate limits for runtime lookups. Score <strong>71 (B)</strong>.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">Skill</span>
-              <code>openai-docs-agent</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">llms.txt</span>
-              <code>platform.openai.com/llms.txt</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Docs</span>
-            <span class="carousel__tag">LLM</span>
-            <span class="carousel__tag">Skill</span>
-            <span class="carousel__tag">Score: 71</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Build a dashboard from natural language</li>
+          <li>Query Prometheus / Loki through chat</li>
+          <li>Set up a PagerDuty alert from a panel</li>
+        </ul>
+      </article>
 
-        <!-- Scalekit -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🔐</span>
-            <div>
-              <h3 class="carousel__card-title">Scalekit</h3>
-              <span class="carousel__card-badge">scalekit.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">📈</span>
+          <div>
+            <h3 class="provider__name">Datadog</h3>
+            <span class="provider__src">Ora · 68 (C)</span>
           </div>
-          <p class="carousel__card-desc">Authentication and SSO MCP server for enterprise apps. SAML, OIDC, and SCIM provisioning. Agent-readiness score <strong>67 (C)</strong> on Ora.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>scalekit-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">REST</span>
-              <code>api.scalekit.com/v1</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">SSO</span>
-            <span class="carousel__tag">OIDC</span>
-            <span class="carousel__tag">Enterprise</span>
-            <span class="carousel__tag">Score: 67</span>
-          </div>
-        </div>
+          <span class="provider__type">MCP</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Correlate a deploy with the spike in p99 latency</li>
+          <li>Get a weekly SLO summary in Slack</li>
+          <li>Investigate an APM trace across 6 services</li>
+        </ul>
+      </article>
 
-        <!-- LangChain -->
-        <div class="carousel__card">
-          <div class="carousel__card-header">
-            <span class="carousel__card-icon">🦜</span>
-            <div>
-              <h3 class="carousel__card-title">LangChain</h3>
-              <span class="carousel__card-badge">langchain.com</span>
-            </div>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🎨</span>
+          <div>
+            <h3 class="provider__name">FLUX.1-dev</h3>
+            <span class="provider__src">HF Spaces · 9.5k ★</span>
           </div>
-          <p class="carousel__card-desc">LLM orchestration framework with MCP integration. Build chains, agents, and RAG pipelines. Agent-readiness score <strong>67 (C)</strong> on Ora Directory.</p>
-          <div class="carousel__card-endpoints">
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">MCP</span>
-              <code>langchain-mcp-server</code>
-            </div>
-            <div class="carousel__endpoint">
-              <span class="carousel__endpoint-method">Python</span>
-              <code>pip install langchain-mcp</code>
-            </div>
-          </div>
-          <div class="carousel__card-tags">
-            <span class="carousel__tag">Orchestration</span>
-            <span class="carousel__tag">RAG</span>
-            <span class="carousel__tag">Agents</span>
-            <span class="carousel__tag">Score: 67</span>
-          </div>
-        </div>
+          <span class="provider__type">Space</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Generate hero image for a landing page</li>
+          <li>Refine a sketch into photorealistic art</li>
+          <li>Inpaint a product photo with a new background</li>
+        </ul>
+      </article>
 
-      </div>
-      <button class="carousel__nav carousel__nav--next" id="carouselNext" aria-label="Next">›</button>
+      <article class="provider">
+        <header class="provider__head">
+          <span class="provider__icon">🎤</span>
+          <div>
+            <h3 class="provider__name">Whisper Large v3</h3>
+            <span class="provider__src">HF Spaces</span>
+          </div>
+          <span class="provider__type">Space</span>
+        </header>
+        <ul class="provider__uses">
+          <li>Transcribe 100 hours of customer calls overnight</li>
+          <li>Live-translate a Zoom meeting with timestamps</li>
+          <li>Generate SRT subtitles for a YouTube upload</li>
+        </ul>
+      </article>
+
     </div>
 
-    <div class="carousel__hint">
-      <span>← Scroll to explore 1,868+ providers across registries →</span>
+    <div class="provider-grid__footer">
+      <span>Showing <strong>16 popular providers</strong> &middot; your agent has <strong>~2,000+ tools</strong> at its fingertips &mdash; any of them reachable through one MCP / REST / Skill manifest. Aggregated from Ora Directory, GitHub Agent Finder, Cisco AI Catalog &amp; Hugging Face Spaces.</span>
     </div>
   </section>
-
   <!-- P2P Registry -->
   <section class="section" id="registry">
     <div class="section__header">

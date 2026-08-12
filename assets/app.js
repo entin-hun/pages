@@ -469,10 +469,6 @@ routingButtons.forEach(btn => {
 
 // Render default
 renderRouting('ai-text');
-
-// ===== Policy manifest code =====
-const policyCode = document.getElementById('policyCode');
-const policyManifest = `{
   "version": "1.0",
   "discovery": {
     "spec": "ARD-compatible ai-catalog.json on Swarm",
@@ -581,58 +577,17 @@ const policyManifest = `{
     "email-send": { "capability": "email-send", "preferred": "SendGrid", "fallback": null },
     "pdf-parse": { "capability": "document-parsing", "preferred": "Anthropic (vision)", "fallback": "AWS Textract" }
   },
-  "policy": {
-    "approved": true,
-    "regions": ["us-east-1", "eu-west-1"],
-    "compliance": ["GDPR", "SOC2"],
-    "spendCap": { "perDay": "$10", "perCategory": { "ai": "$5", "maps": "$2", "other": "$3" } }
-  }
-}`;
 
-// Syntax highlight (simple)
-function highlightJson(json) {
-  return json
-    .replace(/(&|<|>)/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]))
-    .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+\.?\d*)/g, (match) => {
-      let cls = 'json-num';
-      if (/^"/.test(match)) {
-        cls = /:$/.test(match) ? 'json-key' : 'json-str';
-      } else if (/true|false/.test(match)) {
-        cls = 'json-bool';
-      } else if (/null/.test(match)) {
-        cls = 'json-null';
-      }
-      return `<span class="${cls}">${match}</span>`;
-    });
-}
 
-// Add syntax highlight styles
-const style = document.createElement('style');
-style.textContent = `
-  .json-key { color: #f5a623; }
-  .json-str { color: #00d2a0; }
-  .json-num { color: #6c5ce7; }
-  .json-bool { color: #ff6b6b; }
-  .json-null { color: #9999aa; }
-`;
-document.head.appendChild(style);
-
-policyCode.innerHTML = highlightJson(policyManifest);
-
-// ===== Carousel Navigation =====
-const carouselTrack = document.getElementById('carouselTrack');
-const carouselPrev = document.getElementById('carouselPrev');
-const carouselNext = document.getElementById('carouselNext');
-
-if (carouselTrack && carouselPrev && carouselNext) {
-  const scrollAmount = 364; // card width + gap
-  
-  carouselPrev.addEventListener('click', () => {
-    carouselTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  });
-  
-  carouselNext.addEventListener('click', () => {
-    carouselTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+// ===== Provider Grid Cursor Tracking =====
+const providerGrid = document.querySelector('.provider-grid');
+if (providerGrid) {
+  providerGrid.addEventListener('pointermove', (e) => {
+    const card = e.target.closest('.provider');
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    card.style.setProperty('--my', `${e.clientY - rect.top}px`);
   });
 }
 
