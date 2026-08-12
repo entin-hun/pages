@@ -23,6 +23,7 @@
         <a href="#solution">Solution</a>
         <a href="#how">How It Works</a>
         <a href="#routing">Routing</a>
+        <a href="#ardref">ARD Refs</a>
         <a href="#registry">Registry</a>
         <a href="#compare">Compare</a>
         <a href="#faq">FAQ</a>
@@ -178,19 +179,19 @@
         </button>
         <button class="walkthrough__step" data-step="1">
           <span class="walkthrough__step-num">02</span>
-          <span class="walkthrough__step-label">Agent loads manifest</span>
+          <span class="walkthrough__step-label">Agent loads vault catalog</span>
         </button>
         <button class="walkthrough__step" data-step="2">
           <span class="walkthrough__step-num">03</span>
-          <span class="walkthrough__step-label">Key reconstructed locally</span>
+          <span class="walkthrough__step-label">Router checks vault first</span>
         </button>
         <button class="walkthrough__step" data-step="3">
           <span class="walkthrough__step-num">04</span>
-          <span class="walkthrough__step-label">Smart routing picks provider</span>
+          <span class="walkthrough__step-label">Query ARD registries if missing</span>
         </button>
         <button class="walkthrough__step" data-step="4">
           <span class="walkthrough__step-num">05</span>
-          <span class="walkthrough__step-label">API called, answer returned</span>
+          <span class="walkthrough__step-label">User chooses what to add</span>
         </button>
       </div>
       <div class="walkthrough__panel" id="walkthroughPanel">
@@ -202,28 +203,26 @@
   <!-- Smart Request Routing -->
   <section class="section section--alt" id="routing">
     <div class="section__header">
-      <span class="section__eyebrow">Federated Resource Discovery</span>
-      <h2 class="section__title">Discover. Route. Compose.</h2>
+      <span class="section__eyebrow">Two-Layer Architecture</span>
+      <h2 class="section__title">Your keys stay private. Discovery stays open.</h2>
       <p class="section__lead">
-        Inspired by <a href="https://agenticresourcediscovery.org/" target="_blank" rel="noopener">Agentic Resource Discovery (ARD)</a> —
-        SwarmKey treats every API key as a <strong>discoverable resource</strong>, not just a credential.
-        Each key publishes a <em>capability card</em>: what it does, its endpoints, its parameters, its constraints.
-        The router matches request intent to capabilities — across AI, maps, speech, data, and beyond.
+        SwarmKey has two independent layers:<br />
+        <strong>Layer 1 — Vault:</strong> Your API keys encrypted on Swarm (ACT). Never leaves your control.<br />
+        <strong>Layer 2 — Discovery:</strong> Query any ARD-compliant registry to find capabilities you don't have yet.<br />
+        Inspired by <a href="https://agenticresourcediscovery.org/" target="_blank" rel="noopener">Agentic Resource Discovery (ARD)</a> — the open standard for federated agent resource discovery.
       </p>
     </div>
 
     <div class="routing-explain">
       <div class="routing-explain__text">
         <p>
-          A website doesn't hardcode "use OpenAI." It declares: <code>"I need an AI text completion"</code>.
-          The router scans your vault's resource cards, finds the matching capability, checks parameters
-          (model, region, cost), and routes there. Same flow for Mapbox geocoding, Soniox speech-to-text,
-          or any other service — all discovered dynamically from your vault.
+          When a website needs a capability, the router first checks your <strong>vault</strong>. If you have an Anthropic key and the task is "text completion," it routes there immediately — no discovery needed.
         </p>
         <p>
-          This is <strong>federated discovery</strong>: each resource describes itself once (on Swarm, via ACT).
-          Any agent runtime can query the vault, build a policy-filtered toolbox, and compose requests.
-          No central registry, no per-collection re-registration. Just self-describing resources.
+          If the capability isn't in your vault, the router queries <strong>external ARD registries</strong> — GitHub Agent Finder, Hugging Face Discover, Ora Directory, Cisco AI Catalog — to find resources that provide it. It returns matches with their endpoints, parameters, and trust signals. You decide whether to add the key.
+        </p>
+        <p>
+          This is the ARD model: <strong>publish once, discover everywhere</strong>. Resources describe themselves at <code>/.well-known/ai-catalog.json</code>. Any ARD client can index them. No central gatekeeper. No per-collection re-registration.
         </p>
       </div>
     </div>
@@ -232,62 +231,113 @@
       <!-- Interactive router -->
       <div class="routing-demo">
         <h3>What does this website need?</h3>
-        <p class="routing-demo__hint">Your vault holds these resources. Watch how the router discovers and routes.</p>
+        <p class="routing-demo__hint">Your vault holds <strong>Anthropic Claude</strong>. Watch how the router decides: use vault or query ARD registries?</p>
         <div class="routing-demo__buttons">
-          <button class="routing-btn is-active" data-request="ai-text">📝 AI text completion</button>
-          <button class="routing-btn" data-request="ai-vision">🖼️ AI image understanding</button>
+          <button class="routing-btn is-active" data-request="ai-text">📝 Text completion</button>
           <button class="routing-btn" data-request="geocode">🗺️ Geocode address</button>
-          <button class="routing-btn" data-request="reverse-geocode">📍 Reverse geocode</button>
           <button class="routing-btn" data-request="speech-to-text">🎤 Speech → text</button>
-          <button class="routing-btn" data-request="text-to-speech">🔊 Text → speech</button>
-          <button class="routing-btn" data-request="embeddings">🔢 Generate embeddings</button>
+          <button class="routing-btn" data-request="image-gen">🎨 Generate image</button>
+          <button class="routing-btn" data-request="embeddings">🔢 Embeddings</button>
           <button class="routing-btn" data-request="web-search">🌐 Web search</button>
           <button class="routing-btn" data-request="email-send">✉️ Send email</button>
-          <button class="routing-btn" data-request="pdf-parse">📄 Parse PDF table</button>
+          <button class="routing-btn" data-request="pptx-create">📊 Create PowerPoint</button>
         </div>
         <div class="routing-demo__result" id="routingResult">
           <!-- Filled by JS -->
         </div>
       </div>
 
-      <!-- Resource catalog -->
+      <!-- Live ARD entries -->
       <div class="routing-code">
         <div class="routing-code__header">
           <span class="routing-code__dot" style="background:#ff5f56"></span>
           <span class="routing-code__dot" style="background:#ffbd2e"></span>
           <span class="routing-code__dot" style="background:#27c93f"></span>
-          <span class="routing-code__name">ai-catalog.json</span>
+          <span class="routing-code__name">ard-discovery-result.json</span>
         </div>
         <pre class="routing-code__block"><code id="policyCode"></code></pre>
       </div>
     </div>
 
     <div class="routing-why">
-      <h3>Why federated discovery beats hardcoded routing</h3>
+      <h3>Vault + ARD: why both matter</h3>
       <div class="routing-why__grid">
         <div class="routing-why__card">
-          <h4>🏷️ Capability-based, not provider-based</h4>
-          <p>Websites declare <em>what</em> they need ("geocode this address"), not <em>who</em> provides it. The router matches capabilities to your vault's resources. Swap Mapbox for Google? Update one card, everything adapts.</p>
+          <h4>🔑 Vault = zero-trust credential storage</h4>
+          <p>Your keys are encrypted on Swarm via ACT. Only you can decrypt them. No server ever sees plaintext. MCP transport supported natively — JSON-RPC connections established locally.</p>
         </div>
         <div class="routing-why__card">
-          <h4>📋 Self-describing resources</h4>
-          <p>Each key publishes a capability card: endpoints, parameters, supported models, cost, region. Like ARD's <code>ai-catalog.json</code> but stored on Swarm with ACT encryption. No central gatekeeper.</p>
+          <h4>🔍 ARD = open capability discovery</h4>
+          <p>When you lack a key, query GitHub Agent Finder, HF Discover, Ora, or Cisco catalogs. They return ARD-compliant entries with URN identifiers, trust manifests, and endpoint URLs. You choose what to install.</p>
         </div>
         <div class="routing-why__card">
-          <h4>🔀 MCP-native routing</h4>
-          <p>Resources can expose MCP servers alongside REST APIs. The router detects MCP endpoints and connects via JSON-RPC automatically. One manifest, multiple transport protocols.</p>
+          <h4>🏷️ Capability-based routing</h4>
+          <p>Websites declare <code>"I need geocoding"</code>, not <code>"Use Mapbox"</code>. Router checks vault → if present, use it. If absent, query ARD registries → found? Prompt user to add key → done.</p>
         </div>
         <div class="routing-why__card">
-          <h4>🧩 Gap detection &amp; fallbacks</h4>
-          <p>No Maps key? The router knows and either suggests adding one, uses a workaround (Claude can describe locations), or returns a structured error the UI can handle gracefully.</p>
+          <h4>🌐 Federated, not centralized</h4>
+          <p>ARD registries crawl <code>/.well-known/ai-catalog.json</code> across the web. Each resource describes itself once. Any client can index it. No single operator controls discovery.</p>
         </div>
         <div class="routing-why__card">
-          <h4>🏛️ Policy-filtered toolbox</h4>
-          <p>Like ARD discovery services, SwarmKey builds a policy-filtered toolbox: approved resources only, cost caps, region constraints, compliance rules. The client's tool search ranks over this curated set.</p>
+          <h4>🛡️ Trust via trustManifest</h4>
+          <p>ARD entries carry SPIFFE/DID identities and compliance attestations (SOC2, GDPR). Ora Directory even provides agent-readiness scorecards signed as Ed25519 JWS. Verify before you add a key.</p>
         </div>
         <div class="routing-why__card">
-          <h4>🌐 Works with any stack</h4>
-          <p>LLM keys (Anthropic, OpenAI, Ollama, OpenRouter), Maps (Mapbox, Google), STT (Soniox, Alibaba), TTS, email (SendGrid, AWS SES), search (Brave, SerpAPI) — all described uniformly, routed identically.</p>
+          <h4>⚡ Works today</h4>
+          <p>GitHub Agent Finder (<code>agentfinder.github.com</code>), HF Discover CLI (<code>hf discover search</code>), Ora Directory (<code>ora.ai/api/ard/search</code>), Cisco AI Catalog (<code>ai-catalog.outshift.io</code>) — all ARD-compliant, all queryable now.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live ARD Reference Implementations -->
+  <section class="section" id="ardref">
+    <div class="section__header">
+      <span class="section__eyebrow">Real Implementations</span>
+      <h2 class="section__title">ARD discovery is running in production today</h2>
+      <p class="section__lead">
+        SwarmKey's router speaks the open <a href="https://agenticresourcediscovery.org/spec/" target="_blank" rel="noopener">ARD protocol</a> — which means it can query <strong>live</strong> federated registries right now. These reference implementations all serve the same <code>application/java-card</code> resource model SwarmKey uses:
+      </p>
+    </div>
+    <div class="registry-layout">
+      <div class="registry-features">
+        <div class="registry-feature">
+          <h3>🐙 GitHub Agent Finder</h3>
+          <p>Hosted discovery service at <code>https://agentfinder.github.com/api/v1</code>. Search Skills, tools, and MCP servers, then install ranked matches into your agent. Reachable via <code>POST /search</code> or the MCP endpoint at <code>/api/v1/mcp</code>.</p>
+        </div>
+        <div class="registry-feature">
+          <h3>🤗 Hugging Face Discover</h3>
+          <p>Built into the <code>hf</code> CLI. Search thousands of Skills, ML apps, and MCP servers — on HF, or any other ARD-compliant service. REST API at <code>huggingface-hf-discover.hf.space/search</code>, MCP at <code>/mcp</code>.</p>
+        </div>
+        <div class="registry-feature">
+          <h3>🧭 Ora Directory</h3>
+          <p>Agent-readiness directory at <code>ora.ai</code>. Every product gets a signed trust attestation scorecard (Ed25519 JWS), plus x402/MPP payable endpoints. Full <code>POST /search</code>, <code>POST /explore</code>, <code>GET /agents</code> surface.</p>
+        </div>
+        <div class="registry-feature">
+          <h3>🔌 Cisco AI Catalog</h3>
+          <p>AGNTCY-based catalog at <code>ai-catalog.outshift.io</code>. Pull the manifest at <code>/.well-known/ai-catalog.json</code>, discover A2A and MCP cards, and verify publisher identity via trust manifests (SPIFFE/DID).</p>
+        </div>
+      </div>
+      <div class="registry-features">
+        <div class="registry-feature">
+          <h3>🛠️ Try it yourself</h3>
+          <pre class="walkthrough__code" style="margin:0;font-size:0.72rem;"><code># GitHub Agent Finder
+curl -sS -X POST https://agentfinder.github.com/api/v1/search \
+  -H 'content-type: application/json' \
+  -d '{"query":{"text":"geocode address"}}'
+
+# Hugging Face Discover CLI
+hf discover search "Generate an image" --json --kind mcp
+
+# Ora Directory — find MCP servers
+curl -sS -G https://ora.ai/api/ard/agents \
+  --data-urlencode "filter=type='application/mcp-server-card+json'" \
+  --data-urlencode "pageSize=5"
+
+# Cisco AI Catalog — pull manifest
+curl -sS https://ai-catalog.outshift.io/.well-known/ai-catalog.json \
+  | jq '.specVersion, .host.displayName'</code></pre>
+          <p style="margin-top:10px;">Meanwhile, your <strong>keys never leave your vault</strong>. SwarmKey only uses ARD to <em>discover</em> capabilities — the credential itself is always ACT-encrypted on Swarm and reconstructed locally.</p>
         </div>
       </div>
     </div>

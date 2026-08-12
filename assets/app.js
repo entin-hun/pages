@@ -47,62 +47,83 @@ const agent = new SwarmKeyAgent({
 });`,
   },
   {
-    title: 'Agent loads resource catalog',
-    desc: 'The agent fetches the capability catalog from Swarm by its content hash. Each resource declares its capabilities, endpoints (REST + MCP), parameters, and constraints — like ARD\'s ai-catalog.json but encrypted on Swarm.',
-    code: `// Fetch catalog from Swarm
-const catalog = await agent.loadCatalog();
+    title: 'Agent loads vault catalog',
+    desc: 'The agent fetches your vault\'s encrypted resource cards from Swarm. Each card declares capabilities, endpoints (REST + MCP), parameters, and constraints — like ARD\'s ai-catalog.json but private and encrypted.',
+    code: `// Fetch vault catalog from Swarm
+const vaultCatalog = await agent.loadVaultCatalog();
 // → {
 //   resources: [
 //     { name: "Anthropic", type: "llm",
 //       capability: ["text-completion", "image-understanding"],
 //       endpoints: { rest: "/v1/messages", mcp: "jsonrpc+anthropic" } },
-//     { name: "Mapbox", type: "maps",
-//       capability: ["geocode", "reverse-geocode"],
-//       endpoints: { rest: "/geocoding/v5/..." } },
-//     ...
+//     { name: "OpenAI", type: "embeddings",
+//       capability: ["embeddings"],
+//       endpoints: { rest: "/v1/embeddings" } }
 //   ]
 // }`,
   },
   {
-    title: 'Key reconstructed locally',
-    desc: 'The router identifies which resource handles this request\'s capability. It fetches the encrypted shards from Swarm and reconstructs the API key in memory — using the user\'s seed phrase. The key never touches disk or a server.',
-    code: `// Reconstruct key from Swarm shards
-const key = await agent.reconstructKey({
-  resource: "Anthropic",
-  shardRefs: catalog.resources[0].keyRef,
-});
-// key exists in memory for milliseconds only
-// → "sk-ant-api03-..."`,
+    title: 'Router checks vault first',
+    desc: 'For each request, the router first checks if the needed capability exists in your vault. If yes, it reconstructs the key locally and routes immediately — no external discovery needed.',
+    code: `// Check vault for capability match
+const need = "text-completion";
+const found = vaultCatalog.resources.find(r =>
+  r.capability.includes(need)
+);
+
+if (found) {
+  // ✅ Found in vault — route directly
+  return routeFromVault(found);
+}
+
+// ❌ Not in vault — query ARD registries
+return queryARDRegistries(need);`,
   },
   {
-    title: 'Router matches capability → endpoint',
-    desc: 'The routing layer reads the catalog and matches the request\'s needed capability ("text-completion") to the right resource. It selects the best model from your Anthropic key lineup, constructs the correct endpoint URL with proper headers, and validates parameters against the resource card schema.',
-    code: `// Capability-based routing
-const route = agent.route({
-  need: "text-completion",
-  input: question,
+    title: 'Query ARD registries if missing',
+    desc: 'If the capability isn\'t in your vault, the router queries external ARD-compliant registries: GitHub Agent Finder, Hugging Face Discover, Ora Directory, Cisco AI Catalog. They return ranked results with URN identifiers, trust manifests, and endpoint URLs.',
+    code: `// Query ARD registries via federation
+const results = await agent.queryARD({
+  text: "geocode address",
+  federation: "referrals",
 });
+
 // → {
-//   resource: "Anthropic",
-//   endpoint: "/v1/messages",
-//   transport: "rest", // or "mcp" if available
-//   model: "claude-sonnet-4",
-//   params: { maxTokens: 4096, temperature: 0.7 }
+//   results: [
+//     { identifier: "urn:air:github.com:mcp:weather-geo",
+//       displayName: "Weather & Geocoding MCP Server",
+//       score: 92, source: "GitHub Agent Finder" },
+//     { identifier: "urn:air:ora.ai:service:mapbox",
+//       displayName: "Mapbox Forward Geocoder",
+//       score: 87, source: "Ora Directory" }
+//   ],
+//   referrals: [...]
 // }`,
   },
   {
-    title: 'API called, answer returned',
-    desc: 'The agent calls the LLM API directly with the reconstructed key. The response flows back to the chatbot UI. The key is wiped from memory. The entire process took milliseconds, and no server ever saw the plaintext key.',
-    code: `// Call LLM API directly
-const response = await agent.call({
-  provider: route.provider,
-  model: route.model,
-  messages: [{ role: "user", content: question }],
+    title: 'User chooses what to add',
+    desc: 'The router presents ARD results to the user with trust signals (SOC2 attestations, SPIFFE identities, agent-readiness scorecards). User decides whether to add the key. Once added, future requests use the vault — no repeated discovery.',
+    code: `// Present ARD results to user
+const choice = await user.prompt({
+  message: "This task requires a geocoding API. Add one?",
+  options: results.map(r => ({
+    label: r.displayName,
+    value: r.identifier,
+    trust: r.trustManifest?.identity,
+    score: r.score
+  }))
 });
 
-// Display answer, wipe key from memory
-displayAnswer(response.content);
-agent.wipeKey(); // key gone`,
+if (choice) {
+  // Store new key in vault
+  await agent.storeKey(choice.value, {
+    type: "maps",
+    endpoint: choice.endpoint,
+    auth: "Bearer token"
+  });
+}
+
+// Next time: instant vault route!`,
   },
 ];
 
@@ -136,117 +157,261 @@ walkthroughSteps.forEach((step, i) => {
 // Render first step on load
 renderWalkthrough(0);
 
-// ===== Routing Demo — Federated Resource Discovery =====
+// ===== Routing Demo — Vault + ARD Discovery =====
 const routingData = {
   'ai-text': {
-    label: 'Need: AI text completion',
+    label: 'Need: Text completion',
+    status: '✅ Found in vault',
     provider: 'Anthropic → claude-sonnet-4',
-    reason: 'Capability match: "text-completion" maps to Anthropic\'s chat endpoint. The router checks your vault\'s ai-catalog.json card, finds Anthropic supports this capability, selects sonnet-4 as the best model for quality/cost ratio.',
+    reason: 'Your vault has an Anthropic key. The router matches "text-completion" capability directly to your stored key. No external discovery needed — instant route.',
     chips: [
+      { label: 'Source', value: 'Vault (Swarm)' },
       { label: 'Capability', value: 'text-completion' },
-      { label: 'Endpoint', value: '/v1/messages' },
       { label: 'Model param', value: 'claude-sonnet-4' },
       { label: 'Transport', value: 'REST / MCP' },
     ],
-  },
-  'ai-vision': {
-    label: 'Need: AI image understanding',
-    provider: 'Anthropic → claude-sonnet-4 (vision)',
-    reason: 'Capability match: "image-understanding" requires multimodal support. Anthropic\'s card declares vision capability on sonnet-4. Router passes the image as base64 in the message payload.',
-    chips: [
-      { label: 'Capability', value: 'image-understanding' },
-      { label: 'Endpoint', value: '/v1/messages' },
-      { label: 'Model param', value: 'claude-sonnet-4-vision' },
-      { label: 'Input format', value: 'base64 / URL' },
-    ],
+    ardResult: null,
   },
   'geocode': {
     label: 'Need: Geocode address',
-    provider: 'Mapbox → /mapbox-gl/geocoding/v5',
-    reason: 'Capability match: "geocode" maps to Mapbox Forward Geocoding API. Your vault\'s Mapbox card declares this endpoint with parameters: query (required), country (optional), limit (default: 5). Router constructs the request URL with your key.',
+    status: '🔍 Not in vault — querying ARD registries...',
+    provider: 'GitHub Agent Finder → weather-geocoding MCP server',
+    reason: 'No Maps key in your vault. Router queries GitHub Agent Finder (agentfinder.github.com/api/v1/search) for "geocode" capability. Returns ranked MCP servers with URN identifiers and trust manifests.',
     chips: [
-      { label: 'Capability', value: 'geocode' },
-      { label: 'Endpoint', value: '/geocoding/v5/{dataset}/{query}' },
-      { label: 'Cost', value: '$0.50/1K req' },
-      { label: 'Auth', value: 'Bearer token' },
+      { label: 'Source', value: 'GitHub Agent Finder' },
+      { label: 'URN', value: 'urn:air:github.com:mcp:weather-geo' },
+      { label: 'Type', value: 'application/mcp-server-card+json' },
+      { label: 'Trust', value: 'SOC2-Type2' },
     ],
-  },
-  'reverse-geocode': {
-    label: 'Need: Reverse geocode coordinates',
-    provider: 'Mapbox → /mapbox-gl/geocoding/v5',
-    reason: 'Same Mapbox endpoint, different operation. The router detects lat/lng input and switches to reverse geocoding mode. Parameters: longitude, latitude, radius, bbox — all validated against the resource card schema.',
-    chips: [
-      { label: 'Capability', value: 'reverse-geocode' },
-      { label: 'Endpoint', value: '/geocoding/v5/{dataset}/{lon},{lat}' },
-      { label: 'Cost', value: '$0.50/1K req' },
-      { label: 'Auth', value: 'Bearer token' },
-    ],
+    ardResult: {
+      source: 'GitHub Agent Finder',
+      url: 'https://agentfinder.github.com/api/v1/search',
+      results: [
+        {
+          identifier: 'urn:air:hf.co:weather-mcp:geocode',
+          displayName: 'Weather & Geocoding MCP Server',
+          type: 'application/mcp-server-card+json',
+          score: 92,
+          description: 'Geocode addresses and get weather data via Open-Meteo API',
+          representativeQueries: ['what is the lat long of Budapest', 'get weather for Tokyo'],
+          url: 'https://huggingface.co/spaces/weather-mcp/geocode-server',
+        },
+        {
+          identifier: 'urn:air:github.com:mcp:mapbox-geocoder',
+          displayName: 'Mapbox Forward Geocoder',
+          type: 'application/mcp-server-card+json',
+          score: 87,
+          description: 'Convert addresses to geographic coordinates using Mapbox GL',
+          representativeQueries: ['find coordinates for this address', 'reverse geocode NYC'],
+          url: 'https://github.com/mapbox/mcp-geocoder',
+        },
+      ],
+    },
   },
   'speech-to-text': {
     label: 'Need: Speech → text transcription',
-    provider: 'Soniox → /soniox/speech_to_text/v2',
-    reason: 'Capability match: "speech-to-text" maps to Soniox streaming transcription. Your vault\'s Soniox card declares audio format support (wav, mp3), language codes (en, hu, de), and max duration (300s). Router formats the audio chunk and sets headers.',
+    status: '🔍 Not in vault — querying ARD registries...',
+    provider: 'Ora Directory → Soniox STT service',
+    reason: 'No STT key in your vault. Router queries Ora Directory (ora.ai/api/ard/search) for "speech-to-text". Ora scans products for agent-readiness and returns verified endpoints with scorecards.',
     chips: [
-      { label: 'Capability', value: 'speech-to-text' },
-      { label: 'Endpoint', value: '/speech_to_text/v2' },
-      { label: 'Audio format', value: 'wav / mp3' },
-      { label: 'Cost', value: '$0.004/min' },
+      { label: 'Source', value: 'Ora Directory' },
+      { label: 'URN', value: 'urn:air:ora.ai:service:soniox-stt' },
+      { label: 'Type', value: 'application/openapi+json' },
+      { label: 'Scorecard', value: 'Agent-ready ✓' },
     ],
+    ardResult: {
+      source: 'Ora Directory',
+      url: 'https://ora.ai/api/ard/search',
+      results: [
+        {
+          identifier: 'urn:air:soniox.com:stt:streaming',
+          displayName: 'Soniox Streaming Transcription',
+          type: 'application/openapi+json',
+          score: 95,
+          description: 'Real-time speech-to-text with WebSocket streaming support',
+          representativeQueries: ['transcribe audio to text', 'live caption this meeting'],
+          url: 'https://docs.soniox.com/api-reference/speech-to-text',
+          trustManifest: {
+            identity: 'spiffe://soniox.com/stt/streaming',
+            attestations: [{ type: 'SOC2-Type2', uri: 'https://trust.soniox.com/soc2' }],
+          },
+        },
+        {
+          identifier: 'urn:air:alibabacloud.com:tts:stt',
+          displayName: 'Alibaba Cloud ASR',
+          type: 'application/openapi+json',
+          score: 83,
+          description: 'Automatic speech recognition supporting 100+ languages',
+          representativeQueries: ['convert voice to text Chinese', 'transcribe podcast episode'],
+          url: 'https://www.alibabacloud.com/product/speech',
+        },
+      ],
+    },
   },
-  'text-to-speech': {
-    label: 'Need: Text → speech synthesis',
-    provider: 'Alibaba Cloud → /nmt-tts/api/v21/tts',
-    reason: 'Capability match: "text-to-speech" maps to Alibaba Cloud Neural MT TTS. Your vault\'s card declares voice options (female/male, zh-CN/en-US), output formats (mp3/wav), and speed range (0.5x–2.0x). Router selects the best voice for the input language.',
+  'image-gen': {
+    label: 'Need: Generate image',
+    status: '🔍 Not in vault — querying ARD registries...',
+    provider: 'HF Discover → DALL-E / Stable Diffusion MCP',
+    reason: 'No image generation key in your vault. Router queries Hugging Face Discover (hf discover search) for "generate image". HF indexes thousands of ML applications and MCP servers.',
     chips: [
-      { label: 'Capability', value: 'text-to-speech' },
-      { label: 'Endpoint', value: '/nmt-tts/api/v21/tts' },
-      { label: 'Output', value: 'mp3 / wav' },
-      { label: 'Cost', value: '¥0.02/1K chars' },
+      { label: 'Source', value: 'Hugging Face Discover' },
+      { label: 'URN', value: 'urn:air:hf.co:mcp:dall-e-generator' },
+      { label: 'Type', value: 'application/mcp-server-card+json' },
+      { label: 'Kind', value: 'mcp' },
     ],
+    ardResult: {
+      source: 'Hugging Face Discover',
+      url: 'https://huggingface-hf-discover.hf.space/search',
+      results: [
+        {
+          identifier: 'urn:air:hf.co:mcp:dalle-image-gen',
+          displayName: 'DALL-E Image Generator',
+          type: 'application/mcp-server-card+json',
+          score: 94,
+          description: 'Generate images from text prompts using DALL-E 3 API',
+          representativeQueries: ['create a logo for my startup', 'generate product photo'],
+          url: 'https://huggingface.co/spaces/dalle-mcp/generator',
+        },
+        {
+          identifier: 'urn:air:hf.co:app:sdxl-local',
+          displayName: 'Stable Diffusion XL (local)',
+          type: 'application/a2a-agent-card+json',
+          score: 88,
+          description: 'Run SDXL locally on GPU — no API key needed, fully private',
+          representativeQueries: ['draw a landscape scene', 'create character art'],
+          url: 'https://huggingface.co/spaces/sdxl-local',
+        },
+      ],
+    },
   },
   'embeddings': {
     label: 'Need: Generate embeddings',
-    provider: 'OpenAI → /openai/embeddings',
-    reason: 'Capability match: "embeddings" maps to OpenAI embedding endpoint. Your vault\'s OpenAI card declares model variants (text-embedding-3-small, text-embedding-3-large), dimensions (1536/3072), and token limits (8191). Router picks the smallest model that meets accuracy requirements.',
+    status: '✅ Found in vault',
+    provider: 'OpenAI → text-embedding-3-small',
+    reason: 'Your vault has an OpenAI key. The router matches "embeddings" capability directly. Selects text-embedding-3-small (1536 dims) as the most cost-effective model.',
     chips: [
+      { label: 'Source', value: 'Vault (Swarm)' },
       { label: 'Capability', value: 'embeddings' },
-      { label: 'Endpoint', value: '/v1/embeddings' },
       { label: 'Model param', value: 'text-embedding-3-small' },
-      { label: 'Dimensions', value: '1536 / 3072' },
+      { label: 'Dimensions', value: '1536' },
     ],
+    ardResult: null,
   },
   'web-search': {
     label: 'Need: Web search',
-    provider: 'Brave Search → /brave/search/v1/web',
-    reason: 'Capability match: "web-search" maps to Brave Search API. Your vault\'s Brave card declares query params, count (1–20), freshness filters, and safe-search levels. Router constructs the search query with appropriate filters based on context.',
+    status: '🔍 Not in vault — querying ARD registries...',
+    provider: 'Cisco AI Catalog → Brave Search MCP',
+    reason: 'No search API key in your vault. Router queries Cisco AI Catalog (ai-catalog.outshift.io) for "web search". Cisco\'s catalog includes enterprise-grade search tools with trust attestations.',
     chips: [
-      { label: 'Capability', value: 'web-search' },
-      { label: 'Endpoint', value: '/search/v1/web' },
-      { label: 'Max results', value: '1–20' },
-      { label: 'Cost', value: '$0.005/search' },
+      { label: 'Source', value: 'Cisco AI Catalog' },
+      { label: 'URN', value: 'urn:air:cisco.com:mcp:brave-search' },
+      { label: 'Type', value: 'application/mcp-server-card+json' },
+      { label: 'Trust', value: 'SPIFFE-X509' },
     ],
+    ardResult: {
+      source: 'Cisco AI Catalog',
+      url: 'https://ai-catalog.outshift.io/.well-known/ai-catalog.json',
+      results: [
+        {
+          identifier: 'urn:air:brave.com:search:web',
+          displayName: 'Brave Search MCP Server',
+          type: 'application/mcp-server-card+json',
+          score: 91,
+          description: 'Privacy-preserving web search via Brave Search API',
+          representativeQueries: ['search the web for latest news', 'find documentation for React'],
+          url: 'https://github.com/brave-search/mcp-server',
+          trustManifest: {
+            identity: 'did:web:brave.com',
+            attestations: [{ type: 'GDPR', uri: 'https://brave.com/legal/gdpr' }],
+          },
+        },
+        {
+          identifier: 'urn:air:serpapi.com:search:general',
+          displayName: 'SerpAPI General Search',
+          type: 'application/openapi+json',
+          score: 85,
+          description: 'Google/Bing/DuckDuckGo search results via unified API',
+          representativeQueries: ['search Google for recipes', 'find trending topics'],
+          url: 'https://serpapi.com/',
+        },
+      ],
+    },
   },
   'email-send': {
     label: 'Need: Send email',
-    provider: 'SendGrid → /sendgrid/v3/mail/send',
-    reason: 'Capability match: "email-send" maps to SendGrid Mail Send API. Your vault\'s SendGrid card declares template support, attachment limits (30MB), rate limits (100/sec), and tracking options. Router validates the email structure against the card schema before sending.',
+    status: '🔍 Not in vault — querying ARD registries...',
+    provider: 'Ora Directory → SendGrid transactional email',
+    reason: 'No email API key in your vault. Router queries Ora Directory for "send email". Ora provides agent-readiness scorecards so you know the service works for agents before adding it.',
     chips: [
-      { label: 'Capability', value: 'email-send' },
-      { label: 'Endpoint', value: '/v3/mail/send' },
-      { label: 'Attachment', value: '≤ 30 MB' },
-      { label: 'Rate limit', value: '100 req/sec' },
+      { label: 'Source', value: 'Ora Directory' },
+      { label: 'URN', value: 'urn:air:sendgrid.com:email:transactional' },
+      { label: 'Type', value: 'application/openapi+json' },
+      { label: 'Scorecard', value: 'Agent-ready ✓' },
     ],
+    ardResult: {
+      source: 'Ora Directory',
+      url: 'https://ora.ai/api/ard/search',
+      results: [
+        {
+          identifier: 'urn:air:sendgrid.com:email:tx',
+          displayName: 'SendGrid Transactional Email',
+          type: 'application/openapi+json',
+          score: 96,
+          description: 'Send transactional emails with templates, tracking, and analytics',
+          representativeQueries: ['send confirmation email', 'notify user about order'],
+          url: 'https://docs.sendgrid.com/api-reference/mail-send',
+          trustManifest: {
+            identity: 'spiffe://sendgrid.com/email',
+            attestations: [{ type: 'SOC2-Type2', uri: 'https://sendgrid.com/trust/soc2' }],
+          },
+        },
+        {
+          identifier: 'urn:air:aws.amazon.com:ses:email',
+          displayName: 'AWS SES Email Service',
+          type: 'application/openapi+json',
+          score: 89,
+          description: 'Amazon Simple Email Service — scalable, cost-effective email sending',
+          representativeQueries: ['bulk email campaign', 'verify user email address'],
+          url: 'https://docs.aws.amazon.com/ses/',
+        },
+      ],
+    },
   },
-  'pdf-parse': {
-    label: 'Need: Parse PDF table',
-    provider: 'Anthropic → claude-sonnet-4 (vision + parsing)',
-    reason: 'Capability match: "document-parsing" can be handled by Claude\'s vision endpoint (PDF rendered as image) or by a dedicated OCR service. Router prefers Claude (already in vault) over adding a new OCR key. Falls back to AWS Textract if document is scanned-only.',
+  'pptx-create': {
+    label: 'Need: Create PowerPoint presentation',
+    status: '🔍 Not in vault — querying ARD registries...',
+    provider: 'HF Discover → pptx-creator Skill',
+    reason: 'No presentation tool in your vault. Router queries Hugging Face Discover for "create PowerPoint". Finds Skills and MCP servers that generate branded presentations.',
     chips: [
-      { label: 'Capability', value: 'document-parsing' },
-      { label: 'Endpoint', value: '/v1/messages (vision)' },
-      { label: 'Fallback', value: 'AWS Textract' },
-      { label: 'Format', value: 'PDF / image' },
+      { label: 'Source', value: 'Hugging Face Discover' },
+      { label: 'URN', value: 'urn:air:github.com:pptx-creator' },
+      { label: 'Type', value: 'application/ai-skill+md' },
+      { label: 'Kind', value: 'skill' },
     ],
+    ardResult: {
+      source: 'Hugging Face Discover',
+      url: 'https://huggingface-hf-discover.hf.space/search',
+      results: [
+        {
+          identifier: 'urn:air:github.com:alice-dev:pptx-creator',
+          displayName: 'PPTX Creator',
+          type: 'application/ai-skill+md',
+          score: 90,
+          description: 'Create professional PowerPoint presentations following brand guidelines',
+          representativeQueries: ['make a pitch deck', 'create training slides'],
+          url: 'https://github.com/alice-dev/pptx-creator',
+        },
+        {
+          identifier: 'urn:air:hf.co:mcp:slide-generator',
+          displayName: 'Slide Generator MCP',
+          type: 'application/mcp-server-card+json',
+          score: 84,
+          description: 'Generate slide decks from markdown or natural language input',
+          representativeQueries: ['turn this blog post into slides', 'create quarterly report deck'],
+          url: 'https://huggingface.co/spaces/slide-generator',
+        },
+      ],
+    },
   },
 };
 
@@ -255,9 +420,10 @@ const routingResult = document.getElementById('routingResult');
 
 function renderRouting(request) {
   const data = routingData[request];
-  routingResult.innerHTML = `
+  let resultHTML = `
     <div class="routing-result__label">${data.label}</div>
-    <div class="routing-result__provider">${data.provider}</div>
+    <div class="routing-result__provider">${data.status}</div>
+    ${data.provider ? `<div style="font-size:1.1rem;font-weight:600;color:var(--accent);margin-bottom:12px;">${data.provider}</div>` : ''}
     <div class="routing-result__reason">${data.reason}</div>
     <div class="routing-result__meta">
       ${data.chips.map(c => `
@@ -265,6 +431,32 @@ function renderRouting(request) {
       `).join('')}
     </div>
   `;
+
+  // Show ARD results if available
+  if (data.ardResult && data.ardResult.results) {
+    resultHTML += `
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+        <div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-dim);margin-bottom:12px;">
+          📡 Results from ${data.ardResult.source} (${data.ardResult.url})
+        </div>
+    `;
+    data.ardResult.results.forEach((r, i) => {
+      resultHTML += `
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-weight:700;font-size:0.95rem;">${r.displayName}</span>
+            <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--accent);">score: ${r.score}</span>
+          </div>
+          <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:6px;">${r.description}</div>
+          <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);word-break:break-all;">${r.identifier}</div>
+          ${r.trustManifest ? `<div style="margin-top:6px;font-size:0.75rem;color:var(--accent-3);">🛡️ ${r.trustManifest.identity}</div>` : ''}
+        </div>
+      `;
+    });
+    resultHTML += '</div>';
+  }
+
+  routingResult.innerHTML = resultHTML;
 }
 
 routingButtons.forEach(btn => {
