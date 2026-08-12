@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwarmKey Protocol — Decentralized BYOK API Key Wallet</title>
+  <meta name="description" content="A peer-to-peer, self-sovereign API key wallet built on Swarm. Bring your own keys, route intelligently, and stay in control." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <span class="nav__logo-icon">🔐</span>
+        <span class="nav__logo-text">SwarmKey</span>
+      </a>
+      <div class="nav__links">
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#how">How It Works</a>
+        <a href="#routing">Routing</a>
+        <a href="#registry">Registry</a>
+        <a href="#compare">Compare</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <button class="nav__theme" id="themeToggle" aria-label="Toggle theme">
+        <span class="nav__theme-icon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero__bg">
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+    </div>
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Built on Swarm · Decentralized Storage
+      </div>
+      <h1 class="hero__title">
+        Your API keys.<br />
+        <span class="hero__title-gradient">Your control.</span><br />
+        No middleman.
+      </h1>
+      <p class="hero__subtitle">
+        SwarmKey is a peer-to-peer protocol for storing, routing, and using API keys
+        — without handing them to a central server. Bring your own LLM keys,
+        payment keys, or any API credential. Swarm handles storage;
+        <strong>you</strong> handle control.
+      </p>
+      <div class="hero__cta">
+        <a href="#how" class="btn btn--primary">See how it works →</a>
+        <a href="#compare" class="btn btn--ghost">Compare alternatives</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <div class="hero__stat-num">~$0.20</div>
+          <div class="hero__stat-label">Cost / year to store a key</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-num">0</div>
+          <div class="hero__stat-label">Servers that see your key</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-num">∞</div>
+          <div class="hero__stat-label">Providers you can route between</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Problem -->
+  <section class="section" id="problem">
+    <div class="section__header">
+      <span class="section__eyebrow">The Problem</span>
+      <h2 class="section__title">Centralized key management is broken</h2>
+      <p class="section__lead">
+        Every AI app, SaaS tool, and automation pipeline needs API keys.
+        But the way we store and use them today has fundamental flaws.
+      </p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card__icon">🔑</div>
+        <h3>You hand keys to strangers</h3>
+        <p>
+          When you paste your OpenAI or Anthropic key into a chatbot or agent platform,
+          that key sits on <strong>their</strong> server. One breach and it's gone.
+        </p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card__icon">💸</div>
+        <h3>Abuse is too easy</h3>
+        <p>
+          A competitor or a malicious actor can spam your endpoint with useless requests
+          and run up a massive bill. You won't know until the invoice arrives.
+        </p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card__icon">🔒</div>
+        <h3>Vendor lock-in</h3>
+        <p>
+          Composio, Fga.dev, and others build walled gardens. Your keys, your tools,
+          your workflows — all locked behind their auth layer and their pricing.
+        </p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card__icon">🧩</div>
+        <h3>No smart routing</h3>
+        <p>
+          You have an Anthropic key <em>and</em> an OpenAI key. Today you pick one manually.
+          There's no protocol that says "use Claude for code, GPT for summaries,
+          cheapest for simple tasks."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="section section--alt" id="solution">
+    <div class="section__header">
+      <span class="section__eyebrow">The Solution</span>
+      <h2 class="section__title">A self-sovereign key wallet on Swarm</h2>
+      <p class="section__lead">
+        SwarmKey stores your API keys as encrypted chunks on the Swarm network.
+        Only <em>you</em> can decrypt them — with your seed phrase.
+        An agent runtime reconstructs the key locally, calls the API, and the key
+        never touches a server.
+      </p>
+    </div>
+    <div class="solution-flow">
+      <div class="solution-step">
+        <div class="solution-step__num">1</div>
+        <h3>Encrypt &amp; shard</h3>
+        <p>Your key is split into encrypted fragments and uploaded to Swarm with Access Control (ACT).</p>
+      </div>
+      <div class="solution-step">
+        <div class="solution-step__num">2</div>
+        <h3>Store on Swarm</h3>
+        <p>Fragments live as content-addressed chunks. ~$0.20/year to store. No server owns them.</p>
+      </div>
+      <div class="solution-step">
+        <div class="solution-step__num">3</div>
+        <h3>Reconstruct locally</h3>
+        <p>Your browser or agent runtime uses your seed phrase to pull and decrypt shards — locally.</p>
+      </div>
+      <div class="solution-step">
+        <div class="solution-step__num">4</div>
+        <h3>Call the API</h3>
+        <p>The runtime calls the LLM (or any API) directly. The key exists only in memory, for milliseconds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works (interactive) -->
+  <section class="section" id="how">
+    <div class="section__header">
+      <span class="section__eyebrow">How It Works</span>
+      <h2 class="section__title">Walk through a real request</h2>
+      <p class="section__lead">
+        Click through each step to see what happens when a user asks a docs-site
+        chatbot a question — using their own API key, stored on Swarm.
+      </p>
+    </div>
+    <div class="walkthrough">
+      <div class="walkthrough__steps">
+        <button class="walkthrough__step is-active" data-step="0">
+          <span class="walkthrough__step-num">01</span>
+          <span class="walkthrough__step-label">User asks a question</span>
+        </button>
+        <button class="walkthrough__step" data-step="1">
+          <span class="walkthrough__step-num">02</span>
+          <span class="walkthrough__step-label">Agent loads manifest</span>
+        </button>
+        <button class="walkthrough__step" data-step="2">
+          <span class="walkthrough__step-num">03</span>
+          <span class="walkthrough__step-label">Key reconstructed locally</span>
+        </button>
+        <button class="walkthrough__step" data-step="3">
+          <span class="walkthrough__step-num">04</span>
+          <span class="walkthrough__step-label">Smart routing picks provider</span>
+        </button>
+        <button class="walkthrough__step" data-step="4">
+          <span class="walkthrough__step-num">05</span>
+          <span class="walkthrough__step-label">API called, answer returned</span>
+        </button>
+      </div>
+      <div class="walkthrough__panel" id="walkthroughPanel">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Category-Based Routing -->
+  <section class="section section--alt" id="routing">
+    <div class="section__header">
+      <span class="section__eyebrow">Smart Request Routing</span>
+      <h2 class="section__title">One key. Every request. Solved.</h2>
+      <p class="section__lead">
+        Most users have <strong>one LLM key</strong> in their vault — maybe Anthropic,
+        maybe OpenAI, maybe a local Ollama instance, maybe routed through OpenRouter.
+        The question isn't "which provider?" — it's <em>"how do I make this request work
+        with the key I already have?"</em>
+      </p>
+    </div>
+
+    <div class="routing-explain">
+      <div class="routing-explain__text">
+        <p>
+          SwarmKey's routing layer understands your key's <strong>capabilities</strong>,
+          <strong>model lineup</strong>, and <strong>pricing tiers</strong>. When a request comes in,
+          it doesn't ask "which provider?" — it asks "what does this request need?" and figures out
+          how to fulfill it with what you have.
+        </p>
+        <p>
+          Need maps? The router knows you don't have a Maps key, so it either uses a built-in
+          fallback, prompts you to add one, or delegates to a compatible service.
+          Need speech-to-text? Same logic. The vault holds your keys; the router bridges gaps.
+        </p>
+      </div>
+    </div>
+
+    <div class="routing-layout">
+      <!-- Interactive router -->
+      <div class="routing-demo">
+        <h3>What kind of request is this?</h3>
+        <p class="routing-demo__hint">Your vault has <strong>Anthropic Claude</strong> as the LLM key. Watch how the router adapts.</p>
+        <div class="routing-demo__buttons">
+          <button class="routing-btn is-active" data-request="write-code">💻 Write code</button>
+          <button class="routing-btn" data-request="summarize">📝 Summarize text</button>
+          <button class="routing-btn" data-request="analyze-image">🖼️ Analyze image</button>
+          <button class="routing-btn" data-request="translate">🌍 Translate</button>
+          <button class="routing-btn" data-request="speech-to-text">🎤 Speech → text</button>
+          <button class="routing-btn" data-request="maps">🗺️ Find nearby restaurants</button>
+          <button class="routing-btn" data-request="generate-image">🎨 Generate image</button>
+          <button class="routing-btn" data-request="extract-data">📊 Extract table from PDF</button>
+        </div>
+        <div class="routing-demo__result" id="routingResult">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- Policy manifest -->
+      <div class="routing-code">
+        <div class="routing-code__header">
+          <span class="routing-code__dot" style="background:#ff5f56"></span>
+          <span class="routing-code__dot" style="background:#ffbd2e"></span>
+          <span class="routing-code__dot" style="background:#27c93f"></span>
+          <span class="routing-code__name">manifest.json</span>
+        </div>
+        <pre class="routing-code__block"><code id="policyCode"></code></pre>
+      </div>
+    </div>
+
+    <div class="routing-why">
+      <h3>Why this matters</h3>
+      <div class="routing-why__grid">
+        <div class="routing-why__card">
+          <h4>🔑 One key, many tasks</h4>
+          <p>You only need to manage one LLM key. The router picks the cheapest model for simple tasks and escalates to the best model for hard ones — all from the same key.</p>
+        </div>
+        <div class="routing-why__card">
+          <h4>🧩 Gap-filling</h4>
+          <p>Your vault has Claude but not Mapbox. The router detects the gap and either uses a workaround (Claude can describe locations), prompts you to add a Maps key, or falls back gracefully.</p>
+        </div>
+        <div class="routing-why__card">
+          <h4>🔄 Provider-agnostic</h4>
+          <p>Whether your key is Anthropic, OpenAI, local Ollama, or OpenRouter — the routing logic is identical. Change your key, the manifest updates, everything else stays the same.</p>
+        </div>
+        <div class="routing-why__card">
+          <h4>👥 Real-world stacks</h4>
+          <p>A typical vault might hold: 1 LLM key + Mapbox + Soniox (STT) + Alibaba Cloud (TTS) + Google Vision. The router knows each key's specialty and calls the right one for each task.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P2P Registry -->
+  <section class="section" id="registry">
+    <div class="section__header">
+      <span class="section__eyebrow">P2P Toolset Registry</span>
+      <h2 class="section__title">A decentralized catalog of tools</h2>
+      <p class="section__lead">
+        Composio has a tool registry. Fga.dev has a policy registry.
+        Both live on their servers. SwarmKey's registry lives on Swarm —
+        content-addressed, versioned, and impossible to take down.
+      </p>
+    </div>
+
+    <div class="registry-layout">
+      <div class="registry-diagram">
+        <div class="registry-node registry-node--user">
+          <span class="registry-node__icon">👤</span>
+          <span class="registry-node__label">User (seed phrase)</span>
+        </div>
+        <div class="registry-arrow">↓</div>
+        <div class="registry-node registry-node--swarm">
+          <span class="registry-node__icon">🐝</span>
+          <span class="registry-node__label">Swarm (content-addressed)</span>
+          <span class="registry-node__sub">bzz://&lt;hash&gt;/manifest.json</span>
+        </div>
+        <div class="registry-arrow">↓</div>
+        <div class="registry-node registry-node--manifest">
+          <span class="registry-node__icon">📋</span>
+          <span class="registry-node__label">Tool Manifest</span>
+          <span class="registry-node__sub">tools, schemas, policies</span>
+        </div>
+        <div class="registry-arrow">↓</div>
+        <div class="registry-node registry-node--agent">
+          <span class="registry-node__icon">🤖</span>
+          <span class="registry-node__label">Agent Runtime (local)</span>
+          <span class="registry-node__sub">reconstructs key, calls API</span>
+        </div>
+      </div>
+
+      <div class="registry-features">
+        <div class="registry-feature">
+          <h3>📦 Content-addressed</h3>
+          <p>Every tool manifest has a Swarm hash. If someone tampered with it, the hash changes. You always get exactly what was published.</p>
+        </div>
+        <div class="registry-feature">
+          <h3>📜 Versioned &amp; immutable</h3>
+          <p>Swarm's history feature preserves old versions. You can pin a specific manifest version and know it will never change under you.</p>
+        </div>
+        <div class="registry-feature">
+          <h3>🔓 Access-controlled (ACT)</h3>
+          <p>The publisher grants access to specific users via public keys. Revocation is instant. Only authorized users can read the manifest.</p>
+        </div>
+        <div class="registry-feature">
+          <h3>🌐 No central server</h3>
+          <p>No single point of failure. No one can shut it down, censor it, or change the terms. The registry is the network.</p>
+        </div>
+        <div class="registry-feature">
+          <h3>🔗 Composable</h3>
+          <p>Tools reference other tools by hash. Build complex agent workflows by chaining manifests — all verifiable, all decentralized.</p>
+        </div>
+        <div class="registry-feature">
+          <h3>💸 ~$0.20/year</h3>
+          <p>A typical tool manifest + key shards costs pennies to store for a year. No subscriptions, no per-request fees to a registry operator.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section class="section section--alt" id="compare">
+    <div class="section__header">
+      <span class="section__eyebrow">Comparison</span>
+      <h2 class="section__title">SwarmKey vs. the rest</h2>
+      <p class="section__lead">
+        How does a decentralized, Swarm-based key wallet compare to centralized
+        alternatives? Here's the honest breakdown.
+      </p>
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="compare-table__highlight">SwarmKey</th>
+            <th>Composio</th>
+            <th>Fga.dev</th>
+            <th>DIY (env vars)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Where keys live</td>
+            <td class="compare-table__highlight">Swarm (encrypted, sharded)</td>
+            <td>Their server</td>
+            <td>Their server</td>
+            <td>Your server (.env)</td>
+          </tr>
+          <tr>
+            <td>Who sees the plaintext key</td>
+            <td class="compare-table__highlight">Nobody (local reconstruction)</td>
+            <td>Composio</td>
+            <td>Fga.dev</td>
+            <td>Your backend</td>
+          </tr>
+          <tr>
+            <td>Smart routing</td>
+            <td class="compare-table__highlight">Policy manifest (category-based)</td>
+            <td>Limited</td>
+            <td>Policy engine</td>
+            <td>Manual</td>
+          </tr>
+          <tr>
+            <td>Tool registry</td>
+            <td class="compare-table__highlight">P2P, content-addressed</td>
+            <td>Centralized catalog</td>
+            <td>Centralized</td>
+            <td>None</td>
+          </tr>
+          <tr>
+            <td>Vendor lock-in</td>
+            <td class="compare-table__highlight">None (open protocol)</td>
+            <td>High</td>
+            <td>Medium</td>
+            <td>None</td>
+          </tr>
+          <tr>
+            <td>Cost to store a key/year</td>
+            <td class="compare-table__highlight">~$0.20</td>
+            <td>Subscription ($20+/mo)</td>
+            <td>Subscription</td>
+            <td>$0 (but you host)</td>
+          </tr>
+          <tr>
+            <td>Abuse protection</td>
+            <td class="compare-table__highlight">Policy caps per category</td>
+            <td>Rate limits</td>
+            <td>Policy</td>
+            <td>DIY</td>
+          </tr>
+          <tr>
+            <td>Revocation</td>
+            <td class="compare-table__highlight">Instant (ACT grantee revoke)</td>
+            <td>Dashboard</td>
+            <td>Policy update</td>
+            <td>Delete key</td>
+          </tr>
+          <tr>
+            <td>Single point of failure</td>
+            <td class="compare-table__highlight">No (Swarm network)</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>BYOK (bring your own key)</td>
+            <td class="compare-table__highlight">Native</td>
+            <td>Partial</td>
+            <td>No</td>
+            <td>Manual</td>
+          </tr>
+          <tr>
+            <td>Open source</td>
+            <td class="compare-table__highlight">Yes (protocol)</td>
+            <td>Partial</td>
+            <td>Partial</td>
+            <td>N/A</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="section" id="usecases">
+    <div class="section__header">
+      <span class="section__eyebrow">Use Cases</span>
+      <h2 class="section__title">Where SwarmKey shines</h2>
+    </div>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <div class="usecase-card__icon">📚</div>
+        <h3>Docs-site chatbots</h3>
+        <p>Embed a chatbot in your documentation. Users bring their own LLM keys. You don't pay for their questions — they do.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-card__icon">🤖</div>
+        <h3>AI agents</h3>
+        <p>Agents that need multiple API keys (LLM, search, payment) store them all on Swarm. One seed phrase, many tools.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-card__icon">🏢</div>
+        <h3>Team key vaults</h3>
+        <p>Shared team keys with per-member access control. Revoke departing members instantly via ACT. No shared password manager.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-card__icon">🔌</div>
+        <h3>SaaS integrations</h3>
+        <p>Users connect their Stripe, Notion, or GitHub keys to your app. You never see the key — Swarm handles storage, ACT handles access.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-card__icon">🛒</div>
+        <h3>Marketplace tools</h3>
+        <p>Sell AI-powered tools as Swarm manifests. Buyers get access via ACT. No backend, no API gateway, no per-request billing.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-card__icon">🔬</div>
+        <h3>Research &amp; education</h3>
+        <p>Students and researchers share API keys for limited use. Policy caps prevent runaway costs. Access expires automatically.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--alt" id="faq">
+    <div class="section__header">
+      <span class="section__eyebrow">FAQ</span>
+      <h2 class="section__title">Questions you probably have</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>If the key is on Swarm, can't anyone read it?</summary>
+        <p>No. Keys are encrypted at the chunk level using Swarm's <strong>Access Control Trie (ACT)</strong>. Only grantees whose public keys are in the access list can decrypt. Even if someone downloads the chunk, they see only ciphertext.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if Swarm goes down?</summary>
+        <p>Swarm is a decentralized network of Bee nodes — there's no single server to go down. As long as nodes are online (and they are, incentivized by postage stamps), your data is reachable. You can also run your own Bee node for guaranteed availability.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How does routing work with just one key?</summary>
+        <p>The router doesn't pick between providers — it picks the <strong>best model from your existing key's lineup</strong>. If you have an Anthropic key, it routes code tasks to sonnet-4 and simple chat to haiku. For tasks your LLM can't handle (maps, STT, image gen), it detects the gap and either suggests adding a specialized key or uses a workaround.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How is this different from a password manager?</summary>
+        <p>Password managers (1Password, Bitwarden) store secrets on <em>their</em> servers or in a synced vault. SwarmKey stores them on a <strong>decentralized network</strong> with no central operator, and the agent runtime reconstructs keys locally at call time — no app ever holds the plaintext key in a database.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is this legal / compliant?</summary>
+        <p>SwarmKey is a protocol, not a service. It doesn't custody keys — the user does. From a GDPR perspective, the user controls their own data. From an API ToS perspective, the user is calling the API directly with their own key, which is the intended use.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How much does it actually cost?</summary>
+        <p>Storing ~13 KB (a manifest + 3 key shards) for a year on Swarm costs roughly <strong>$0.20</strong> at current postage stamp rates. There are no per-request fees — you call the LLM API directly, paying the provider's normal rate.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use this with any API, not just LLMs?</summary>
+        <p>Yes. SwarmKey is API-agnostic. Any key or OAuth token — Stripe, GitHub, Notion, AWS — can be stored and routed. The policy manifest defines categories, so you can route "payment" to Stripe, "search" to Brave, and "code" to Claude.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What's the developer experience?</summary>
+        <p>A simple SDK: <code>npm i @swarmkey/agent</code>. Provide your seed phrase, load a manifest by Swarm reference, and call <code>agent.run("Summarize this page")</code>. The SDK handles retrieval, decryption, routing, and the API call.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is this live today?</summary>
+        <p>This is a <strong>concept demo</strong> illustrating the protocol design. The Swarm infrastructure (ACT, postage stamps, Bee nodes) is live and production-ready. The SwarmKey SDK and reference implementation are the proposed next step.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__col">
+        <div class="footer__logo">🔐 SwarmKey</div>
+        <p class="footer__tagline">A decentralized BYOK protocol built on Swarm.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Protocol</h4>
+        <a href="#how">How it works</a>
+        <a href="#routing">Routing</a>
+        <a href="#registry">Registry</a>
+      </div>
+      <div class="footer__col">
+        <h4>Swarm</h4>
+        <a href="https://docs.ethswarm.org" target="_blank" rel="noopener">Swarm Docs ↗</a>
+        <a href="https://docs.ethswarm.org/docs/concepts/access-control" target="_blank" rel="noopener">Access Control (ACT) ↗</a>
+        <a href="https://docs.ethswarm.org/docs/develop/act" target="_blank" rel="noopener">ACT Guide ↗</a>
+      </div>
+      <div class="footer__col">
+        <h4>Inspiration</h4>
+        <a href="https://github.com/composiohq/composio" target="_blank" rel="noopener">Composio ↗</a>
+        <a href="https://docs.fga.dev/" target="_blank" rel="noopener">Fga.dev ↗</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>Concept demo · Not affiliated with Swarm Foundation · Built for the community</p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
