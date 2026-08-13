@@ -170,66 +170,51 @@
         Here's what happens when a user asks a docs-site chatbot a question — using their own API key, stored on Swarm.
       </p>
     </div>
-    <div class="steps-static">
-      <article class="step-card">
-        <header class="step-card__head">
-          <span class="step-card__num">01</span>
-          <h3 class="step-card__title">User asks a question</h3>
-        </header>
-        <p class="step-card__desc">A visitor types "Summarize this page" into the chatbot widget on a documentation site.</p>
-        <div class="step-card__detail">
-          <strong>Input:</strong> Natural language query from the browser<br />
-          <strong>Origin:</strong> Any website can embed the chatbot widget
+    <div class="steps-vertical">
+      <div class="step-item">
+        <div class="step-item__num">01</div>
+        <div class="step-item__content">
+          <h3>User asks a question</h3>
+          <p>A visitor types "Summarize this page" into the chatbot widget on a documentation site.</p>
+          <div class="step-item__meta"><strong>Input:</strong> Natural language query from the browser · <strong>Origin:</strong> Any website can embed the chatbot widget</div>
         </div>
-      </article>
+      </div>
 
-      <article class="step-card">
-        <header class="step-card__head">
-          <span class="step-card__num">02</span>
-          <h3 class="step-card__title">Agent loads vault catalog</h3>
-        </header>
-        <p class="step-card__desc">The agent runtime fetches your encrypted vault manifest from Swarm using your seed phrase.</p>
-        <div class="step-card__detail">
-          <strong>Storage:</strong> Swarm BZZ:// content-addressed chunks (~$0.20/yr)<br />
-          <strong>Encryption:</strong> ACT grantees-only — only you can decrypt
+      <div class="step-item">
+        <div class="step-item__num">02</div>
+        <div class="step-item__content">
+          <h3>Agent loads vault catalog</h3>
+          <p>The agent runtime fetches your encrypted vault manifest from Swarm using your seed phrase.</p>
+          <div class="step-item__meta"><strong>Storage:</strong> Swarm BZZ:// content-addressed chunks (~$0.20/yr) · <strong>Encryption:</strong> ACT grantees-only — only you can decrypt</div>
         </div>
-      </article>
+      </div>
 
-      <article class="step-card">
-        <header class="step-card__head">
-          <span class="step-card__num">03</span>
-          <h3 class="step-card__title">Router checks vault first</h3>
-        </header>
-        <p class="step-card__desc">The capability router sees the task needs "text completion." It checks your vault — Anthropic Claude is there. Routes immediately.</p>
-        <div class="step-card__detail">
-          <strong>Vault hit → no discovery needed</strong><br />
-          <strong>Latency:</strong> Direct API call, no third-party lookup
+      <div class="step-item">
+        <div class="step-item__num">03</div>
+        <div class="step-item__content">
+          <h3>Router checks vault first</h3>
+          <p>The capability router sees the task needs "text completion." It checks your vault — Anthropic Claude is there. Routes immediately.</p>
+          <div class="step-item__meta"><strong>Vault hit → no discovery needed</strong> · <strong>Latency:</strong> Direct API call, no third-party lookup</div>
         </div>
-      </article>
+      </div>
 
-      <article class="step-card">
-        <header class="step-card__head">
-          <span class="step-card__num">04</span>
-          <h3 class="step-card__title">Query ARD registries if missing</h3>
-        </header>
-        <p class="step-card__desc">If the capability isn't in your vault, the router queries GitHub Agent Finder, HF Discover, Ora Directory, Cisco AI Catalog — returning matches with endpoints and trust signals.</p>
-        <div class="step-card__detail">
-          <strong>Federated discovery:</strong> No central gatekeeper<br />
-          <strong>Trust:</strong> SPIFFE/DID identities + compliance attestations
+      <div class="step-item">
+        <div class="step-item__num">04</div>
+        <div class="step-item__content">
+          <h3>Query ARD registries if missing</h3>
+          <p>If the capability isn't in your vault, the router queries GitHub Agent Finder, HF Discover, Ora Directory, Cisco AI Catalog — returning matches with endpoints and trust signals.</p>
+          <div class="step-item__meta"><strong>Federated discovery:</strong> No central gatekeeper · <strong>Trust:</strong> SPIFFE/DID identities + compliance attestations</div>
         </div>
-      </article>
+      </div>
 
-      <article class="step-card">
-        <header class="step-card__head">
-          <span class="step-card__num">05</span>
-          <h3 class="step-card__title">User chooses what to add</h3>
-        </header>
-        <p class="step-card__desc">You review the suggested provider, verify its trust manifest, and approve adding the key to your vault. Encrypted on Swarm, controlled by you.</p>
-        <div class="step-card__detail">
-          <strong>You decide:</strong> No automatic key installation<br />
-          <strong>Zero-trust:</strong> Keys never leave your control
+      <div class="step-item">
+        <div class="step-item__num">05</div>
+        <div class="step-item__content">
+          <h3>User chooses what to add</h3>
+          <p>You review the suggested provider, verify its trust manifest, and approve adding the key to your vault. Encrypted on Swarm, controlled by you.</p>
+          <div class="step-item__meta"><strong>You decide:</strong> No automatic key installation · <strong>Zero-trust:</strong> Keys never leave your control</div>
         </div>
-      </article>
+      </div>
     </div>
   </section>
 
