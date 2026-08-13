@@ -161,42 +161,75 @@
     </div>
   </section>
 
-  <!-- How It Works (interactive) -->
+  <!-- How It Works (static) -->
   <section class="section" id="how">
     <div class="section__header">
       <span class="section__eyebrow">How It Works</span>
       <h2 class="section__title">Walk through a real request</h2>
       <p class="section__lead">
-        Click through each step to see what happens when a user asks a docs-site
-        chatbot a question — using their own API key, stored on Swarm.
+        Here's what happens when a user asks a docs-site chatbot a question — using their own API key, stored on Swarm.
       </p>
     </div>
-    <div class="walkthrough">
-      <div class="walkthrough__steps">
-        <button class="walkthrough__step is-active" data-step="0">
-          <span class="walkthrough__step-num">01</span>
-          <span class="walkthrough__step-label">User asks a question</span>
-        </button>
-        <button class="walkthrough__step" data-step="1">
-          <span class="walkthrough__step-num">02</span>
-          <span class="walkthrough__step-label">Agent loads vault catalog</span>
-        </button>
-        <button class="walkthrough__step" data-step="2">
-          <span class="walkthrough__step-num">03</span>
-          <span class="walkthrough__step-label">Router checks vault first</span>
-        </button>
-        <button class="walkthrough__step" data-step="3">
-          <span class="walkthrough__step-num">04</span>
-          <span class="walkthrough__step-label">Query ARD registries if missing</span>
-        </button>
-        <button class="walkthrough__step" data-step="4">
-          <span class="walkthrough__step-num">05</span>
-          <span class="walkthrough__step-label">User chooses what to add</span>
-        </button>
-      </div>
-      <div class="walkthrough__panel" id="walkthroughPanel">
-        <!-- Filled by JS -->
-      </div>
+    <div class="steps-static">
+      <article class="step-card">
+        <header class="step-card__head">
+          <span class="step-card__num">01</span>
+          <h3 class="step-card__title">User asks a question</h3>
+        </header>
+        <p class="step-card__desc">A visitor types "Summarize this page" into the chatbot widget on a documentation site.</p>
+        <div class="step-card__detail">
+          <strong>Input:</strong> Natural language query from the browser<br />
+          <strong>Origin:</strong> Any website can embed the chatbot widget
+        </div>
+      </article>
+
+      <article class="step-card">
+        <header class="step-card__head">
+          <span class="step-card__num">02</span>
+          <h3 class="step-card__title">Agent loads vault catalog</h3>
+        </header>
+        <p class="step-card__desc">The agent runtime fetches your encrypted vault manifest from Swarm using your seed phrase.</p>
+        <div class="step-card__detail">
+          <strong>Storage:</strong> Swarm BZZ:// content-addressed chunks (~$0.20/yr)<br />
+          <strong>Encryption:</strong> ACT grantees-only — only you can decrypt
+        </div>
+      </article>
+
+      <article class="step-card">
+        <header class="step-card__head">
+          <span class="step-card__num">03</span>
+          <h3 class="step-card__title">Router checks vault first</h3>
+        </header>
+        <p class="step-card__desc">The capability router sees the task needs "text completion." It checks your vault — Anthropic Claude is there. Routes immediately.</p>
+        <div class="step-card__detail">
+          <strong>Vault hit → no discovery needed</strong><br />
+          <strong>Latency:</strong> Direct API call, no third-party lookup
+        </div>
+      </article>
+
+      <article class="step-card">
+        <header class="step-card__head">
+          <span class="step-card__num">04</span>
+          <h3 class="step-card__title">Query ARD registries if missing</h3>
+        </header>
+        <p class="step-card__desc">If the capability isn't in your vault, the router queries GitHub Agent Finder, HF Discover, Ora Directory, Cisco AI Catalog — returning matches with endpoints and trust signals.</p>
+        <div class="step-card__detail">
+          <strong>Federated discovery:</strong> No central gatekeeper<br />
+          <strong>Trust:</strong> SPIFFE/DID identities + compliance attestations
+        </div>
+      </article>
+
+      <article class="step-card">
+        <header class="step-card__head">
+          <span class="step-card__num">05</span>
+          <h3 class="step-card__title">User chooses what to add</h3>
+        </header>
+        <p class="step-card__desc">You review the suggested provider, verify its trust manifest, and approve adding the key to your vault. Encrypted on Swarm, controlled by you.</p>
+        <div class="step-card__detail">
+          <strong>You decide:</strong> No automatic key installation<br />
+          <strong>Zero-trust:</strong> Keys never leave your control
+        </div>
+      </article>
     </div>
   </section>
 
@@ -228,25 +261,51 @@
     </div>
 
     <div class="routing-layout">
-      <!-- Interactive router -->
-      <div class="routing-demo">
-        <h3>What does this website need?</h3>
-        <p class="routing-demo__hint">Your vault holds <strong>Anthropic Claude</strong>. Watch how the router decides: use vault or query ARD registries?</p>
-        <div class="routing-demo__buttons">
-          <button class="routing-btn is-active" data-request="ai-text">📝 Text completion</button>
-          <button class="routing-btn" data-request="geocode">🗺️ Geocode address</button>
-          <button class="routing-btn" data-request="speech-to-text">🎤 Speech → text</button>
-          <button class="routing-btn" data-request="image-gen">🎨 Generate image</button>
-          <button class="routing-btn" data-request="embeddings">🔢 Embeddings</button>
-          <button class="routing-btn" data-request="web-search">🌐 Web search</button>
-          <button class="routing-btn" data-request="email-send">✉️ Send email</button>
-          <button class="routing-btn" data-request="pptx-create">📊 Create PowerPoint</button>
+      <!-- Static routing example -->
+      <div class="routing-demo-static">
+        <h3>Routing decision — text completion</h3>
+        <p class="routing-demo-static__hint">Your vault holds <strong>Anthropic Claude</strong>. Here's how the router decides:</p>
+
+        <div class="routing-flow">
+          <div class="routing-flow__step">
+            <span class="routing-flow__icon">📝</span>
+            <div class="routing-flow__content">
+              <strong>Request:</strong> "Summarize this page"
+              <span class="routing-flow__capability">Capability: text-completion</span>
+            </div>
+          </div>
+
+          <div class="routing-flow__arrow">↓</div>
+
+          <div class="routing-flow__step routing-flow__step--check">
+            <span class="routing-flow__icon">🔍</span>
+            <div class="routing-flow__content">
+              <strong>Check vault:</strong> Anthropic Claude ✓
+              <span class="routing-flow__result routing-flow__result--hit">Vault hit — route directly</span>
+            </div>
+          </div>
+
+          <div class="routing-flow__arrow">↓</div>
+
+          <div class="routing-flow__step routing-flow__step--success">
+            <span class="routing-flow__icon">⚡</span>
+            <div class="routing-flow__content">
+              <strong>Result:</strong> API call to Anthropic
+              <span class="routing-flow__detail">Key decrypted locally from Swarm vault · No discovery needed · Direct response</span>
+            </div>
+          </div>
         </div>
-        <div class="routing-demo__result" id="routingResult">
-          <!-- Filled by JS -->
+
+        <div class="routing-alternative">
+          <p><strong>What if the capability isn't in your vault?</strong></p>
+          <ol class="routing-alternative__steps">
+            <li>Router queries ARD registries (GitHub Agent Finder, HF Discover, Ora, Cisco)</li>
+            <li>Returns matches with endpoints, parameters, trust signals</li>
+            <li>You review and approve adding the key to your vault</li>
+            <li>Next time: direct routing from vault</li>
+          </ol>
         </div>
       </div>
-
     </div>
 
     <div class="routing-why">
